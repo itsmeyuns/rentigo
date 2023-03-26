@@ -1,0 +1,163 @@
+@import url(master.css);
+
+.bar {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid;
+  gap: 15px;
+  padding: 5px 5px 10px;
+}
+
+.bar form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.bar form .input-holder {
+  position: relative;
+}
+.bar .input-holder input {
+  display: block;
+  width: 250px;
+  padding: 8px 40px 8px 10px;
+  border-radius: 15px;
+  border: 1px solid var(--main-color);
+}
+
+.bar .input-holder button {
+  background-color: transparent;
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bar .input-holder button span {
+  color: var(--main-color);
+  font-size: 25px;
+}
+
+.bar form .ajouter {
+  background-color: var(--success-color);
+  padding: 3px 15px;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.filter {
+  display: flex;
+}
+
+.filter .option {
+  cursor: pointer;
+  margin: 0 5px;
+  padding: 3px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.filter .option input[type=checkbox] {
+  display: none;
+
+}
+
+.filter .option.checked {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px 15px;
+}
+
+.box {
+  border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.box .box-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box .box-header > p {
+  font-weight: 600;
+}
+
+.box .box-inner h3 {
+  text-transform: capitalize;
+  max-width: 150px;
+}
+.box .box-inner p {
+  font-weight: bold;
+}
+
+.box .box-header span {
+  color: #ccc;
+  font-weight: normal;
+}
+
+.box .box-body {
+  margin: auto auto 10px;
+  min-width: 200px;
+  max-width: 350px;
+}
+
+.box .box-body img {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+  transition: .3s;
+}
+
+.box:hover img {
+  transform: scale(1.05);
+}
+
+.box .box-footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+.box .box-footer .delete {
+  color: var(--danger-color);
+}
+.box .box-footer .edit {
+  color: var(--primary-color);
+}
+
+
+@media screen and (max-width: 740px) {
+  .bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .filter div {
+    padding: 3px 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .bar form {
+    flex-direction: column;
+    gap: 0;
+  }
+  form .input-holder {
+    margin-bottom: 10px;
+  }
+}

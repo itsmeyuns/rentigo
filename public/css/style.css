@@ -1,0 +1,141 @@
+@import url(master.css);
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  margin: auto;
+  background-color: #fff;
+  width: 950px;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  -moz-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+}
+
+.left-side {
+  background-color: var(--main-color);
+  width: calc(100% / 2 - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--text-color);
+}
+.left-side img{
+  width: 100%;
+}
+
+.right-side {
+  padding: 120px 40px;
+  margin: auto;
+  width: calc(100% / 2 );
+}
+
+.right-side h1 {
+  font-size: 22px;
+  margin-bottom: 22px;
+  color: var(--main-color);
+}
+
+.right-side .form-item {
+  margin: 8px 0;
+  min-height: 87px;
+  position: relative;
+}
+.form-item .material-icons-round {
+  position: absolute;
+  right: 10px;
+  top: 53%;
+  font-size: 20px;
+  color: #B6B6BB;
+}
+
+.form-item label {
+  margin-bottom: 5px;
+}
+
+.form-item label,
+.form-check label {
+  display: block;
+  color: var(--text-color);
+}
+
+.form-item input{
+  border-radius: 4px;
+  width: 100%;
+}
+
+.form-item input:not(.button) {
+  padding: 10px 8px;
+  border: 1px solid #B6B6BB;
+}
+
+input:not(.button):focus {
+  border-color: var(--main-color);
+}
+
+.form-item input::placeholder {
+  color: #c5b8b8;
+  font-size: 17px;
+}
+
+.form-item .error {
+  color: #db3056;
+  font-size: 12px;
+}
+
+.form-item.error input {
+  border-color: #db3056;
+}
+
+.form-item.success input {
+  border-color: #03a65a;
+}
+
+.form-check {
+  display: flex; 
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.form-check input {
+  margin-right: 10px;
+  accent-color: var(--main-color);
+  width: 16px;
+  height: 16px;
+}
+
+.right-side form .button {
+  color: var(--secondary-color);
+  background-color: var(--main-color);
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+@media (max-width: 680px){
+  .container {
+    width: 600px;
+    flex-direction: column;
+  }
+  .right-side {
+    width: 100%;
+    flex: 1;
+    padding: 50px;
+  }
+  .left-side {
+    display: none;
+  }
+  .right-side h1 {
+    text-align: center;
+  }
+}
