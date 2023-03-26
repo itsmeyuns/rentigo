@@ -15,7 +15,14 @@
         </span>
       </button>
     </div>
-    <a href="/vehicules/create" class="ajouter">Ajouter véhicule</a>
+    <a href="/vehicules/create" class="ajouter">
+      <span class="material-icons-round plus">
+        add
+      </span>
+      <span class="material-icons-round car">
+        directions_car
+      </span>
+    </a>
   </form>
   <div class="filter">
     <div class="option">

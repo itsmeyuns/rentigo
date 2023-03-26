@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::view('/dashboard', 'dashboard');
-Route::view('/clients', 'dashboard');
+Route::view('/clients', 'clients');
 Route::view('/agents', 'dashboard');
 Route::view('/charges', 'dashboard');
 Route::view('/alerts', 'dashboard');

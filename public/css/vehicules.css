@@ -1,53 +1,5 @@
 @import url(master.css);
-
-.bar {
-  margin: 15px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid;
-  gap: 15px;
-  padding: 5px 5px 10px;
-}
-
-.bar form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-.bar form .input-holder {
-  position: relative;
-}
-.bar .input-holder input {
-  display: block;
-  width: 250px;
-  padding: 8px 40px 8px 10px;
-  border-radius: 15px;
-  border: 1px solid var(--main-color);
-}
-
-.bar .input-holder button {
-  background-color: transparent;
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.bar .input-holder button span {
-  color: var(--main-color);
-  font-size: 25px;
-}
-
-.bar form .ajouter {
-  background-color: var(--success-color);
-  padding: 3px 15px;
-  display: block;
-  text-align: center;
-  border-radius: 5px;
-  color: #fff;
-}
+@import url(filterBar.css);
 
 .filter {
   display: flex;
@@ -60,18 +12,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccc;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .filter .option input[type=checkbox] {
   display: none;
-
 }
 
 .filter .option.checked {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--hover-color);
+  color: var(--main-color);
 }
 
 .box-container {

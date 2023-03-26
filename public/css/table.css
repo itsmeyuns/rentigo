@@ -1,0 +1,74 @@
+@import url(master.css);
+@import url(filterBar.css);
+
+table {
+  width: 100%;
+}
+
+table, td, th {
+  border-collapse: collapse;
+  text-align: center;
+  padding: 12px 15px;
+}
+
+table thead th {
+  background-color: var(--hover-color);
+  color: var(--main-color);
+}
+
+table tbody tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+table tbody td .material-icons-round {
+  font-size: 25px;
+}
+
+table td a.edit {
+  color: var(--primary-color);
+}
+
+table td a.show {
+  color: var(--success-color);
+}
+
+table td .delete {
+  color: var(--danger-color);
+}
+
+@media (max-width: 665px) {
+  table td {
+    text-align: right;
+    position: relative;
+  }
+
+  table td:not(td:last-child) {
+    border-bottom: 1px solid #ccc;
+  }
+
+  tbody tr:nth-child(even){
+    background-color: #f2f2f2;
+  } 
+
+  table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    padding-left: 15px;
+    text-align: left;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tr, table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+  }
+}

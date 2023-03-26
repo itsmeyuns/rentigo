@@ -7,8 +7,8 @@
   {{-- Font Style --}}
   <link rel="stylesheet" href="{{ asset('fonts/fonts.css') }}">
   {{-- CSS Files --}}
-  @yield('css')
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+  @yield('css')
   <title>Rentigo | @yield('title', 'Page non trouvée')</title>
 </head>
 <body>
