@@ -95,21 +95,8 @@
 
 
 @media screen and (max-width: 740px) {
-  .bar {
-    flex-direction: column;
-    gap: 10px;
-  }
   .filter div {
     padding: 3px 10px;
   }
 }
 
-@media screen and (max-width: 576px) {
-  .bar form {
-    flex-direction: column;
-    gap: 0;
-  }
-  form .input-holder {
-    margin-bottom: 10px;
-  }
-}

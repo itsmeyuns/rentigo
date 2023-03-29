@@ -38,9 +38,12 @@ body {
 
 .header-right .profile-icons {
   border: 1px solid var(--primary-color);
-  padding: 5px;
+  padding: 8px;
   border-radius: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .header-right .profile {
@@ -110,6 +113,13 @@ body {
   width: 260px;
 }
 
+#sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+#sidebar::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
 .sidebar-title {
   color: var(--text-color);
   display: flex;
@@ -209,7 +219,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 25px;
+  gap: 25px;
+  padding: 18px;
   border-radius: 5px;
   cursor: pointer;
 }

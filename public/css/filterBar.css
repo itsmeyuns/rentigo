@@ -41,12 +41,15 @@
 .bar form .ajouter {  
   background-color: var(--hover-color);
   color: var(--main-color);
-  padding: 3px 10px;
-  display: block;
-  text-align: center;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
 }
-
+.bar form .ajouter span {
+  font-size: 25px;
+}
 .bar form .ajouter .plus {
   margin: 0 -10px 10px 0;
   font-size: 18px;

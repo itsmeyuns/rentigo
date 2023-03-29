@@ -24,20 +24,22 @@
       </span>
     </a>
   </form>
-  <div class="filter">
-    <div class="option">
-      <input type="checkbox"  name="status" id="">
-      <span>En panne</span>
+  <form action="">
+    <div class="filter">
+      <div class="option">
+        <input type="checkbox"  name="status" id="">
+        <span>En panne</span>
+      </div>
+      <div class="option">
+        <input type="checkbox"  name="status" id="">
+        <span>Loué</span>
+      </div>
+      <div class="option">
+        <input type="checkbox"  name="status" id="">
+        <span>Disponible</span> 
+      </div>
     </div>
-    <div class="option">
-      <input type="checkbox"  name="status" id="">
-      <span>Loué</span>
-    </div>
-    <div class="option">
-      <input type="checkbox"  name="status" id="">
-      <span>Disponible</span> 
-    </div>
-  </div>
+</form>
 </div>
 <div class="box-container">
   <div class="box">
