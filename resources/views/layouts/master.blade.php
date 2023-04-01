@@ -96,7 +96,7 @@
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="/reservation">
+          <a href="/reservations">
             <span class="material-icons-round">
               list_alt
             </span> Résevations

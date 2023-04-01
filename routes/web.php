@@ -23,5 +23,5 @@ Route::view('/agents', 'dashboard');
 Route::view('/charges', 'dashboard');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
-Route::view('/reservation', 'dashboard');
+Route::view('/reservations', 'reservations');
 Route::view('/vehicules', 'vehicules');

@@ -55,20 +55,22 @@ body {
 }
 
 .profile-links {
-  display: none;
   position: absolute;
   right: 0;
   top: 150%;
   width: 100%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  z-index: 99;
   padding: 15px 20px;
   background-color: #FBFAF5 ;
+  z-index: -1;
   border-radius: 8px;
+  opacity: 0; 
+  transition: opacity 0.2s ease; 
 }
 
 .profile-links.show {
-  display: block;
+  z-index: 4;
+  opacity: 1;
 }
 
 .profile-links::before {
