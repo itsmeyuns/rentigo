@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::view('/dashboard', 'dashboard');
 Route::view('/clients', 'clients');
 Route::view('/agents', 'agents');
-Route::view('/charges', 'dashboard');
+Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
 Route::view('/reservations', 'reservations');

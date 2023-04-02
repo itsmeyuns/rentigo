@@ -1,0 +1,136 @@
+@import url(table.css);
+
+@media (max-width: 1024px) {
+  tbody tr td:last-child {
+    padding: 10px;
+  }
+}
+
+
+.bar {
+  gap: 5px;
+}
+
+.bar form {
+  gap: 10px;
+}
+
+@media screen and (max-width: 740px) {
+  .bar {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .bar form {
+    flex-direction: column;
+    gap: 0;
+  }
+  .bar form.filter {
+    gap: 5px;
+  }
+
+  .bar form.filter .select-box-container,
+  .date-picker,
+  .date-picker > div {
+    flex-direction: column;
+  }
+
+}
+
+.date-picker, .date-picker > div {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.date-picker input[type=date] {
+  color: #373736;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+form.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.select-box-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.select-box {
+  position: relative;
+}
+
+.select-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.select-field .arrow-down {
+  font-size: 22px;
+  margin-left: 8px;
+  transition: .3s;
+}
+
+.select-field.open .arrow-down {
+  transform: rotate(180deg);
+}
+
+.select-options {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  display: none;
+  max-height: 112px;
+  min-width: 165px;
+  overflow-y: scroll;
+  background: #fff;
+  position: absolute;
+  z-index: 22;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+}
+
+.select-options::-webkit-scrollbar {
+  width: 2px;
+}
+
+.select-field.open ~ .select-options {
+  display: block;
+}
+
+.select-option {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-option:hover {
+  background-color: var(--hover-color);
+}
+
+.select-option input {
+  accent-color: var(--main-color);
+}
+
