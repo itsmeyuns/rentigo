@@ -15,23 +15,12 @@ sp.forEach(element => {
   })
 });
 
-
-// document.getElementById('file').addEventListener('change', function(e) {
-//   if (!e.target.files[0]) {
-//     alert('You selected ' + e.target.files[0].name);
-//   } else {
-//     alert('wa chrif')
-//   }
-// });
-
-
 let addForm = document.querySelector('.add-form');
 
 addForm.addEventListener('submit', function (e) {
   if (!validateFields()) {
     e.preventDefault()
   }
-  // validateFields()
 })
 
 
@@ -93,4 +82,22 @@ function validateFields() {
 
   return valid;
 
+}
+
+
+const numberFields = ['nombrePlaces', 'nombrePortes', 'prixLocation', 'kilometrage'];
+numberFields.forEach((field)=>{
+  document.getElementById(field).addEventListener('keydown', function (event) {
+    onlyNumbers(event)
+  })
+})
+
+function onlyNumbers(event) {
+  const pressedKey = event.keyCode
+  const allowedKeyCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 109, 8];
+  if (allowedKeyCodes.includes(pressedKey)) {
+    return true
+  } else {
+    event.preventDefault()
+  }
 }

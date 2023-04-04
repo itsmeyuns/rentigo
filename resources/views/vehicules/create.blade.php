@@ -24,12 +24,12 @@
     </div>
     <div class="form-item">
       <label for="kilometrage">kilométrage <span class="star">*</span> </label>
-      <input type="number" name="kilometrage" id="kilometrage" min="0">
+      <input type="text" name="kilometrage" id="kilometrage">
       <div class="error"></div>
     </div>
     <div class="form-item">
       <label for="prixLocation">prix location <span class="star">*</span> </label>
-      <input type="number" name="prixLocation" id="prixLocation" min="0">
+      <input type="text" name="prixLocation" id="prixLocation">
       <div class="error"></div>
     </div>
     <div class="form-item">
@@ -62,12 +62,12 @@
     <div class="column">
       <div class="form-item">
         <label for="nombrePortes">nombre portes <span class="star">*</span> </label>
-        <input type="number" name="nombrePortes" id="nombrePortes" min="1">
+        <input type="text" name="nombrePortes" id="nombrePortes">
         <div class="error"></div>
       </div>
       <div class="form-item">
         <label for="nombrePlaces">nombre places <span class="star">*</span> </label>
-        <input type="number" name="nombrePlaces" id="nombrePlaces" min="1">
+        <input type="text" name="nombrePlaces" id="nombrePlaces">
         <div class="error"></div>
       </div>
     </div>
