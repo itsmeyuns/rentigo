@@ -1,0 +1,138 @@
+/* Ajouter vehicule */
+
+.form-container {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 30px;
+  color: black;
+  margin: 20px auto;
+}
+
+
+.add-form .star{
+  color: var(--danger-color);
+}
+
+.form-container form {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-container form label {
+  cursor: pointer;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% / 3 - 20px);
+  min-height: 90px;
+  margin-bottom: 10px;
+}
+
+.form-item label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-item input {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  height: 42px;
+  padding: 0 15px;
+  margin: 8px 0;
+}
+
+.form-item.full-width {
+  width: 100%;
+}
+
+.form-item textarea{
+  resize: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  height: 59px;
+  padding: 15px;
+  margin-top: 8px;
+}
+
+.form-item textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+.bounce {
+  outline: 0;
+  border-color: var(--danger-color) !important;
+  animation-name: bounce;
+  animation-duration: .5s;
+  animation-delay: 0.25s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+  37% {
+    transform: translateX(5px);
+    timing-function: ease-out;
+  }
+  55% {
+    transform: translateX(-5px);
+    timing-function: ease-in;
+  }
+  73% {
+    transform: translateX(4px);
+    timing-function: ease-out;
+  }
+  82% {
+    transform: translateX(-4px);
+    timing-function: ease-in;
+  }
+  91% {
+    transform: translateX(2px);
+    timing-function: ease-out;
+  }
+  96% {
+    transform: translateX(-2px);
+    timing-function: ease-in;
+  }
+  100% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+}
+
+.form-item input:focus,
+.form-item textarea:focus {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+.add-form button {
+  max-width: 250px;
+  margin-top: 10px;
+  padding: 10px 25px;
+  cursor: pointer;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--danger-color);
+}
+
+.success {
+  border-color: var(--success-color) !important;
+}
