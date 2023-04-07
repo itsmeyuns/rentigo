@@ -23,6 +23,7 @@ body {
   padding: 0 30px 0 30px;
   background-color: var(--bg-co);
   box-shadow: 0 4px 7px -3px rgba(0, 0, 0, 0.35);
+  z-index: 3;
 }
 
 .menu-icon {
@@ -207,6 +208,18 @@ body {
 .main-title {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.main-title::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: -5px;
+  width: 40px;
+  height: 5px;
+  background-color: var(--main-color);
 }
 
 .cards {

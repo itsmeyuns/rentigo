@@ -19,7 +19,6 @@ Route::get('/', function () {
 
 Route::view('/dashboard', 'dashboard');
 Route::view('/clients', 'clients');
-Route::view('/agents', 'agents');
 Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
@@ -28,4 +27,7 @@ Route::view('/reservations', 'reservations');
 
 Route::view('/vehicules', 'vehicules.index');
 Route::view('/vehicules/create', 'vehicules.create');
+
+Route::view('/agents', 'agents.index');
+Route::view('/agents/create', 'agents.create');
 // Route::view('/vehicules/create', 'vehicules.create');

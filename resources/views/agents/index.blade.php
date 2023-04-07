@@ -15,7 +15,7 @@
         </span>
       </button>
     </div>
-    <a href="/clients/create" class="ajouter"><span class="material-icons-round">
+    <a href="/agents/create" class="ajouter"><span class="material-icons-round">
       person_add
     </span></a>
   </form>
@@ -39,8 +39,8 @@
       <td data-label="Email">agent@rentigo.com</td>
       <td data-label="Téléphone">0767564119</td>
       <td data-label="Actions">
-        <a href="/clients/{client}" class="material-icons-round show">visibility</a>
-        <a href="/clients/{client}/edit" class="material-icons-round edit">edit</a>
+        <a href="/agents/{agent}" class="material-icons-round show">visibility</a>
+        <a href="/agents/{agent}/edit" class="material-icons-round edit">edit</a>
         <span class="material-icons-round delete">delete</span>
       </td>
     </tr>
@@ -51,8 +51,8 @@
       <td data-label="Email">agent@rentigo.com</td>
       <td data-label="Téléphone">0767564119</td>
       <td data-label="Actions">
-        <a href="/clients/{client}" class="material-icons-round show">visibility</a>
-        <a href="/clients/{client}/edit" class="material-icons-round edit">edit</a>
+        <a href="/agents/{agent}" class="material-icons-round show">visibility</a>
+        <a href="/agents/{agent}/edit" class="material-icons-round edit">edit</a>
         <span class="material-icons-round delete">delete</span>
       </td>
     </tr>
@@ -63,8 +63,8 @@
       <td data-label="Email">agent@rentigo.com</td>
       <td data-label="Téléphone">0767564119</td>
       <td data-label="Actions">
-        <a href="/clients/{client}" class="material-icons-round show">visibility</a>
-        <a href="/clients/{client}/edit" class="material-icons-round edit">edit</a>
+        <a href="/agents/{agent}" class="material-icons-round show">visibility</a>
+        <a href="/agents/{agent}/edit" class="material-icons-round edit">edit</a>
         <span class="material-icons-round delete">delete</span>
       </td>
     </tr>
@@ -75,8 +75,8 @@
       <td data-label="Email">agent@rentigo.com</td>
       <td data-label="Téléphone">0767564119</td>
       <td data-label="Actions">
-        <a href="/clients/{client}" class="material-icons-round show">visibility</a>
-        <a href="/clients/{client}/edit" class="material-icons-round edit">edit</a>
+        <a href="/agents/{agent}" class="material-icons-round show">visibility</a>
+        <a href="/agents/{agent}/edit" class="material-icons-round edit">edit</a>
         <span class="material-icons-round delete">delete</span>
       </td>
     </tr>
