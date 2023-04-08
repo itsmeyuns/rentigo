@@ -18,13 +18,14 @@ Route::get('/', function () {
 });
 
 Route::view('/dashboard', 'dashboard');
-Route::view('/clients', 'clients');
 Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
 Route::view('/reservations', 'reservations');
 
 
+Route::view('/clients', 'clients.index');
+Route::view('/clients/create', 'clients.create');
 Route::view('/vehicules', 'vehicules.index');
 Route::view('/vehicules/create', 'vehicules.create');
 
