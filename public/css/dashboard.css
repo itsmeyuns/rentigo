@@ -63,14 +63,14 @@ body {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding: 15px 20px;
   background-color: #FBFAF5 ;
-  z-index: -1;
+  visibility: hidden;
   border-radius: 8px;
   opacity: 0; 
   transition: opacity 0.2s ease; 
 }
 
 .profile-links.show {
-  z-index: 4;
+  visibility: visible;
   opacity: 1;
 }
 
