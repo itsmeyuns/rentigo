@@ -1,14 +1,17 @@
 let addForm = document.querySelector('.add-form');
 
 addForm.addEventListener('submit', function (e) {
-  if (!validateFields()) {
+  if (!validateFields() || !validateEmail() || !validateMobileNumber()) {
     e.preventDefault()
   }
 })
 
+
+let separateVerification = ['email']
+
 let inputs = document.querySelectorAll('input');
 inputs.forEach((input)=>{
-  if (input.id === 'email') {
+  if (input.type === 'email') {
     return
   }
   input.addEventListener('blur', function () {
@@ -43,28 +46,53 @@ function validateFields() {
 }
 
 
-//validate email
+//Validate Email
 
 let email = document.getElementById('email');
 function validateEmail() {
   const emailValue = email.value
   const validRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let valid = true;
+  let emailIsValid = true;
   if (emailValue) {
     if (emailValue.match(validRegex)) {
-      setSuccess(this)
+      setSuccess(email)
     } else {
-      setErrors(this, 'Adresse e-mail invalide!')
-      valid = false;
+      setErrors(email, 'Adresse e-mail invalide!')
+      emailIsValid = false;
     }
   } else {
     reset(email)
   }
 
+  return emailIsValid;
+}
+
+
+email.addEventListener('blur', validateEmail)
+
+
+
+// Validate Mobile Number
+
+let phone = document.getElementById('telephone')
+function validateMobileNumber() {
+  const phoneValue = phone.value;
+  const mobileNumberRegex = /^(?:\+\d{1,3})?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{6,12}$/;
+  let valid = true;
+  if (phoneValue) {
+    if (phoneValue.match(mobileNumberRegex)) {
+      setSuccess(phone)
+    } else {
+      setErrors(phone, 'Le numéro de téléphone mobile est invalide.')
+      valid = false;
+    }
+  }
   return valid;
 }
 
-email.addEventListener('blur', validateEmail)
+phone.addEventListener('blur', validateMobileNumber)
+
+
 
 
 function setErrors(element, message) {
@@ -86,14 +114,19 @@ function setSuccess(element) {
 }
 
 function reset(element) {
+  const inputParent = element.parentElement;
+  const errorDiv = inputParent.querySelector('.error');
+
   element.classList.remove('success')
+  element.classList.remove('bounce')
+  errorDiv.innerText = '';
 }
 
 
 //textarea  
-// let observation = document.getElementById('observation')
+let observation = document.getElementById('observation')
 
-// observation.addEventListener('keydown', function () {
-//   observation.style.height = `auto`         
-//   observation.style.height = `${observation.scrollHeight}px`
-// })
+observation.addEventListener('keyup', function () {
+  observation.style.height = `63px`         
+  observation.style.height = `${observation.scrollHeight}px`
+})
