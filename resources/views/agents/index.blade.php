@@ -2,7 +2,7 @@
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/table.css') }}">
 @endsection
-@section('title', 'Clients')
+@section('title', 'Agents')
 
 @section('content')
 <div class="bar">

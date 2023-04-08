@@ -1,13 +1,13 @@
 let addForm = document.querySelector('.add-form');
 
 addForm.addEventListener('submit', function (e) {
-  if (!validateFields() || !validateEmail() || !validateDateNaissance()) {
+  if (!validateFields() || !validateEmail() || !validateDateNaissance() || !validateLogin() || !validatePassword()) {
     e.preventDefault()
   }
 })
 
 
-let separateVerification = ['email', 'telephone', 'dateNaissance']
+let separateVerification = ['email', 'telephone', 'dateNaissance', 'motDePass']
 
 let inputs = document.querySelectorAll('input');
 inputs.forEach((input)=>{
@@ -126,10 +126,65 @@ dateNaissance.addEventListener('blur', validateDateNaissance)
 
 
 
+// Show / Hide Password
+let showIcon = document.getElementById('showPassword');
+let password = document.getElementById('motDePass')
+showIcon.addEventListener('click', function () {
+  if (password.type === 'password') {
+    password.type = 'text'
+    this.textContent = 'visibility_off'
+  } else {
+    password.type = 'password'
+    this.textContent = 'visibility'
+  }
+})
 
 
+// Validate Password
+
+function validatePassword() {
+  let passwordValue = password.value
+  let valid = true
+  if (passwordValue) {
+    if (passwordValue.length > 7) {
+      setSuccess(password)
+    } else {
+      setErrors(password, 'Le mot de pass doit être de 8 caractères ou plus')
+      valid = false;
+    }
+  }
+
+  return valid
+
+}
+
+password.addEventListener('blur', validatePassword)
 
 
+// Validate Login
+
+// is 5-20 characters long
+// no _ or . or a number at the beginning
+// allowed _ or . or a number 
+// allowed characters
+// no . at the end
+
+let login = document.getElementById('login')
+function validateLogin() {
+  let loginValue = login.value
+  let reg = /^(?!\\d)[a-zA-Z][a-zA-Z0-9_.]{3,18}[a-zA-Z0-9]$/
+  let valid = true;
+  if (loginValue) {
+    if (loginValue.match(reg)) {
+      setSuccess(login)
+    } else {
+      setErrors(login, 'Le login est invalide.')
+      valid = false;
+    }
+  }
+  return valid;
+}
+login.addEventListener('blur', validateLogin)
 
 function setErrors(element, message) {
   const inputParent = element.parentElement;
