@@ -47,7 +47,24 @@
       <input type="email" name="email" id="email">
       <div class="error"></div>
     </div>
-    <div class="form-item">
+    <div class="login-infos-container full-width">
+      <h3>Informations de connexion</h3>
+      <div class="login-infos">
+        <div class="form-item">
+          <label for="login">Login <span class="star">*</span> </label>
+          <input type="text" name="login" id="login">
+          <div class="error"></div>
+        </div>
+        <div class="form-item">
+          <label for="motDePass">Mot de Pass <span class="star">*</span> </label>
+          <input type="password" name="motDePass" id="motDePass">
+          <div class="material-icons-round" id="showPassword">visibility</div>
+          <div class="error"></div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="form-item full-width">
       <button type="submit">Ajouter</button>
     </div>
   </form>
