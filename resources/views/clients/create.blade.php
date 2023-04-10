@@ -18,6 +18,14 @@
       <div class="error"></div>
     </div>
     <div class="form-item">
+      <label for="sexe">Sexe <span class="star">*</span></label>
+      <select name="sexe" id="sexe">
+        <option value="M">M</option>
+        <option value="F">F</option>
+      </select>
+      <div class="error"></div>
+    </div>
+    <div class="form-item">
       <label for="dateNaissance">Né(e) le<span class="star">*</span> </label>
       <input type="date" name="dateNaissance" id="dateNaissance">
       <div class="error"></div>
