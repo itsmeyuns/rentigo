@@ -37,7 +37,8 @@
   color: var(--text-color);
 }
 
-.form-item input {
+.form-item input,
+.form-item select {
   font-size: 14px;
   font-weight: 400;
   color: #333;
@@ -46,6 +47,12 @@
   height: 42px;
   padding: 0 15px;
   margin: 8px 0;
+}
+
+.form-item select {
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #fff;
 }
 
 .full-width {
@@ -112,6 +119,7 @@
 }
 
 .form-item input:focus,
+.form-item select:focus,
 .form-item textarea:focus {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
 }
