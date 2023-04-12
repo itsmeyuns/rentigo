@@ -66,6 +66,7 @@ body {
 .form-check label {
   display: block;
   color: var(--text-color);
+  cursor: pointer;
 }
 
 .form-item input{
@@ -103,14 +104,27 @@ input:not(.button):focus {
 .form-check {
   display: flex; 
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 14px;
 }
 
-.form-check input {
+.form-check .rememberMe {
+  display: flex; 
+  align-items: center;
+}
+
+.form-check .rememberMe input {
   margin-right: 10px;
   accent-color: var(--main-color);
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+}
+
+
+.form-check .forgotPassword a{
+  font-size: 14px;
+  color: var(--main-color);
+  font-weight: 500;
 }
 
 .right-side form .button {
@@ -137,5 +151,12 @@ input:not(.button):focus {
   }
   .right-side h1 {
     text-align: center;
+  }
+}
+
+@media (max-width: 448px) {
+  .form-check {
+    flex-direction: column;
+    gap: 10px;
   }
 }

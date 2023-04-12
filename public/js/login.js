@@ -1,13 +1,12 @@
 let showPassword = document.getElementById('showPassword');
-
 showPassword.addEventListener('click', function () {
-  let inputPassword = this.previousElementSibling;
-  if (this.innerHTML == 'visibility') {
-    this.innerHTML = 'visibility_off';
-    inputPassword.type = 'text';
+  let inputPassword = document.getElementById('password')
+  if (password.type === 'password') {
+    password.type = 'text'
+    this.textContent = 'visibility_off'
   } else {
-    inputPassword.type = 'password';
-    this.innerHTML = 'visibility';
+    password.type = 'password'
+    this.textContent = 'visibility'
   }
   inputPassword.focus();
 });
@@ -17,11 +16,11 @@ showPassword.addEventListener('click', function () {
 // Form validation
 const form = document.querySelector('form');
 const login = document.getElementById('login');
-const password = document.getElementById('motDePass');
+const password = document.getElementById('password');
 
 login.addEventListener('blur', () => {
   if (login.value.trim() === '') {
-    setErrors(login, 'login est requis')
+    setErrors(login, "Login est requis")
   } else {
     setSuccess(login)
   }
@@ -30,7 +29,7 @@ login.addEventListener('blur', () => {
 
 password.addEventListener('blur', () => {
   if (password.value.trim() === '') {
-    setErrors(password, 'le mot de passe est requis')
+    setErrors(password, 'Le mot de passe est requis')
   } else {
     setSuccess(password)
   }
@@ -65,7 +64,7 @@ function validateFields() {
   const passwordValue = password.value.trim();
   let valid = true;
   if (loginValue === '') {
-    setErrors(login, 'login est requis');
+    setErrors(login, "Login est requis");
     valid = false;
   } else {
     setSuccess(login);

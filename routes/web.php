@@ -32,3 +32,10 @@ Route::view('/vehicules/create', 'vehicules.create');
 Route::view('/agents', 'agents.index');
 Route::view('/agents/create', 'agents.create');
 // Route::view('/vehicules/create', 'vehicules.create');
+
+Auth::routes(['login' => false]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
+Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');

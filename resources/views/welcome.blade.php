@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="css/style.css">
-  <title>Document</title>
+  <title>Rentigo | Login</title>
 </head>
 <body>
-  <div class="container">
 
     <div class="left-side">
       <img src="pics/rentigo-logo.png" alt="rentigo logo">

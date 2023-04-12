@@ -31,7 +31,7 @@
             <span class="material-icons-round">
               account_circle
             </span>
-            <span class="user">Zaghari Younes</span>
+            <span class="user">{{auth()->user()->login}}</span>
             <span class="material-icons-round arrow-icon">
               expand_more
             </span>
