@@ -1,0 +1,67 @@
+@import url(master.css);
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 545px;
+  padding: 20px;
+  border: 1px solid var(--text-color);
+  border-radius: 8px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  -moz-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.container .title {
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 15px;
+}
+
+.container .status-msg {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
+  padding: 16px;
+  margin: 0 auto 16px;
+  border-radius: 5px;
+}
+
+form .form-item {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  gap: 8px;
+}
+
+form .form-item label {
+  margin: 0;
+  cursor: pointer;
+}
+
+form .form-item input {
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+form .form-item input:focus {
+  border-color: var(--main-color);
+}
+
+.form-item button {
+  background-color: var(--main-color);
+  cursor: pointer;
+  color: #fff;
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+form .form-item .error {
+  color: var(--danger-color);
+}

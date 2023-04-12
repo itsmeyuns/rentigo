@@ -1,5 +1,8 @@
 @extends('layouts.master-auth')
 @section('title', 'Login')
+@section('css')
+  <link rel="stylesheet" href="{{asset('css/style.css')}}">
+@stop
 @section('content')
 <div class="left-side">
   <img src="pics/rentigo-logo.png" alt="rentigo logo">
@@ -43,4 +46,7 @@
     </div>
   </form>
 </div>
+@stop
+@section('javascript')
+<script src="{{asset('js/login.js')}}"></script>
 @stop
