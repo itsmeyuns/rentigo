@@ -24,7 +24,7 @@
   </div>
 
   <div class="form-item">
-    <button type="submit" class="btn btn-primary">
+    <button type="submit">
         {{ __('Send Password Reset Link') }}
     </button>
   </div>

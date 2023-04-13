@@ -8,6 +8,7 @@ body {
 }
 
 .container {
+  width: 100%;
   max-width: 545px;
   padding: 20px;
   border: 1px solid var(--text-color);
