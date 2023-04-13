@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/dashboard', 'dashboard');
+Route::view('/dashboard', 'dashboard')->middleware('auth');
 Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
@@ -34,8 +34,6 @@ Route::view('/agents/create', 'agents.create');
 // Route::view('/vehicules/create', 'vehicules.create');
 
 Auth::routes(['login' => false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
