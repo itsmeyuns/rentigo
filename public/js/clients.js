@@ -1,15 +1,46 @@
-let addForm = document.querySelector('.add-form');
+let addForm = document.querySelector('#add-client-form');
+toastr.options = {
+  "closeButton" : true,
+  "progressBar" : true
+};
 
 addForm.addEventListener('submit', function (e) {
   if (!validateFields() || !validateEmail() || !validateMobileNumber()) {
     e.preventDefault()
+  } else {
+    e.preventDefault();
+    var form = addForm;
+    $.ajax({
+      type: 'POST',
+      url: $(form).attr('action'),
+      data: new FormData(form),
+      processData:false,
+      contentType:false,
+      beforeSend:function(){
+        $(form).find('div.error').text('');
+      },
+      success: function (response) {
+        $(form)[0].reset();
+        $('input').removeClass('success');
+        $('input').removeClass('bounce');
+        toastr.success(response.success);
+      },
+      error: function (xhr) {
+        let errors = xhr.responseJSON.errors;
+        $.each(errors, function (field, messages) {
+          $('.error.' + field + '_error').html(messages[0]);
+          $('.error.' + field + '_error').prev().removeClass('success');
+          $('.error.' + field + '_error').prev().addClass('bounce');
+        });
+      }
+    });
   }
 })
 
 
 let separateVerification = ['email']
 
-let inputs = document.querySelectorAll('input');
+let inputs = addForm.querySelectorAll('input');
 inputs.forEach((input)=>{
   if (input.type === 'email') {
     return
@@ -17,9 +48,9 @@ inputs.forEach((input)=>{
   input.addEventListener('blur', function () {
     let inputValue = input.value.trim();
     if (!inputValue) {
-      setErrors(this, 'Ce champ est obligatoire')
+      setErrors(input, 'Ce champ est obligatoire')
     } else {
-      setSuccess(this)
+      setSuccess(input)
     }
   })
 })

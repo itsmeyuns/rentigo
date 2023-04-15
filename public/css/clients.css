@@ -1,4 +1,4 @@
-/* Ajouter vehicule */
+/* Ajouter Client */
 
 .form-container {
   background-color: #fff;
@@ -9,7 +9,7 @@
 }
 
 
-.add-form .star{
+#add-client-form .star{
   color: var(--danger-color);
 }
 
@@ -126,7 +126,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
 }
 
-.add-form button {
+#add-client-form button {
   max-width: 250px;
   margin-top: 10px;
   padding: 10px 25px;

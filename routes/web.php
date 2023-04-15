@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -21,8 +22,8 @@ Route::view('/contrats', 'contrats');
 Route::view('/reservations', 'reservations');
 
 
-Route::view('/clients', 'clients.index');
-Route::view('/clients/create', 'clients.create');
+
+
 Route::view('/vehicules', 'vehicules.index');
 Route::view('/vehicules/create', 'vehicules.create');
 
@@ -34,3 +35,9 @@ Auth::routes(['login' => false]);
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
+
+Route::prefix('/clients')->group(function () {
+  Route::get('/', [ClientController::class, 'index'])->name('clients.index');
+  Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
+  Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
+});
