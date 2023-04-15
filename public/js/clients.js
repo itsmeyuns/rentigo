@@ -23,6 +23,7 @@ addForm.addEventListener('submit', function (e) {
         $(form)[0].reset();
         $('input').removeClass('success');
         $('input').removeClass('bounce');
+        $('.jquery-modal').hide();
         toastr.success(response.success);
       },
       error: function (xhr) {

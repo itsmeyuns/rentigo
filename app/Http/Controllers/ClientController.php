@@ -15,7 +15,7 @@ class ClientController extends Controller
 
     public function create()
     {
-        return view('clients.create');
+        return view('clients.modal.create');
     }
 
     public function store(Request $request)

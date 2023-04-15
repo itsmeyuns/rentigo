@@ -1,9 +1,12 @@
 @extends('layouts.master')
 @section('css')
+  <link rel="stylesheet" href="{{ asset('css/clients.css') }}">
   <link rel="stylesheet" href="{{ asset('css/table.css') }}">
 @endsection
 @section('title', 'Clients')
-
+<div id="AddClientModal" class="modal">
+  @include('clients.modal.create')
+</div>
 @section('content')
 <div class="bar">
   <form action="">
@@ -15,7 +18,7 @@
         </span>
       </button>
     </div>
-    <a href="/clients/create" class="ajouter"><span class="material-icons-round">
+    <a href="#AddClientModal" rel="modal:open" class="ajouter"><span class="material-icons-round">
       person_add
     </span></a>
   </form>
@@ -107,4 +110,6 @@
   </tbody>
 </table>
 @stop
-
+@section('js')
+<script src="{{ asset('js/clients.js') }}"></script>
+@stop

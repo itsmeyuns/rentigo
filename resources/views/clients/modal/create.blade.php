@@ -1,11 +1,6 @@
-@extends('layouts.master')
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/clients.css') }}">
-@stop
-@section('title', 'Ajouter Client')
 
-@section('content')
 <div class="form-container">
+  <h3 class="form-title">Ajouter Client</h3>
   <form id="add-client-form" action="{{route('clients.store')}}" method="POST">
     @csrf
     <div class="form-item">
@@ -44,7 +39,7 @@
     <div class="form-item">
       <label for="cin">CIN <span class="star">*</span> </label>
       <input type="text" name="cin" id="cin">
-      <div class="error cin_error">Hello</div>
+      <div class="error cin_error"></div>
     </div>
     <div class="form-item">
       <label for="numero_permis">N° Permis <span class="star">*</span> </label>
@@ -71,45 +66,9 @@
       </div>
 
     </div>
-    <div class="form-item full-width">
+    <div class="form-item">
       <button id='add-client'>Ajouter</button>
     </div>
   </form>
 </div>
-@stop
 
-@section('js')
-<script src="{{ asset('js/clients.js') }}"></script>
-<script>
-  // Ajax Crud
-// $(document).ready(function () {
-//   $('#add-client-form').submit(function (e) { 
-//     // e.preventDefault();
-//     var form = this;
-//     $.ajax({
-//       type: 'post',
-//       url: $(form).attr('action'),
-//       data: new FormData(form),
-//       processData: false,
-//       dataType:'json',
-//       contentType:false,
-//       beforeSend:function(){
-//         $(form).find('div.error').text('');
-//       },
-//       success:function(data) {
-//         if(data.code == 0) {
-//           $.each(data.error, function(prefix, val){
-//               $(form).find('div.'+prefix+'_error').text(val);
-//           });
-//         } else {
-//           $(form)[0].reset();
-//           alert(data.msg);
-//           // $('#counties-table').DataTable().ajax.reload(null, false);
-//           // toastr.success(data.msg);
-//         }
-//       }
-//     });
-//   });
-// })
-</script>
-@stop
