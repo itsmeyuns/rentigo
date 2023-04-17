@@ -1,64 +1,48 @@
-let addForm = document.querySelector('#add-client-form');
-toastr.options = {
-  "closeButton" : true,
-  "progressBar" : true
-};
-
-addForm.addEventListener('submit', function (e) {
-  if (!validateFields() || !validateEmail() || !validateMobileNumber()) {
-    e.preventDefault()
-  } else {
-    e.preventDefault();
-    var form = addForm;
-    $.ajax({
-      type: 'POST',
-      url: $(form).attr('action'),
-      data: new FormData(form),
-      processData:false,
-      contentType:false,
-      beforeSend:function(){
-        $(form).find('div.error').text('');
-      },
-      success: function (response) {
-        $(form)[0].reset();
-        $('input').removeClass('success');
-        $('input').removeClass('bounce');
-        $('.jquery-modal').hide();
-        toastr.success(response.success);
-      },
-      error: function (xhr) {
-        let errors = xhr.responseJSON.errors;
-        $.each(errors, function (field, messages) {
-          $('.error.' + field + '_error').html(messages[0]);
-          $('.error.' + field + '_error').prev().removeClass('success');
-          $('.error.' + field + '_error').prev().addClass('bounce');
-        });
-      }
-    });
-  }
-})
-
-
+let addClientForm = document.getElementById('add-client-form');
+let addClientButton = document.getElementById('add-client-button');
+let editClientButton = document.getElementById('edit-client-button');
+let editClientForm = document.getElementById('edit-client-form');
 let separateVerification = ['email']
 
-let inputs = addForm.querySelectorAll('input');
-inputs.forEach((input)=>{
-  if (input.type === 'email') {
-    return
-  }
-  input.addEventListener('blur', function () {
-    let inputValue = input.value.trim();
-    if (!inputValue) {
-      setErrors(input, 'Ce champ est obligatoire')
-    } else {
-      setSuccess(input)
-    }
-  })
+addClientButton.addEventListener('click', function (e) {
+  if (!validateFields(addClientForm) || !validateEmail() || !validateMobileNumber()) {
+    e.preventDefault()
+  } 
 })
 
+validationOnBlur(addClientForm)
 
-function validateFields() {
+
+editClientButton.addEventListener('click', function (e) {
+  if (!validateFields(editClientForm) || !validateEmail() || !validateMobileNumber()) {
+    e.preventDefault()
+  } 
+})
+
+validationOnBlur(editClientForm)
+
+
+function validationOnBlur(form) { 
+  let inputs = form.querySelectorAll('input');
+  inputs.forEach((input)=>{
+    if (input.type === 'email') {
+      return
+    }
+    input.addEventListener('blur', function () {
+      let inputValue = input.value.trim();
+      if (!inputValue) {
+        setErrors(input, 'Ce champ est obligatoire')
+      } else {
+        setSuccess(input)
+      }
+    })
+  })
+}
+
+function validateFields(form) {
   let valid = true;
+  let inputs = form.querySelectorAll('input');
+
   inputs.forEach(input => {
     if (input.type === "email") {
       return
@@ -76,6 +60,7 @@ function validateFields() {
   return valid;
 
 }
+
 
 
 //Validate Email

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Models\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,9 @@ Route::prefix('/clients')->group(function () {
   Route::get('/', [ClientController::class, 'index'])->name('clients.index');
   Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
   Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
+  Route::get('/{id}/delete', [ClientController::class, 'delete'])->name('clients.delete');
+  Route::delete('/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+  Route::get('/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
+  Route::patch('/{id}', [ClientController::class, 'update'])->name('clients.update');
 });
+Route::get('/fetch', [ClientController::class, 'all']);

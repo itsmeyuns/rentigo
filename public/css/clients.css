@@ -25,7 +25,8 @@
 }
 
 
-#add-client-form .star{
+#add-client-form .star,
+#edit-client-form .star{
   color: var(--danger-color);
 }
 
@@ -143,7 +144,8 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
 }
 
-#add-client-form button {
+#add-client-form button,
+#edit-client-form button{
   max-width: 250px;
   margin-top: 10px;
   padding: 10px 25px;
@@ -169,3 +171,56 @@
     width: 100%;
   }
 }
+
+
+/* Delete Modal */
+#DeleteClientModal {
+  text-align: center;
+}
+
+#DeleteClientModal .delete-dialog {
+  padding: 10px;
+}
+
+#DeleteClientModal .text > p {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+#DeleteClientModal .text  .subtext {
+  font-size: 16px;
+}
+
+
+#DeleteClientModal .modal-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 5px;
+}
+
+#DeleteClientModal .modal-buttons button {
+  padding: 5px 15px;
+  border-radius: 6px;
+}
+
+#DeleteClientModal .modal-buttons #confirmationButton {
+  color: #fff;
+  background-color: var(--danger-color);
+}
+
+#DeleteClientModal .modal-buttons #confirmationButton:hover {
+  background-color: #b21525 ;
+}
+
+#DeleteClientModal .modal-buttons #cancelButton {
+  background-color: #fff;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+}
+
+#DeleteClientModal .modal-buttons #cancelButton:hover {
+  background-color: #efefef;
+}
+

@@ -37,6 +37,7 @@
   <script src="{{asset('js/jquery.modal.min.js')}}"></script>
   <script src="{{asset('js/toastr.min.js')}}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
+  <script src="{{ asset('js/ajaxSetup.js') }}"></script>
   @yield('js')
 </body>
 </html>

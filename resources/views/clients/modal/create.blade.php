@@ -1,4 +1,3 @@
-
 <div class="form-container">
   <h3 class="form-title">Ajouter Client</h3>
   <form id="add-client-form" action="{{route('clients.store')}}" method="POST">
@@ -67,7 +66,7 @@
 
     </div>
     <div class="form-item">
-      <button id='add-client'>Ajouter</button>
+      <button id='add-client-button' type="submit">Ajouter</button>
     </div>
   </form>
 </div>

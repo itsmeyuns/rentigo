@@ -25,11 +25,11 @@ table tbody td .material-icons-round {
   font-size: 20px;
 }
 
-table td a.edit {
+table td .edit {
   color: var(--primary-color);
 }
 
-table td a.show {
+table td .show {
   color: var(--success-color);
 }
 

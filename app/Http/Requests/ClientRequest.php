@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class ClientRequest extends FormRequest
 {
@@ -21,17 +24,29 @@ class ClientRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'nom' => 'required | string | max:80',
             'prenom' => 'required | string | max:80',
-            // 'sexe' => 'required | string | max:1',
-            // 'date_naissance' => 'required | date',
-            // 'lieu_naissance' => 'required | string',
-            // 'cin' => 'required | string | max:20 | unique:clients',
-            // 'telephone' => 'required | string | max:20 | unique:clients',
-            // 'email' => 'unique:clients',
-            // 'numero_permis' => 'required | string | unique:clients',
-            // 'observation' => ''
+            'sexe' => 'required | string | max:1',
+            'date_naissance' => 'required | date',
+            'lieu_naissance' => 'required | string',
+            'cin' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
+            'telephone' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
+            'email' => ['nullable', Rule::unique('clients')->ignore($this->id)],
+            'numero_permis' => ['required', 'string', Rule::unique('clients')->ignore($this->id)],
+            'observation' => 'nullable'
         ];
     }
+
+    public function faildValidation(Validator $validator)
+    {
+        // Return validation errors if validation fails
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'validation error',
+            'errors' => $validator->errors()
+        ], 422));
+    }
 }
+
