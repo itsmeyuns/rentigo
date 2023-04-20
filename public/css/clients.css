@@ -211,7 +211,7 @@
 }
 
 #DeleteClientModal .modal-buttons #confirmationButton:hover {
-  background-color: #b21525 ;
+  background-color: #E71D1D ;
 }
 
 #DeleteClientModal .modal-buttons #cancelButton {
@@ -224,3 +224,31 @@
   background-color: #efefef;
 }
 
+#ShowClientModal {
+  min-width: 270px;
+  max-width: 380px;
+  width: 100%;
+}
+
+#ShowClientModal .card .fullname {
+  color: #262b2b;
+}
+#ShowClientModal .card .informations {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 500;
+  color: #303030;
+}
+#ShowClientModal .card .informations .box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+
+}
+#ShowClientModal .card .informations .icon {
+  color: var(--main-color);
+}

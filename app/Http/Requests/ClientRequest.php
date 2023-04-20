@@ -31,6 +31,7 @@ class ClientRequest extends FormRequest
             'sexe' => 'required | string | max:1',
             'date_naissance' => 'required | date',
             'lieu_naissance' => 'required | string',
+            'adresse' => 'required | string',
             'cin' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
             'telephone' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
             'email' => ['nullable', Rule::unique('clients')->ignore($this->id)],

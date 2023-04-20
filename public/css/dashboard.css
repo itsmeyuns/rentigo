@@ -222,7 +222,7 @@ body {
   background-color: var(--main-color);
 }
 
-.cards {
+.main-container .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
@@ -230,7 +230,7 @@ body {
   color: #fff;
 }
 
-.card {
+.main-container .cards .card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,34 +240,34 @@ body {
   cursor: pointer;
 }
 
-.card:first-child {
+.main-container .cards .card:first-child {
   background-color: var(--primary-color);
 }
 
-.card:nth-child(2) {
+.main-container .cards .card:nth-child(2) {
   background-color: var(--warning-color);
 }
 
-.card:nth-child(3) {
+.main-container .cards .card:nth-child(3) {
   background-color: var(--success-color);
 }
 
-.card:nth-child(4) {
+.main-container .cards .card:nth-child(4) {
   background-color: var(--danger-color);
 }
 
-.card-inner {
+.cards .card .card-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.card-inner > .material-icons-round {
+.cards .card-inner > .material-icons-round {
   font-size: 35px;
   transition: .3s;
 }
 
-.card:hover .card-inner > .material-icons-round {
+.cards .card:hover .card-inner > .material-icons-round {
   transform: scale(1.1);
 }
 

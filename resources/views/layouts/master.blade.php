@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
   <link rel="stylesheet" href="{{asset('css/jquery.modal.min.css')}}">
-  <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"> --}}
+  <link rel="stylesheet" href="{{asset('css/notyf.min.css')}}">
   @yield('css')  
   <title>Rentigo | @yield('title', 'Page non trouvée')</title>
 </head>
@@ -35,7 +36,8 @@
   {{-- JavaScript --}}
   <script src="{{ asset('jquery/jquery-3.6.0.js') }}"></script>
   <script src="{{asset('js/jquery.modal.min.js')}}"></script>
-  <script src="{{asset('js/toastr.min.js')}}"></script>
+  {{-- <script src="{{asset('js/toastr.min.js')}}"></script> --}}
+  <script src="{{asset('js/notyf.min.js')}}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
   <script src="{{ asset('js/ajaxSetup.js') }}"></script>
   @yield('js')

@@ -69,7 +69,7 @@
   cursor: pointer;
   vertical-align: middle;
   line-height: 1px;
-  font-size: 30px;
+  font-size: 25px;
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
@@ -89,4 +89,32 @@ ul {
 
 button {
   cursor: pointer;
+}
+
+span.show {
+  color: var(--success-color);
+}
+
+span.show:hover {
+  color: #45AA4A;
+  transform: scale(1.1);
+}
+
+span.delete {
+  color: var(--danger-color);
+}
+
+span.delete:hover {
+  color: #E71D1D;
+  transform: scale(1.1);
+}
+
+span.edit {
+  color: var(--primary-color);
+  transition: .3s;
+}
+
+span.edit:hover {
+  color: #0B5EBD;
+  transform: scale(1.1);
 }

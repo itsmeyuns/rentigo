@@ -25,16 +25,10 @@ table tbody td .material-icons-round {
   font-size: 20px;
 }
 
-table td .edit {
-  color: var(--primary-color);
-}
-
-table td .show {
-  color: var(--success-color);
-}
-
-table td .delete {
-  color: var(--danger-color);
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  table, td, th {
+    padding: 8px 10px;
+  }
 }
 
 @media (max-width: 665px) {
@@ -73,3 +67,4 @@ table td .delete {
     margin-bottom: 15px;
   }
 }
+

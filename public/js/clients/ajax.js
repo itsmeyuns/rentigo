@@ -1,47 +1,18 @@
 let addForm = $('#add-client-form');
 let editForm = $('#edit-client-form');
+let notification = new Notyf({
+  duration: 3500,
+  dismissible: true,
+  position: {
+    x: 'right',
+    y: 'top'
+  }
+})
 
-toastr.options = {
-  "closeButton" : true,
-  "progressBar" : true
-};
 fetchClients()
 $(document).ready(function(){
-  $(addForm).on('submit',function (e) { 
-    e.preventDefault();
-    $.ajax({
-      type: 'POST',
-      url: $(addForm).attr('action'),
-      data: new FormData(addForm[0]),
-      processData:false,
-      contentType:false,
-      beforeSend:function(){
-        $(addForm).find('div.error').text('');
-      },
-      success: function (response) {
-        $(addForm)[0].reset();
-        $('input').removeClass('success');
-        $('input').removeClass('bounce');
-        $('.jquery-modal').hide();
-        fetchClients()
-        toastr.success(response.success);
-      },
-      error: function (xhr) {
-        let errors = xhr.responseJSON.errors;
-        $.each(errors, function (field, messages) {
-          $('.error.' + field + '_error').html(messages[0]);
-          $('.error.' + field + '_error').prev().removeClass('success');
-          $('.error.' + field + '_error').prev().addClass('bounce');
-        });
-      }
-    });
-  });
+  addAction()
 });
-
-
-
-
-
 
 
 // Hide Delete Modal
@@ -51,6 +22,7 @@ $('#cancelButton').on('click', function () {
 
 $('.ajouter').on('click', function () { 
   $('#AddClientModal').modal('show')
+  resetAddClientForm()
 })
 
 
@@ -69,8 +41,9 @@ function fetchClients() {
     url: '/fetch',
     type: 'GET',
     success: function(response) {
+      let clients = response.clients.data
       $('tbody').html('')
-      $.each(response.clients.data, function (key, item) {
+      $.each(clients, function (key, item) {
         $('tbody').append(`
         <tr>
           <td data-label="Nom">${item.nom}</td>
@@ -79,7 +52,7 @@ function fetchClients() {
           <td data-label="N° Permis">${item.numero_permis}</td>
           <td data-label="Téléphone">${item.telephone}</td>
           <td data-label="Actions">
-            <span href="/clients/{client}" class="material-icons-round show">visibility</span>
+            <span class="material-icons-round show" data-id="${item.id}">visibility</span>
             <span class="material-icons-round edit" data-id="${item.id}">edit</span>
             <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
           </td>
@@ -90,6 +63,7 @@ function fetchClients() {
       passIdToModal()
       deleteAction()
       editAction()
+      showAction()
 
     },
     error: function(error) {
@@ -108,7 +82,7 @@ function deleteAction() {
         if (response.status === 200) {
           $('#DeleteClientModal').modal('show')
         } else {
-          toastr.error(response.msg)
+          notification.error(response.msg)
         }
       },
     });
@@ -126,10 +100,10 @@ $('#confirmationButton').on('click', function() {
     success: function(response) {
       $('.jquery-modal').hide();
       if (response.status === 200) {
-        toastr.success(response.success);
+        notification.success(response.success);
         fetchClients()
       } else {
-        toastr.error(response.msg)
+        notification.error(response.msg)
       }
     }
   });
@@ -164,7 +138,7 @@ function editAction() {
           $('#edit_email').val(response.client.email);
           $('#edit_observation').val(response.client.observation);
         } else {
-          toastr.error(response.msg)
+          notification.error(response.msg)
         }
       },
     });
@@ -200,10 +174,10 @@ $(editForm).on('submit',function (e) {
     success: function (response) {
       $('.jquery-modal').hide();
       if (response.status === 200) {
-        toastr.success(response.success);
+        notification.success(response.success);
         fetchClients()
       } else {
-        toastr.error(response.msg)
+        notification.error(response.msg)
       }
     },
     error: function (xhr) {
@@ -216,3 +190,104 @@ $(editForm).on('submit',function (e) {
     }
   });
 });
+
+// Search
+$('#rechercher').on('keyup', function () { 
+  let value = $(this).val()
+  $.ajax({
+    type: "GET",
+    url: "/clients/search",
+    data: {search: value},
+    success: function (response) {
+      $('tbody').html('')
+      if (value) {
+        $.each(response.result, function (index, item) { 
+          $('tbody').append(`
+          <tr>
+            <td data-label="Nom">${item.nom}</td>
+            <td data-label="Prénom">${item.prenom}</td>
+            <td data-label="CIN">${item.cin}</td>
+            <td data-label="N° Permis">${item.numero_permis}</td>
+            <td data-label="Téléphone">${item.telephone}</td>
+            <td data-label="Actions">
+              <span class="material-icons-round show" data-id="${item.id}">visibility</span>
+              <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+              <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
+            </td>
+          </tr>
+          `);
+        });
+      } else {
+        fetchClients()
+      }
+      passIdToModal()
+      deleteAction()
+      editAction()
+      showAction()
+    }
+  });
+
+
+})
+// $('#ShowClientModal').modal('show')
+// Show Client Card
+function showAction() { 
+  $('.show').on('click', function () {
+    let clientId = $(this).data('id');
+    $('#ShowClientModal').modal('show')
+    $.ajax({
+      method: 'GET',
+      url: `/clients/show/${clientId}`,
+      success: function (response) {
+        console.log(response, clientId);
+        if (response.status === 200) {
+          $.each(response.client, function (key, value) {
+            if (key === 'email' && !value) {
+              $(`#show_${key}`).html('#####')
+            } else {
+              $(`#show_${key}`).html(value)
+            }
+          });
+        }
+      }
+    })
+
+  })
+}
+
+function addAction() {
+  $(addForm).on('submit',function (e) { 
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: $(addForm).attr('action'),
+      data: new FormData(addForm[0]),
+      processData:false,
+      contentType:false,
+      beforeSend:function(){
+        $(addForm).find('div.error').text('');
+      },
+      success: function (response) {
+        resetAddClientForm()
+        $('.jquery-modal').hide();
+        fetchClients()
+        notification.success(response.success)
+      },
+      error: function (xhr) {
+        let errors = xhr.responseJSON.errors;
+        $.each(errors, function (field, messages) {
+          $('.error.' + field + '_error').html(messages[0]);
+          $('.error.' + field + '_error').prev().removeClass('success');
+          $('.error.' + field + '_error').prev().addClass('bounce');
+        });
+      }
+    });
+  });
+}
+
+function resetAddClientForm() { 
+  $(addForm).find('div.error').text('');
+  $(addForm)[0].reset();
+  $('input').removeClass('success');
+  $('input').removeClass('bounce');
+}

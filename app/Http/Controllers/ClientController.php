@@ -11,8 +11,18 @@ class ClientController extends Controller
 {
   public function index()
   {
-    // $clients = Client::orderBy('id', 'desc')->paginate(10);
     return view('clients.index');
+  }
+
+  public function show($id)
+  {
+    $client = Client::find($id);
+    if ($client) {
+      // Return success response if data is updated successfully
+      return response()->json(['status' => 200 , 'client' => $client]);
+    } 
+    // If The Client Doesn't Exists
+    return response()->json(['status' => 422, 'msg' => "Ce client n'existe pas"]);  
   }
 
   public function all()
@@ -46,7 +56,7 @@ class ClientController extends Controller
       'numero_permis' => $request->numero_permis,
     ]);
     // Return success response if data is inserted successfully
-    return response()->json(['success' => 'le client a été ajouté avec succès'], 200); 
+    return response()->json(['success' => 'Le client a été ajouté avec succès'], 200); 
   }
 
   public function delete($id)
@@ -64,7 +74,7 @@ class ClientController extends Controller
     $client = Client::find($id);
     if ($client) {
       $client->delete();
-      return response()->json(['status' => 200, 'success' => 'le client a été supprimé avec succès']);
+      return response()->json(['status' => 200, 'success' => 'Le client a été supprimé avec succès']);
     }
     return response()->json(['status' => 422,'msg' => "Ce client n'existe pas"]); 
   }
@@ -86,10 +96,25 @@ class ClientController extends Controller
     if ($client) {
       $client->update($validatedDate);
       // Return success response if data is updated successfully
-      return response()->json(['status' => 200, 'success' => 'le client a été supprimé avec succès']); 
+      return response()->json(['status' => 200, 'success' => 'Le client a été modifié avec succès']); 
     } 
     // If The Client Doesn't Exists
     return response()->json(['status' => 422,'msg' => "Ce client n'existe pas"]);  
+  }
+
+  public function search(Request $request)
+  {
+
+    $value = $request->search;
+    $result = Client::where('nom', 'like', "%$value%")
+    ->orWhere('nom', 'like', "%$value%")
+    ->orWhere('prenom', 'like', "%$value%")
+    ->orWhere('cin', 'like', "%$value%")
+    ->orWhere('numero_permis', 'like', "%$value%")
+    ->orWhere('telephone', 'like', "%$value%")
+    ->get();
+
+    return response()->json(['result' => $result]);
   }
 
 }

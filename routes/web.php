@@ -39,6 +39,8 @@ Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login
 
 Route::prefix('/clients')->group(function () {
   Route::get('/', [ClientController::class, 'index'])->name('clients.index');
+  Route::get('/show/{id}', [ClientController::class, 'show'])->name('clients.show');
+  Route::get('/search', [ClientController::class, 'search'])->name('clients.search');
   Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
   Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
   Route::get('/{id}/delete', [ClientController::class, 'delete'])->name('clients.delete');

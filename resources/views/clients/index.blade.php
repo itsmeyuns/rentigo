@@ -14,11 +14,14 @@
 <div id="EditClientModal" class="modal">
   @include('clients.modal.edit')
 </div>
+<div id="ShowClientModal" class="modal">
+  @include('clients.modal.show')
+</div>
 <div class="bar">
   <form action="">
     <div class="input-holder">
       <input type="text" name="rechercher" placeholder="Rechercher" id="rechercher">
-      <button type="submit">
+      <button type="button">
         <span class="material-icons-round">
           search
         </span>
@@ -43,6 +46,7 @@
   <tbody>
   </tbody>
 </table>
+<div class="pagination"></div>
 @stop
 @section('js')
 <script src="{{ asset('js/clients/clients.js') }}"></script>
