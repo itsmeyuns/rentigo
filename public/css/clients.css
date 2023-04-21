@@ -252,3 +252,41 @@
 #ShowClientModal .card .informations .icon {
   color: var(--main-color);
 }
+
+#pagination {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  max-width: fit-content;
+  gap: 12px;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.link {
+  height: 35px;
+  width: 35px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.link:hover, .link.active {
+  background-color: var(--main-color);
+  color: #fff;
+}

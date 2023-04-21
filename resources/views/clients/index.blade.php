@@ -46,7 +46,12 @@
   <tbody>
   </tbody>
 </table>
-<div class="pagination"></div>
+<div id="pagination">
+  <div class="details"></div>
+  <div class="links">
+    
+  </div>
+</div>
 @stop
 @section('js')
 <script src="{{ asset('js/clients/clients.js') }}"></script>

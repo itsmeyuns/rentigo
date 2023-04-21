@@ -117,4 +117,11 @@ class ClientController extends Controller
     return response()->json(['result' => $result]);
   }
 
+  // public function paginationFetch(Request $request)
+  // {
+  //   if ($request->ajax()) {
+  //     $this->all();
+  //   }
+  // }
+
 }

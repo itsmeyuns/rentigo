@@ -41,7 +41,10 @@ function fetchClients() {
     url: '/fetch',
     type: 'GET',
     success: function(response) {
+      console.log(response.clients);
       let clients = response.clients.data
+      let links = response.clients.links
+      console.log(response.clients);
       $('tbody').html('')
       $.each(clients, function (key, item) {
         $('tbody').append(`
@@ -59,7 +62,26 @@ function fetchClients() {
         </tr>
         `);
       });
-
+      $('#pagination').show()
+      $('.details').html(`Page: ${response.clients.current_page} | showing ${response.clients.from} - ${response.clients.to} of ${response.clients.total}`)
+      $('#pagination div.links').html('')
+      $.each(links, function (index, link) {
+        let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
+        if (index === 0) {
+          element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
+                      <span class="material-icons-round">navigate_before</span>
+                    </a>`
+        }
+        if (index === links.length-1) {
+          element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
+                      <span class="material-icons-round">navigate_next</span>
+                    </a>`
+        }
+        $('#pagination div.links').append(element)
+      })
+      // Add Active Class To Element That Represent Page 1
+      $('#pagination .link:nth-child(2)').addClass('active')
+      pagination()
       passIdToModal()
       deleteAction()
       editAction()
@@ -70,6 +92,50 @@ function fetchClients() {
       console.error(error);
     }
   });
+}
+
+function pagination() {
+  $('#pagination a').on('click', function (event) {  
+    event.preventDefault()
+    let page = $(this).attr('href').split('page=')[1]
+    paginationFetch(page)
+  });
+
+}
+
+
+function paginationFetch(page) {
+  $.ajax({
+    method: 'GET',
+    url: `/fetch?page=${page}`,
+    success: function (response) { 
+      let clients = response.clients.data;
+      $('.next-page').attr('href', response.clients.next_page_url);
+      $('.prev-page').attr('href', response.clients.prev_page_url);
+      $('.details').html(`Page: ${response.clients.current_page} | showing ${response.clients.from} - ${response.clients.to} of ${response.clients.total}`)
+      $('tbody').html('')
+      $.each(clients, function (key, item) {
+        $('tbody').append(`
+        <tr>
+          <td data-label="Nom">${item.nom}</td>
+          <td data-label="Prénom">${item.prenom}</td>
+          <td data-label="CIN">${item.cin}</td>
+          <td data-label="N° Permis">${item.numero_permis}</td>
+          <td data-label="Téléphone">${item.telephone}</td>
+          <td data-label="Actions">
+            <span class="material-icons-round show" data-id="${item.id}">visibility</span>
+            <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+            <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
+          </td>
+        </tr>
+        `);
+      });
+      $('.link').removeClass('active')
+      $.each($('.link'), function (index, link) {
+        ($(link).data('page') == response.clients.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
+      })
+    }
+  })
 }
 
 function deleteAction() {
@@ -200,6 +266,7 @@ $('#rechercher').on('keyup', function () {
     data: {search: value},
     success: function (response) {
       $('tbody').html('')
+      $('#pagination').hide()
       if (value) {
         $.each(response.result, function (index, item) { 
           $('tbody').append(`
