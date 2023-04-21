@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -116,12 +115,5 @@ class ClientController extends Controller
 
     return response()->json(['result' => $result]);
   }
-
-  // public function paginationFetch(Request $request)
-  // {
-  //   if ($request->ajax()) {
-  //     $this->all();
-  //   }
-  // }
 
 }

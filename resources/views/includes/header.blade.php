@@ -13,8 +13,7 @@
         <span class="material-icons-round">
           account_circle
         </span>
-        <span class="user">itsmeyuns</span>
-        {{-- {{auth()->user()->login}} --}}
+        <span class="user">{{auth()->user()->login}}</span>
         <span class="material-icons-round arrow-icon">
           expand_more
         </span>
@@ -29,10 +28,10 @@
           </a>
         </li>
         <li>
-          {{-- <a href="{{ route('logout') }}"
+          <a href="{{ route('logout') }}"
           onclick="event.preventDefault();
           document.getElementById('logout-form').submit();"
-          > --}}
+          >
             <span class="material-icons-round">
               logout
             </span>

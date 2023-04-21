@@ -9,21 +9,129 @@ let notification = new Notyf({
   }
 })
 
-fetchClients()
 $(document).ready(function(){
+  fetchClients()
+
+  // Hide Delete Modal
+  $('#cancelButton').on('click', function () {
+    $('#DeleteClientModal').parent().hide()
+  })
+
+  // Add an event listener to the confirm delete button in the modal
+  $('#confirmationButton').on('click', function() {
+    // Get the client ID from the hidden
+    let clientId = $('#deleteClientId').val();
+    // Send an Ajax request to delete the client
+    $.ajax({
+      url: '/clients/'+clientId,
+      type: 'DELETE',
+      success: function(response) {
+        $('.jquery-modal').hide();
+        if (response.status === 200) {
+          notification.success(response.success);
+          fetchClients()
+        } else {
+          notification.error(response.msg)
+        }
+      }
+    });
+  });
+
+  $('.ajouter').on('click', function () { 
+    $('#AddClientModal').modal('show')
+    resetAddClientForm()
+  });
+
+  // Search
+  $('#rechercher').on('keyup', function () { 
+    let value = $(this).val()
+    $.ajax({
+      type: "GET",
+      url: "/clients/search",
+      data: {search: value},
+      success: function (response) {
+        $('tbody').html('')
+        $('#pagination').hide()
+        if (value) {
+          $.each(response.result, function (index, item) { 
+            $('tbody').append(`
+            <tr>
+              <td data-th="Nom">${item.nom}</td>
+              <td data-th="Prénom">${item.prenom}</td>
+              <td data-th="CIN">${item.cin}</td>
+              <td data-th="N° Permis">${item.numero_permis}</td>
+              <td data-th="Téléphone">${item.telephone}</td>
+              <td data-th="Actions">
+                <span class="material-icons-round show" data-id="${item.id}">visibility</span>
+                <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+                <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
+              </td>
+            </tr>
+            `);
+          });
+        } else {
+          fetchClients()
+        }
+        passIdToModal()
+        deleteAction()
+        editAction()
+        showAction()
+      }
+    });
+
+
+  })
+
+  $(editForm).on('submit',function (e) { 
+    e.preventDefault();
+    // Get the client ID from the hidden input
+    let clientId = $('#editClientId').val()
+    // Get data from the form
+    let formData = {
+      nom : $('#edit_nom').val(),
+      prenom : $('#edit_prenom').val(),
+      sexe : $('#edit_sexe').val(),
+      date_naissance : $('#edit_date_naissance').val(),
+      lieu_naissance : $('#edit_lieu_naissance').val(),
+      adresse : $('#edit_adresse').val(),
+      cin : $('#edit_cin').val(),
+      numero_permis : $('#edit_numero_permis').val(),
+      telephone : $('#edit_telephone').val(),
+      email : $('#edit_email').val(),
+      observation : $('#edit_observation').val(),
+    }
+    $.ajax({
+      type: 'PATCH',
+      url: `/clients/${clientId}`,
+      data: formData,
+      dataType: 'json',
+      beforeSend:function(){
+        $(editForm).find('div.error').text('');
+      },
+      success: function (response) {
+        $('.jquery-modal').hide();
+        if (response.status === 200) {
+          notification.success(response.success);
+          fetchClients()
+        } else {
+          notification.error(response.msg)
+        }
+      },
+      error: function (xhr) {
+        let errors = xhr.responseJSON.errors;
+        $.each(errors, function (field, messages) {
+          $('.error.' + field + '_error').html(messages[0]);
+          $('.error.' + field + '_error').prev().removeClass('success');
+          $('.error.' + field + '_error').prev().addClass('bounce');
+        });
+      }
+    });
+  });
+
   addAction()
+
 });
 
-
-// Hide Delete Modal
-$('#cancelButton').on('click', function () {
-  $('#DeleteClientModal').parent().hide()
-})
-
-$('.ajouter').on('click', function () { 
-  $('#AddClientModal').modal('show')
-  resetAddClientForm()
-})
 
 
 function passIdToModal() { 
@@ -45,26 +153,11 @@ function fetchClients() {
       let clients = response.clients.data
       let links = response.clients.links
       console.log(response.clients);
-      $('tbody').html('')
-      $.each(clients, function (key, item) {
-        $('tbody').append(`
-        <tr>
-          <td data-th="Nom">${item.nom}</td>
-          <td data-th="Prénom">${item.prenom}</td>
-          <td data-th="CIN">${item.cin}</td>
-          <td data-th="N° Permis">${item.numero_permis}</td>
-          <td data-th="Téléphone">${item.telephone}</td>
-          <td data-th="Actions">
-            <span class="material-icons-round show" data-id="${item.id}">visibility</span>
-            <span class="material-icons-round edit" data-id="${item.id}">edit</span>
-            <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
-          </td>
-        </tr>
-        `);
-      });
+      fillTable(clients)
       $('#pagination').show()
       $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
       $('#pagination div.links').html('')
+      // Add Pagination links
       $.each(links, function (index, link) {
         let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
         if (index === 0) {
@@ -81,12 +174,7 @@ function fetchClients() {
       })
       // Add Active Class To Element That Represent Page 1
       $('#pagination .link:nth-child(2)').addClass('active')
-      pagination()
-      passIdToModal()
-      deleteAction()
-      editAction()
-      showAction()
-
+      navigate()
     },
     error: function(error) {
       console.error(error);
@@ -94,7 +182,7 @@ function fetchClients() {
   });
 }
 
-function pagination() {
+function navigate() {
   $('#pagination a').on('click', function (event) {  
     event.preventDefault()
     let page = $(this).attr('href').split('page=')[1]
@@ -102,7 +190,6 @@ function pagination() {
   });
 
 }
-
 
 function paginationFetch(page) {
   $.ajax({
@@ -113,23 +200,7 @@ function paginationFetch(page) {
       $('.next-page').attr('href', response.clients.next_page_url);
       $('.prev-page').attr('href', response.clients.prev_page_url);
       $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
-      $('tbody').html('')
-      $.each(clients, function (key, item) {
-        $('tbody').append(`
-        <tr>
-          <td data-th="Nom">${item.nom}</td>
-          <td data-th="Prénom">${item.prenom}</td>
-          <td data-th="CIN">${item.cin}</td>
-          <td data-th="N° Permis">${item.numero_permis}</td>
-          <td data-th="Téléphone">${item.telephone}</td>
-          <td data-th="Actions">
-            <span class="material-icons-round show" data-id="${item.id}">visibility</span>
-            <span class="material-icons-round edit" data-id="${item.id}">edit</span>
-            <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
-          </td>
-        </tr>
-        `);
-      });
+      fillTable(clients)
       $('.link').removeClass('active')
       $.each($('.link'), function (index, link) {
         ($(link).data('page') == response.clients.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
@@ -155,29 +226,8 @@ function deleteAction() {
   })
 }
 
-// Add an event listener to the confirm delete button in the modal
-$('#confirmationButton').on('click', function() {
-  // Get the client ID from the hidden
-  let clientId = $('#deleteClientId').val();
-  // Send an Ajax request to delete the client
-  $.ajax({
-    url: '/clients/'+clientId,
-    type: 'DELETE',
-    success: function(response) {
-      $('.jquery-modal').hide();
-      if (response.status === 200) {
-        notification.success(response.success);
-        fetchClients()
-      } else {
-        notification.error(response.msg)
-      }
-    }
-  });
-});
-
 function editAction() { 
   $('.edit').on('click', function() {
-
     // Get the client ID from the hidden input
     let clientId = $('#editClientId').val();
     let editForm = $('#edit-client-form')
@@ -190,7 +240,6 @@ function editAction() {
           $('#EditClientModal').modal('show')
           // Reset Errors
           editForm.find('div.error').text('');
-
           // Update the form fields with the response data
           $('#edit_nom').val(response.client.nom);
           $('#edit_prenom').val(response.client.prenom);
@@ -211,103 +260,16 @@ function editAction() {
   });
 }
 
-$(editForm).on('submit',function (e) { 
-  e.preventDefault();
-  // Get the client ID from the hidden input
-  let clientId = $('#editClientId').val()
-  // Get data from the form
-  let formData = {
-    nom : $('#edit_nom').val(),
-    prenom : $('#edit_prenom').val(),
-    sexe : $('#edit_sexe').val(),
-    date_naissance : $('#edit_date_naissance').val(),
-    lieu_naissance : $('#edit_lieu_naissance').val(),
-    adresse : $('#edit_adresse').val(),
-    cin : $('#edit_cin').val(),
-    numero_permis : $('#edit_numero_permis').val(),
-    telephone : $('#edit_telephone').val(),
-    email : $('#edit_email').val(),
-    observation : $('#edit_observation').val(),
-  }
-  $.ajax({
-    type: 'PATCH',
-    url: `/clients/${clientId}`,
-    data: formData,
-    dataType: 'json',
-    beforeSend:function(){
-      $(editForm).find('div.error').text('');
-    },
-    success: function (response) {
-      $('.jquery-modal').hide();
-      if (response.status === 200) {
-        notification.success(response.success);
-        fetchClients()
-      } else {
-        notification.error(response.msg)
-      }
-    },
-    error: function (xhr) {
-      let errors = xhr.responseJSON.errors;
-      $.each(errors, function (field, messages) {
-        $('.error.' + field + '_error').html(messages[0]);
-        $('.error.' + field + '_error').prev().removeClass('success');
-        $('.error.' + field + '_error').prev().addClass('bounce');
-      });
-    }
-  });
-});
-
-// Search
-$('#rechercher').on('keyup', function () { 
-  let value = $(this).val()
-  $.ajax({
-    type: "GET",
-    url: "/clients/search",
-    data: {search: value},
-    success: function (response) {
-      $('tbody').html('')
-      $('#pagination').hide()
-      if (value) {
-        $.each(response.result, function (index, item) { 
-          $('tbody').append(`
-          <tr>
-            <td data-th="Nom">${item.nom}</td>
-            <td data-th="Prénom">${item.prenom}</td>
-            <td data-th="CIN">${item.cin}</td>
-            <td data-th="N° Permis">${item.numero_permis}</td>
-            <td data-th="Téléphone">${item.telephone}</td>
-            <td data-th="Actions">
-              <span class="material-icons-round show" data-id="${item.id}">visibility</span>
-              <span class="material-icons-round edit" data-id="${item.id}">edit</span>
-              <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
-            </td>
-          </tr>
-          `);
-        });
-      } else {
-        fetchClients()
-      }
-      passIdToModal()
-      deleteAction()
-      editAction()
-      showAction()
-    }
-  });
-
-
-})
-
 // Show Client Card
 function showAction() { 
   $('.show').on('click', function () {
     let clientId = $(this).data('id');
-    $('#ShowClientModal').modal('show')
     $.ajax({
       method: 'GET',
       url: `/clients/show/${clientId}`,
       success: function (response) {
-        console.log(response, clientId);
         if (response.status === 200) {
+          $('#ShowClientModal').modal('show')
           $.each(response.client, function (key, value) {
             if (key === 'email' && !value) {
               $(`#show_${key}`).html('#####')
@@ -315,6 +277,8 @@ function showAction() {
               $(`#show_${key}`).html(value)
             }
           });
+        } else {
+          notification.error(response.msg)
         }
       }
     })
@@ -357,4 +321,29 @@ function resetAddClientForm() {
   $(addForm)[0].reset();
   $('input').removeClass('success');
   $('input').removeClass('bounce');
+}
+
+function fillTable(data) {
+  $('tbody').html('')
+  $.each(data, function (key, item) {
+    $('tbody').append(`
+    <tr>
+      <td data-th="Nom">${item.nom}</td>
+      <td data-th="Prénom">${item.prenom}</td>
+      <td data-th="CIN">${item.cin}</td>
+      <td data-th="N° Permis">${item.numero_permis}</td>
+      <td data-th="Téléphone">${item.telephone}</td>
+      <td data-th="Actions">
+        <span class="material-icons-round show" data-id="${item.id}">visibility</span>
+        <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+        <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
+      </td>
+    </tr>
+    `);
+  });
+  // Actions
+  passIdToModal()
+  deleteAction()
+  editAction()
+  showAction()
 }
