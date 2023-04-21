@@ -32,20 +32,24 @@
     </span></div>
   </form>
 </div>
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Prénom</th>
-      <th>CIN</th>
-      <th>N° permis</th>
-      <th>Téléphone</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>CIN</th>
+        <th>Numéro permis</th>
+        <th>Télephone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>
+
 <div id="pagination">
   <div class="details"></div>
   <div class="links">

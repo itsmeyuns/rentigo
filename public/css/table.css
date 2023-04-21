@@ -1,70 +1,116 @@
 @import url(master.css);
 @import url(filterBar.css);
 
-table {
+.table {
+  margin: auto;
+  max-width: 100%;
   width: 100%;
-}
-
-table, td, th {
   border-collapse: collapse;
-  text-align: center;
-  padding: 12px 15px;
 }
 
-table thead th {
-  background-color: var(--hover-color);
-  color: var(--main-color);
-  text-transform: capitalize;
+.table thead tr:first-child {
+  border-top: none;
+  background: var(--primary-color);
+  color: #fff;
 }
 
-table tbody tr:nth-child(even){
-  background-color: #f2f2f2;
+.table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
 }
 
-table tbody td .material-icons-round {
-  font-size: 20px;
+.table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  table, td, th {
-    padding: 8px 10px;
+.table th {
+  display: none;
+}
+
+.table td {
+  display: block;
+  position: relative;
+  text-align: right;
+}
+
+.table td:first-child {
+  margin-top: .5em;
+}
+
+.table td:last-child {
+  margin-bottom: .5em;
+}
+
+.table td:before {
+  content: attr(data-th) ": ";
+  color: #000;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  padding-left: 15px;
+  text-align: left;
+}
+
+.table th {
+  text-align: left;
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table tr {
+  border-color: #bfbfbf;
+}
+
+.table th,
+.table td {
+  padding: .5em 1em;
+}
+
+.table .material-icons-round {
+  font-size: 18px;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+.table-container::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+@media screen and (max-width: 601px) {
+  .table tr:nth-child(2) {
+    border-top: none;
   }
 }
-
-@media (max-width: 665px) {
-  table td {
-    text-align: right;
-    position: relative;
+@media screen and (min-width: 600px) {
+  .table tbody tr:hover {
+    background-color: #d8e7f3;
   }
-
-  table td:not(td:last-child) {
-    border-bottom: 1px solid #ccc;
-  }
-
-  tbody tr:nth-child(even){
-    background-color: #f2f2f2;
-  } 
-
-  table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-    padding-left: 15px;
-    text-align: left;
-  }
-
-  table thead {
+  .table td:before {
     display: none;
   }
+  .table th,
+  .table td {
+    display: table-cell;
+    padding: .25em .5em;
+    text-align: left;
 
-  table tr, table td {
-    display: block;
-    width: 100%;
   }
-
-  table tr {
-    margin-bottom: 15px;
+  .table th:first-child,
+  .table td:first-child {
+    padding-left: 0;
+  }
+  .table th:last-child,
+  .table td:last-child {
+    padding-right: 0;
+  }
+  .table th,
+  .table td {
+    padding: 1em !important;
   }
 }
-

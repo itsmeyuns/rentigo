@@ -49,12 +49,12 @@ function fetchClients() {
       $.each(clients, function (key, item) {
         $('tbody').append(`
         <tr>
-          <td data-label="Nom">${item.nom}</td>
-          <td data-label="Prénom">${item.prenom}</td>
-          <td data-label="CIN">${item.cin}</td>
-          <td data-label="N° Permis">${item.numero_permis}</td>
-          <td data-label="Téléphone">${item.telephone}</td>
-          <td data-label="Actions">
+          <td data-th="Nom">${item.nom}</td>
+          <td data-th="Prénom">${item.prenom}</td>
+          <td data-th="CIN">${item.cin}</td>
+          <td data-th="N° Permis">${item.numero_permis}</td>
+          <td data-th="Téléphone">${item.telephone}</td>
+          <td data-th="Actions">
             <span class="material-icons-round show" data-id="${item.id}">visibility</span>
             <span class="material-icons-round edit" data-id="${item.id}">edit</span>
             <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
@@ -63,7 +63,7 @@ function fetchClients() {
         `);
       });
       $('#pagination').show()
-      $('.details').html(`Page: ${response.clients.current_page} | showing ${response.clients.from} - ${response.clients.to} of ${response.clients.total}`)
+      $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
       $('#pagination div.links').html('')
       $.each(links, function (index, link) {
         let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
@@ -72,7 +72,7 @@ function fetchClients() {
                       <span class="material-icons-round">navigate_before</span>
                     </a>`
         }
-        if (index === links.length-1) {
+        else if (index === links.length-1) {
           element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
                       <span class="material-icons-round">navigate_next</span>
                     </a>`
@@ -112,17 +112,17 @@ function paginationFetch(page) {
       let clients = response.clients.data;
       $('.next-page').attr('href', response.clients.next_page_url);
       $('.prev-page').attr('href', response.clients.prev_page_url);
-      $('.details').html(`Page: ${response.clients.current_page} | showing ${response.clients.from} - ${response.clients.to} of ${response.clients.total}`)
+      $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
       $('tbody').html('')
       $.each(clients, function (key, item) {
         $('tbody').append(`
         <tr>
-          <td data-label="Nom">${item.nom}</td>
-          <td data-label="Prénom">${item.prenom}</td>
-          <td data-label="CIN">${item.cin}</td>
-          <td data-label="N° Permis">${item.numero_permis}</td>
-          <td data-label="Téléphone">${item.telephone}</td>
-          <td data-label="Actions">
+          <td data-th="Nom">${item.nom}</td>
+          <td data-th="Prénom">${item.prenom}</td>
+          <td data-th="CIN">${item.cin}</td>
+          <td data-th="N° Permis">${item.numero_permis}</td>
+          <td data-th="Téléphone">${item.telephone}</td>
+          <td data-th="Actions">
             <span class="material-icons-round show" data-id="${item.id}">visibility</span>
             <span class="material-icons-round edit" data-id="${item.id}">edit</span>
             <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
@@ -271,12 +271,12 @@ $('#rechercher').on('keyup', function () {
         $.each(response.result, function (index, item) { 
           $('tbody').append(`
           <tr>
-            <td data-label="Nom">${item.nom}</td>
-            <td data-label="Prénom">${item.prenom}</td>
-            <td data-label="CIN">${item.cin}</td>
-            <td data-label="N° Permis">${item.numero_permis}</td>
-            <td data-label="Téléphone">${item.telephone}</td>
-            <td data-label="Actions">
+            <td data-th="Nom">${item.nom}</td>
+            <td data-th="Prénom">${item.prenom}</td>
+            <td data-th="CIN">${item.cin}</td>
+            <td data-th="N° Permis">${item.numero_permis}</td>
+            <td data-th="Téléphone">${item.telephone}</td>
+            <td data-th="Actions">
               <span class="material-icons-round show" data-id="${item.id}">visibility</span>
               <span class="material-icons-round edit" data-id="${item.id}">edit</span>
               <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
@@ -296,7 +296,7 @@ $('#rechercher').on('keyup', function () {
 
 
 })
-// $('#ShowClientModal').modal('show')
+
 // Show Client Card
 function showAction() { 
   $('.show').on('click', function () {
