@@ -152,29 +152,32 @@ function fetchClients() {
       console.log(response.clients);
       let clients = response.clients.data
       let links = response.clients.links
-      console.log(response.clients);
       fillTable(clients)
-      $('#pagination').show()
-      $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
-      $('#pagination div.links').html('')
-      // Add Pagination links
-      $.each(links, function (index, link) {
-        let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
-        if (index === 0) {
-          element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
-                      <span class="material-icons-round">navigate_before</span>
-                    </a>`
-        }
-        else if (index === links.length-1) {
-          element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
-                      <span class="material-icons-round">navigate_next</span>
-                    </a>`
-        }
-        $('#pagination div.links').append(element)
-      })
-      // Add Active Class To Element That Represent Page 1
-      $('#pagination .link:nth-child(2)').addClass('active')
-      navigate()
+      if (clients.length > 0) {
+        $('#pagination').show()
+        $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
+        $('#pagination div.links').html('')
+        // Add Pagination links
+        $.each(links, function (index, link) {
+          let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
+          if (index === 0) {
+            element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
+                        <span class="material-icons-round">navigate_before</span>
+                      </a>`
+          }
+          else if (index === links.length-1) {
+            element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
+                        <span class="material-icons-round">navigate_next</span>
+                      </a>`
+          }
+          $('#pagination div.links').append(element)
+        })
+        // Add Active Class To Element That Represent Page 1
+        $('#pagination .link:nth-child(2)').addClass('active')
+        navigate()
+      } else {
+        $('#pagination').hide()
+      }
     },
     error: function(error) {
       console.error(error);
@@ -341,9 +344,26 @@ function fillTable(data) {
     </tr>
     `);
   });
+  defaultTable()
   // Actions
   passIdToModal()
   deleteAction()
   editAction()
   showAction()
+}
+
+function defaultTable() {
+  let tbodyLenght = $('tbody').children().length;
+  for (let i = tbodyLenght; i < 10; i++) {
+    $('tbody').append(`
+    <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr> 
+    `)
+  }
 }
