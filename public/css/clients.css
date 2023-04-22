@@ -288,3 +288,15 @@
   background-color: var(--main-color);
   color: #fff;
 }
+
+#no-result {
+  display: none;
+  max-width: 350px;
+  margin: auto;
+  text-align: center;
+}
+
+#no-result .text {
+  font-size: 25px;
+  font-weight: 500;
+} 

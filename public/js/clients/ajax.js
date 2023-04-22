@@ -52,23 +52,28 @@ $(document).ready(function(){
       success: function (response) {
         $('tbody').html('')
         $('#pagination').hide()
+        $('#no-result').hide()
         if (value) {
-          $.each(response.result, function (index, item) { 
-            $('tbody').append(`
-            <tr>
-              <td data-th="Nom">${item.nom}</td>
-              <td data-th="Prénom">${item.prenom}</td>
-              <td data-th="CIN">${item.cin}</td>
-              <td data-th="N° Permis">${item.numero_permis}</td>
-              <td data-th="Téléphone">${item.telephone}</td>
-              <td data-th="Actions">
-                <span class="material-icons-round show" data-id="${item.id}">visibility</span>
-                <span class="material-icons-round edit" data-id="${item.id}">edit</span>
-                <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
-              </td>
-            </tr>
-            `);
-          });
+          if (response.result.length > 0) {
+            $.each(response.result, function (index, item) { 
+              $('tbody').append(`
+              <tr>
+                <td data-th="Nom">${item.nom}</td>
+                <td data-th="Prénom">${item.prenom}</td>
+                <td data-th="CIN">${item.cin}</td>
+                <td data-th="N° Permis">${item.numero_permis}</td>
+                <td data-th="Téléphone">${item.telephone}</td>
+                <td data-th="Actions">
+                  <span class="material-icons-round show" data-id="${item.id}">visibility</span>
+                  <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+                  <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
+                </td>
+              </tr>
+              `);
+            });
+          } else {
+            $('#no-result').show()
+          }
         } else {
           fetchClients()
         }

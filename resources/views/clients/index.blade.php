@@ -49,6 +49,10 @@
     </tbody>
   </table>
 </div>
+<div id="no-result">
+  <img src="{{asset('pics/no-data.svg')}}" alt="">
+  <p class="text">Aucun résultat trouvé</p>
+</div>
 
 <div id="pagination">
   <div class="details"></div>
