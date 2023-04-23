@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('numero_permis')->unique();
             $table->text('observation')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

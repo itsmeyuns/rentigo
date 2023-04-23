@@ -23,7 +23,7 @@ $(document).ready(function(){
     let clientId = $('#deleteClientId').val();
     // Send an Ajax request to delete the client
     $.ajax({
-      url: '/clients/'+clientId,
+      url: `/clients/${clientId}`,
       type: 'DELETE',
       success: function(response) {
         $('.jquery-modal').hide();
@@ -49,38 +49,24 @@ $(document).ready(function(){
       type: "GET",
       url: "/clients/search",
       data: {search: value},
-      success: function (response) {
+      beforeSend: function() {
         $('tbody').html('')
-        $('#pagination').hide()
         $('#no-result').hide()
+        $('#pagination').hide()
+        $('#loader-container').show();
+      },
+      success: function (response) {
         if (value) {
           if (response.result.length > 0) {
-            $.each(response.result, function (index, item) { 
-              $('tbody').append(`
-              <tr>
-                <td data-th="Nom">${item.nom}</td>
-                <td data-th="Prénom">${item.prenom}</td>
-                <td data-th="CIN">${item.cin}</td>
-                <td data-th="N° Permis">${item.numero_permis}</td>
-                <td data-th="Téléphone">${item.telephone}</td>
-                <td data-th="Actions">
-                  <span class="material-icons-round show" data-id="${item.id}">visibility</span>
-                  <span class="material-icons-round edit" data-id="${item.id}">edit</span>
-                  <span class="material-icons-round delete" data-id="${item.id}">delete</span> 
-                </td>
-              </tr>
-              `);
-            });
+            // Fill in the table
+            fillTable(response.result)
           } else {
             $('#no-result').show()
           }
+          $('#loader-container').hide()
         } else {
           fetchClients()
         }
-        passIdToModal()
-        deleteAction()
-        editAction()
-        showAction()
       }
     });
 
@@ -153,6 +139,11 @@ function fetchClients() {
   $.ajax({
     url: '/fetch',
     type: 'GET',
+    beforeSend: function() {
+      $('tbody').html('')
+      $('#loader-container').show(); // Show the loader when the AJAX request starts
+      $('#no-result').hide()
+    },
     success: function(response) {
       console.log(response.clients);
       let clients = response.clients.data
@@ -183,6 +174,7 @@ function fetchClients() {
       } else {
         $('#pagination').hide()
       }
+      $('#loader-container').hide();
     },
     error: function(error) {
       console.error(error);
@@ -203,16 +195,22 @@ function paginationFetch(page) {
   $.ajax({
     method: 'GET',
     url: `/fetch?page=${page}`,
+    beforeSend: function() {
+      $('tbody').html('')
+      $('#no-result').hide()
+      $('#loader-container').show();
+    },
     success: function (response) { 
       let clients = response.clients.data;
       $('.next-page').attr('href', response.clients.next_page_url);
       $('.prev-page').attr('href', response.clients.prev_page_url);
       $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
-      fillTable(clients)
+      fillTable(clients);
       $('.link').removeClass('active')
       $.each($('.link'), function (index, link) {
         ($(link).data('page') == response.clients.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
-      })
+      });
+      $('#loader-container').hide();
     }
   })
 }
@@ -361,14 +359,14 @@ function defaultTable() {
   let tbodyLenght = $('tbody').children().length;
   for (let i = tbodyLenght; i < 10; i++) {
     $('tbody').append(`
-    <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr> 
+      <tr>
+        <td data-th=""></td>
+        <td data-th=""></td>
+        <td data-th=""></td>
+        <td data-th=" "></td>
+        <td data-th=" "></td>
+        <td data-th=" "> </td>
+      </tr> 
     `)
   }
 }

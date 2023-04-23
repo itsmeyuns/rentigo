@@ -44,14 +44,15 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
-      
-    </tbody>
+    <tbody></tbody>
   </table>
-</div>
-<div id="no-result">
-  <img src="{{asset('pics/no-data.svg')}}" alt="">
-  <p class="text">Aucun résultat trouvé</p>
+  <div id="loader-container">
+    <div class="loader"></div>
+  </div>
+  <div id="no-result">
+    <img src="{{asset('pics/no-data.svg')}}" alt="">
+    <p class="text">Aucun résultat trouvé</p>
+  </div>
 </div>
 
 <div id="pagination">

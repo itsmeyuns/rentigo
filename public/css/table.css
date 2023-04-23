@@ -43,7 +43,7 @@
 }
 
 .table td:before {
-  content: attr(data-th) ": ";
+  content: attr(data-th);
   color: #000;
   position: absolute;
   left: 0;
