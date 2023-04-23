@@ -76,7 +76,7 @@
   transition: .3s;
 }
 
-.box:hover img {
+.box-body:hover img {
   transform: scale(1.05);
 }
 

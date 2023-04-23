@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="form-container">
-  <form action=""class="add-form">
+  <form action="" class="add-form">
     <div class="form-item">
       <label for="matricule">matricule <span class="star">*</span> </label>
       <input type="text" name="matricule" id="matricule">
@@ -109,7 +109,7 @@
           <span class="material-icons-round icon">
             add_photo_alternate
           </span>
-          <span >photo véhicule <span class="star">*</span> </span>
+          <span>photo véhicule</span>
         </div>
         <div class="error"></div>
         <input type="file" name="photo" id="photo">

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-class ClientRequest extends FormRequest
+class VehiculeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,19 @@ class ClientRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'nom' => 'required | string | max:80',
-            'prenom' => 'required | string | max:80',
-            'sexe' => 'required | string | max:1',
-            'date_naissance' => 'required | date',
-            'lieu_naissance' => 'required | string',
-            'adresse' => 'required | string',
-            'cin' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
-            'telephone' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
-            'email' => ['nullable', 'email', Rule::unique('clients')->ignore($this->id)],
-            'numero_permis' => ['required', 'string', Rule::unique('clients')->ignore($this->id)],
-            'observation' => 'nullable'
+            'matricule' => ['required', 'string', 'max:30', Rule::unique('vehicule')->ignore($this->id)],
+            'marque' => 'required | string | max:100',
+            'modele' => 'required | string | max:80',
+            'couleur' => 'required | string | max:40',
+            'kilometrage' => 'required | integer | min:0',
+            'carburant' => 'required | string | max:40',
+            'automatique' => 'required | string | max:3',
+            'prix_location' => 'required | numeric | min:0',
+            'photo' => 'nullable | text',
+            'nombre_portes' => 'required | integer | min:1',
+            'nombre_places' => 'required | integer | min:1',
+            'diponibilite' => 'required | string | max:50',
         ];
     }
 
@@ -49,5 +49,5 @@ class ClientRequest extends FormRequest
             'errors' => $validator->errors()
         ], 422));
     }
-}
 
+}

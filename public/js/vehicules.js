@@ -1,4 +1,7 @@
 const options = document.querySelectorAll(".option");
+// let searchForm = document.getElementById('search-vehicule-form')
+// searchForm.addEventListener('submit', (event)=> event.preventDefault())
+
 
 options.forEach((option) => {
   option.addEventListener("click", () => {
@@ -16,7 +19,6 @@ sp.forEach(element => {
 });
 
 let addForm = document.querySelector('.add-form');
-
 addForm.addEventListener('submit', function (e) {
   if (!validateFields()) {
     e.preventDefault()
@@ -25,7 +27,7 @@ addForm.addEventListener('submit', function (e) {
 
 
 
-let inputs = document.querySelectorAll('input:not(input[type=checkbox], input[type=file])');
+let inputs = addForm.querySelectorAll('input:not(input[type=checkbox], input[type=file])');
 inputs.forEach((input)=>{
   input.addEventListener('blur', function () {
     let inputValue = input.value.trim();
@@ -43,7 +45,6 @@ inputs.forEach((input)=>{
 
 let file = document.getElementById('photo')
 file.addEventListener('change', function () {
-  const photoParent = file.parentElement;
   if (this.files[0]) {
     var picture = new FileReader();
     picture.readAsDataURL(this.files[0])
@@ -51,8 +52,6 @@ file.addEventListener('change', function () {
       document.getElementById('uploadedImage').setAttribute('src', event.target.result)
       document.querySelector('.imgPreview').style.display = "block"
     })
-    photoParent.classList.add('success')
-    photoParent.querySelector('.error').textContent =  ''
   }
 })
 
@@ -78,8 +77,6 @@ function setSuccess(element) {
 
 function validateFields() {
   let valid = true;
-  let photo = document.getElementById('photo')
-  const photoParent = photo.parentElement;
   inputs.forEach(input => {
     const inputValue = input.value.trim();
     if (inputValue === '') {
@@ -89,14 +86,6 @@ function validateFields() {
       setSuccess(input);
     }
   })
-
-  if (!photo.value) {
-    setErrors(photo, 'Ce champ est obligatoire');
-    valid = false;
-  } else {
-    photoParent.classList.add('success')
-    photoParent.querySelector('.error').textContent =  ''
-  }
 
   return valid;
 

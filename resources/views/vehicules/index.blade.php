@@ -6,10 +6,10 @@
 
 @section('content')
 <div class="bar">
-  <form action="">
+  <form id="search-vehicule-form">
     <div class="input-holder">
       <input type="text" name="rechercher" placeholder="Rechercher" id="rechercher">
-      <button type="submit">
+      <button type="button">
         <span class="material-icons-round">
           search
         </span>
@@ -48,18 +48,14 @@
         <h3>Fiat</h3>
         <p>2021</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v3.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-        edit
-      </a>
-      <span class="material-icons-round delete">
-        delete
-      </span>
+      <span class="material-icons-round edit">edit</span>
+      <span class="material-icons-round delete">delete</span>
     </div>
   </div>
   <div class="box">
@@ -68,15 +64,13 @@
         <h3>Megan</h3>
         <p>2020</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v2.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-          edit
-      </a>
+      <span class="material-icons-round edit">edit</span>
       <span class="material-icons-round delete">
         delete
       </span>
@@ -88,15 +82,13 @@
         <h3>land roverr</h3>
         <p>2021</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v1.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-          edit
-      </a>
+      <span class="material-icons-round edit">edit</span>
       <span class="material-icons-round delete">
         delete
       </span>
@@ -108,15 +100,13 @@
         <h3>Dacia</h3>
         <p>2021</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v2.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-          edit
-      </a>
+      <span class="material-icons-round edit">edit</span>
       <span class="material-icons-round delete">
         delete
       </span>
@@ -128,15 +118,13 @@
         <h3>Dacia</h3>
         <p>2021</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v1.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-        edit
-      </a>
+      <span class="material-icons-round edit">edit</span>
       <span class="material-icons-round delete">
         delete
       </span>
@@ -148,15 +136,13 @@
         <h3>Dacia</h3>
         <p>2021</p>
       </div>
-      <p>250$<span>/Jour</span></p>
+      <p>250MAD<span>/Jour</span></p>
     </div>
     <div class="box-body">
       <img src="pics/v3.png" alt="">
     </div>
     <div class="box-footer">
-      <a href="/vehicules/{vehicule}/edit" class="material-icons-round edit">
-        edit
-      </a>
+      <span class="material-icons-round edit">edit</span>
       <span class="material-icons-round delete">
         delete
       </span>
