@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VehiculeController;
+use App\Http\Requests\VehiculeRequest;
 use App\Models\Client;
 
 /*
@@ -25,7 +27,6 @@ Route::view('/reservations', 'reservations');
 
 
 
-Route::view('/vehicules', 'vehicules.index');
 Route::view('/vehicules/create', 'vehicules.create');
 
 Route::view('/agents', 'agents.index');
@@ -47,5 +48,16 @@ Route::prefix('/clients')->group(function () {
   Route::delete('/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
   Route::get('/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
   Route::patch('/{id}', [ClientController::class, 'update'])->name('clients.update');
+  Route::get('/fetch', [ClientController::class, 'all'])->name('clients.fetch');
 });
-Route::get('/fetch', [ClientController::class, 'all']);
+
+Route::prefix('/vehicules')->group(function () {
+  Route::get('/', [VehiculeController::class, 'index'])->name('vehicules.index');
+  Route::post('/store', [VehiculeController::class, 'store'])->name('vehicules.store');
+  Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
+  Route::put('/{id}', [VehiculeController::class, 'update'])->name('vehicules.update');
+  Route::get('/fetch', [VehiculeController::class, 'all']);
+  Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
+  Route::delete('/{id}', [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
+  Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
+});

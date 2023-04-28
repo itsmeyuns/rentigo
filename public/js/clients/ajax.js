@@ -1,13 +1,5 @@
 let addForm = $('#add-client-form');
 let editForm = $('#edit-client-form');
-let notification = new Notyf({
-  duration: 3500,
-  dismissible: true,
-  position: {
-    x: 'right',
-    y: 'top'
-  }
-})
 
 $(document).ready(function(){
   fetchClients()
@@ -38,8 +30,8 @@ $(document).ready(function(){
   });
 
   $('.ajouter').on('click', function () { 
-    $('#AddClientModal').modal('show')
     resetAddClientForm()
+    $('#AddClientModal').modal('show')
   });
 
   // Search
@@ -52,7 +44,7 @@ $(document).ready(function(){
       beforeSend: function() {
         $('tbody').html('')
         $('#no-result').hide()
-        $('#pagination').hide()
+        $('.pagination').hide()
         $('#loader-container').show();
       },
       success: function (response) {
@@ -61,6 +53,7 @@ $(document).ready(function(){
             // Fill in the table
             fillTable(response.result)
           } else {
+            $('tbody').html('')
             $('#no-result').show()
           }
           $('#loader-container').hide()
@@ -69,8 +62,6 @@ $(document).ready(function(){
         }
       }
     });
-
-
   })
 
   $(editForm).on('submit',function (e) { 
@@ -137,7 +128,7 @@ function passIdToModal() {
 
 function fetchClients() { 
   $.ajax({
-    url: '/fetch',
+    url: 'clients/fetch',
     type: 'GET',
     beforeSend: function() {
       $('tbody').html('')
@@ -150,9 +141,9 @@ function fetchClients() {
       let links = response.clients.links
       fillTable(clients)
       if (clients.length > 0) {
-        $('#pagination').show()
+        $('.pagination').show()
         $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
-        $('#pagination div.links').html('')
+        $('.pagination div.links').html('')
         // Add Pagination links
         $.each(links, function (index, link) {
           let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
@@ -166,13 +157,13 @@ function fetchClients() {
                         <span class="material-icons-round">navigate_next</span>
                       </a>`
           }
-          $('#pagination div.links').append(element)
+          $('.pagination div.links').append(element)
         })
         // Add Active Class To Element That Represent Page 1
-        $('#pagination .link:nth-child(2)').addClass('active')
+        $('.pagination .link:nth-child(2)').addClass('active')
         navigate()
       } else {
-        $('#pagination').hide()
+        $('.pagination').hide()
       }
       $('#loader-container').hide();
     },
@@ -183,10 +174,12 @@ function fetchClients() {
 }
 
 function navigate() {
-  $('#pagination a').on('click', function (event) {  
+  $('.pagination a').on('click', function (event) {  
     event.preventDefault()
-    let page = $(this).attr('href').split('page=')[1]
-    paginationFetch(page)
+    if ($(this).attr('href')) {
+      let page = $(this).attr('href').split('page=')[1]
+      paginationFetch(page)
+    }
   });
 
 }
@@ -194,7 +187,7 @@ function navigate() {
 function paginationFetch(page) {
   $.ajax({
     method: 'GET',
-    url: `/fetch?page=${page}`,
+    url: `clients/fetch?page=${page}`,
     beforeSend: function() {
       $('tbody').html('')
       $('#no-result').hide()
@@ -217,7 +210,7 @@ function paginationFetch(page) {
 
 function deleteAction() {
   $('.delete').on('click', function () { 
-    let clientId = $(this).data('id');
+    let clientId = $(this).attr('data-id');
     $.ajax({
       url: `/clients/${clientId}/delete`,
       type: 'GET',

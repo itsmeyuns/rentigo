@@ -43,3 +43,14 @@ function openDropdown() {
   }
   document.querySelector('.profile-links').classList.toggle('show');
 }
+
+
+// Notification
+let notification = new Notyf({
+  duration: 3500,
+  dismissible: true,
+  position: {
+    x: 'right',
+    y: 'top'
+  }
+})

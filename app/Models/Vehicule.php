@@ -21,6 +21,6 @@ class Vehicule extends Model
         'photo',
         'nombre_portes',
         'nombre_places',
-        'diponibilite',
+        'disponibilite',
     ];
 }

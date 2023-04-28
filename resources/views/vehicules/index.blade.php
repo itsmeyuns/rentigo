@@ -5,152 +5,78 @@
 @section('title', 'Véhicules')
 
 @section('content')
-<div class="bar">
-  <form id="search-vehicule-form">
-    <div class="input-holder">
-      <input type="text" name="rechercher" placeholder="Rechercher" id="rechercher">
-      <button type="button">
-        <span class="material-icons-round">
-          search
-        </span>
-      </button>
-    </div>
-    <a href="/vehicules/create" class="ajouter">
-      <span class="material-icons-round plus">
-        add
-      </span>
-      <span class="material-icons-round car">
-        directions_car
-      </span>
-    </a>
-  </form>
-  <form action="">
-    <div class="filter">
-      <div class="option">
-        <input type="checkbox"  name="status" id="">
-        <span>En panne</span>
-      </div>
-      <div class="option">
-        <input type="checkbox"  name="status" id="">
-        <span>Loué</span>
-      </div>
-      <div class="option">
-        <input type="checkbox"  name="status" id="">
-        <span>Disponible</span> 
-      </div>
-    </div>
-</form>
-</div>
-<div class="box-container">
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>Fiat</h3>
-        <p>2021</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
-    </div>
-    <div class="box-body">
-      <img src="pics/v3.png" alt="">
-    </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">delete</span>
+<div class="vehicules-section">
+  <div id="AddVehiculeModal" class="modal">
+    @include('vehicules.modals.create')
+  </div>
+  <div id="DeleteVehiculeModal" class="modal delete-modal">
+    @include('vehicules.modals.delete')
+  </div>
+  <div id="EditVehiculeModal" class="modal">
+    @include('vehicules.modals.edit')
+  </div>
+
+  <div class="vehicule-section-head">
+    <div class="bar">
+      <form id="search-vehicule-form">
+        <div class="input-holder">
+          <input type="text" name="rechercher" placeholder="Rechercher" id="rechercher">
+          <button type="button">
+            <span class="material-icons-round">
+              search
+            </span>
+          </button>
+        </div>
+        <div class="ajouter">
+          <span class="material-icons-round plus">
+            add
+          </span>
+          <span class="material-icons-round car">
+            directions_car
+          </span>
+        </div>
+      </form>
+      <form action="" id="myform">
+        <div class="filter">
+          <div class="option">
+            <input type="checkbox"  name="status" value="En panne">
+            <span>En panne</span>
+          </div>
+          <div class="option">
+            <input type="checkbox"  name="status" value="Loué">
+            <span>Loué</span>
+          </div>
+          <div class="option">
+            <input type="checkbox"  name="status" value="Disponible">
+            <span>Disponible</span> 
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>Megan</h3>
-        <p>2020</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
+
+  <div class="vehicule-section-body">
+    <div class="box-container">
     </div>
-    <div class="box-body">
-      <img src="pics/v2.png" alt="">
+    <div id="loader-container">
+      <div class="loader"></div>
     </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">
-        delete
-      </span>
+    <div id="no-result">
+      <img src="{{asset('pics/no-data.svg')}}" alt="">
+      <p class="text">Aucun résultat trouvé</p>
     </div>
   </div>
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>land roverr</h3>
-        <p>2021</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
-    </div>
-    <div class="box-body">
-      <img src="pics/v1.png" alt="">
-    </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">
-        delete
-      </span>
+
+  <div class="pagination">
+    <div class="details"></div>
+    <div class="links">
     </div>
   </div>
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>Dacia</h3>
-        <p>2021</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
-    </div>
-    <div class="box-body">
-      <img src="pics/v2.png" alt="">
-    </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">
-        delete
-      </span>
-    </div>
-  </div>
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>Dacia</h3>
-        <p>2021</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
-    </div>
-    <div class="box-body">
-      <img src="pics/v1.png" alt="">
-    </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">
-        delete
-      </span>
-    </div>
-  </div>
-  <div class="box">
-    <div class="box-header">
-      <div class="box-inner">
-        <h3>Dacia</h3>
-        <p>2021</p>
-      </div>
-      <p>250MAD<span>/Jour</span></p>
-    </div>
-    <div class="box-body">
-      <img src="pics/v3.png" alt="">
-    </div>
-    <div class="box-footer">
-      <span class="material-icons-round edit">edit</span>
-      <span class="material-icons-round delete">
-        delete
-      </span>
-    </div>
-  </div>
+
 </div>
 @stop
 
 @section('js')
-<script src="{{ asset('js/vehicules.js') }}"></script>
+<script src="{{ asset('js/vehicules/vehicules.js') }}"></script>
+<script src="{{ asset('js/vehicules/ajax.js') }}"></script>
 @stop

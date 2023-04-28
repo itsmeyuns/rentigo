@@ -25,7 +25,7 @@ class VehiculeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => ['required', 'string', 'max:30', Rule::unique('vehicule')->ignore($this->id)],
+            'matricule' => ['required', 'string', 'max:30', Rule::unique('vehicules')->ignore($this->id)],
             'marque' => 'required | string | max:100',
             'modele' => 'required | string | max:80',
             'couleur' => 'required | string | max:40',
@@ -33,13 +33,12 @@ class VehiculeRequest extends FormRequest
             'carburant' => 'required | string | max:40',
             'automatique' => 'required | string | max:3',
             'prix_location' => 'required | numeric | min:0',
-            'photo' => 'nullable | text',
+            'photo' => 'image | mimes:jpeg,png,jpg | max:2048',
             'nombre_portes' => 'required | integer | min:1',
             'nombre_places' => 'required | integer | min:1',
-            'diponibilite' => 'required | string | max:50',
+            'disponibilite' => 'required | string | max:50',
         ];
     }
-
     public function faildValidation(Validator $validator)
     {
         // Return validation errors if validation fails
@@ -49,5 +48,4 @@ class VehiculeRequest extends FormRequest
             'errors' => $validator->errors()
         ], 422));
     }
-
 }

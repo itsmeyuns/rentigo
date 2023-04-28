@@ -8,7 +8,7 @@
 <div id="AddClientModal" class="modal">
   @include('clients.modal.create')
 </div>
-<div id="DeleteClientModal" class="modal">
+<div id="DeleteClientModal" class="modal delete-modal">
   @include('clients.modal.delete')
 </div>
 <div id="EditClientModal" class="modal">
@@ -27,9 +27,11 @@
         </span>
       </button>
     </div>
-    <div class="ajouter"><span class="material-icons-round">
-      person_add
-    </span></div>
+    <div class="ajouter">
+      <span class="material-icons-round">
+        person_add
+      </span>
+    </div>
   </form>
 </div>
 <div class="table-container">
@@ -55,7 +57,7 @@
   </div>
 </div>
 
-<div id="pagination">
+<div class="pagination">
   <div class="details"></div>
   <div class="links">
     

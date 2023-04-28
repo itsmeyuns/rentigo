@@ -2,9 +2,9 @@
 .form-container {
   background-color: #fff;
   border-radius: 6px;
-  padding: 30px;
+  padding: 10px;
   color: black;
-  margin: 20px auto;
+  margin: 15px auto;
 }
 
 .form-container .form-title {
@@ -26,7 +26,7 @@
 
 
 #add-client-form .star,
-#edit-client-form .star{
+#edit-client-form .star {
   color: var(--danger-color);
 }
 
@@ -172,58 +172,6 @@
   }
 }
 
-
-/* Delete Modal */
-#DeleteClientModal {
-  text-align: center;
-}
-
-#DeleteClientModal .delete-dialog {
-  padding: 10px;
-}
-
-#DeleteClientModal .text > p {
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-#DeleteClientModal .text  .subtext {
-  font-size: 16px;
-}
-
-
-#DeleteClientModal .modal-buttons {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
-  margin: 15px 0 5px;
-}
-
-#DeleteClientModal .modal-buttons button {
-  padding: 5px 15px;
-  border-radius: 6px;
-}
-
-#DeleteClientModal .modal-buttons #confirmationButton {
-  color: #fff;
-  background-color: var(--danger-color);
-}
-
-#DeleteClientModal .modal-buttons #confirmationButton:hover {
-  background-color: #E71D1D ;
-}
-
-#DeleteClientModal .modal-buttons #cancelButton {
-  background-color: #fff;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-}
-
-#DeleteClientModal .modal-buttons #cancelButton:hover {
-  background-color: #efefef;
-}
-
 #ShowClientModal {
   min-width: 270px;
   max-width: 380px;
@@ -253,42 +201,6 @@
   color: var(--main-color);
 }
 
-#pagination {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-}
-
-.links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: auto;
-  max-width: fit-content;
-  gap: 12px;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.link {
-  height: 30px;
-  width: 30px;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 6px;
-  background-color: #f2f2f2;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.link:hover, .link.active {
-  background-color: var(--main-color);
-  color: #fff;
-}
-
 #no-result {
   display: none;
   max-width: 350px;
@@ -301,10 +213,6 @@
   font-weight: 500;
 } 
 
-.table-container {
-  position: relative;
-  min-height: 330px;
-}
 #loader-container {
   display: none;
   position: absolute;

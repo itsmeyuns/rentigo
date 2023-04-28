@@ -105,11 +105,10 @@
 .form-container {
   background-color: #fff;
   border-radius: 6px;
-  padding: 30px;
+  padding: 10px;
   color: black;
-  margin: 20px auto;
+  margin: auto;
 }
-
 
 .form-container form {
   overflow: hidden;
@@ -117,10 +116,28 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .form-container form label {
   cursor: pointer;
+}
+
+.form-container .form-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-color);
+  position: relative;
+}
+
+.form-container .form-title::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  width: 35px;
+  background-color: var(--main-color);
+  height: 3px;
+  left: 0;
 }
 
 .form-item {
@@ -138,7 +155,7 @@
 }
 
 
-.add-form .star{
+.form-container form .star{
   color: var(--danger-color);
 }
 
@@ -236,13 +253,13 @@
   flex-wrap: wrap;
 }
 
-/* .add-form .column {
+/* .form-container form .column {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.add-form .column .form-item {
+.form-container form .column .form-item {
   width: calc(100% / 2 - 15px);
   margin-right: 15px;
 } */
@@ -263,7 +280,7 @@
   margin: 5px 0;
 }
 
-.add-form .input-file-holder input[type=file] {
+.form-container form .input-file-holder input[type=file] {
   border: none;
   height: 100%;
   opacity: 0;
@@ -273,7 +290,7 @@
   cursor: pointer;
 }
 
-.add-form .input-file-holder {
+.form-container form .input-file-holder {
   width: 100%;
 }
 
@@ -288,22 +305,17 @@
   margin-bottom: 30px;
 }
 
-.img-container.success {
-  background-color: var(--success-color) !important;
-  color: #fff;
-}
-
 .input-file-holder .imgPreview {
   max-width: 200px;
+  margin-top: 10px;
   display: none;
 }
 
 .input-file-holder .imgPreview img {
   width: 100%;
-  height: 100%;
 }
 
-.add-form .input-file-holder .file-label {
+.form-container form .input-file-holder .file-label {
   position: absolute;
   display: flex;
   align-items: center;
@@ -311,15 +323,15 @@
   padding: 10px;
 }
 
-.add-form .input-file-holder .file-label .icon {
+.form-container form .input-file-holder .file-label .icon {
   font-size: 25px;
 }
-.add-form .input-file-holder .error {
+.form-container form .input-file-holder .error {
   position: absolute;
   top: 115%;
 }
 
-.add-form button {
+.form-container form button {
   max-width: 250px;
   margin-top: 10px;
   padding: 10px 25px;
@@ -338,6 +350,69 @@
 .success {
   border-color: var(--success-color) !important;
 }
+
+.vehicule-section-body {
+  position: relative;
+  min-height: 400px;
+}
+
+#no-result {
+  display: none;
+  max-width: 350px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+#no-result .text {
+  font-size: 25px;
+  font-weight: 500;
+} 
+
+#loader-container {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  border: 4px solid #2962ff;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader {
+  width: 45px;
+  height: 45px;
+  -webkit-animation: spin89345 1s linear infinite;
+  animation: spin89345 1s linear infinite;
+}
+
+@-webkit-keyframes spin89345 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin89345 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 
 @media screen and (max-width: 600px) {
   .form-item, .checkboxes {

@@ -118,3 +118,97 @@ span.edit:hover {
   color: #0B5EBD;
   transform: scale(1.1);
 }
+
+/* Start Delete Modal */
+
+.delete-modal {
+  text-align: center;
+}
+
+.delete-modal .delete-dialog {
+  padding: 10px;
+}
+
+.delete-modal .text > p {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.delete-modal .text  .subtext {
+  font-size: 16px;
+}
+
+.delete-modal .modal-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 5px;
+}
+
+.delete-modal .modal-buttons button {
+  padding: 5px 15px;
+  border-radius: 6px;
+}
+
+.delete-modal .modal-buttons #confirmationButton {
+  color: #fff;
+  background-color: var(--danger-color);
+}
+
+.delete-modal .modal-buttons #confirmationButton:hover {
+  background-color: #E71D1D ;
+}
+
+.delete-modal .modal-buttons #cancelButton {
+  background-color: #fff;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+}
+
+.delete-modal .modal-buttons #cancelButton:hover {
+  background-color: #efefef;
+}
+
+/* End Delete Modal */
+
+/* Start Pagination */
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination .links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  max-width: fit-content;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.pagination .link {
+  height: 30px;
+  width: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .link:hover, 
+.pagination .link.active {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+/* End Pagination */
