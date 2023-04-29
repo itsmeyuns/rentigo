@@ -199,6 +199,13 @@ function createBoxes(vehicules) {
   console.log(vehicules);
   $('.box-container').html('')
   $.each(vehicules, function (key, item) {
+    let className = 'dispo';
+    if (item.disponibilite === 'En panne') {
+      className = "en-panne";
+    }
+    if (item.disponibilite === 'Loué') {
+      className = "loue";
+    } 
     $('.box-container').append(`
       <div class="box">
         <div class="box-header">
@@ -212,10 +219,17 @@ function createBoxes(vehicules) {
           <img src="${item.photo}" alt="" class="vehicule-photo">
         </div>
         <div class="box-footer">
-          <span class="material-icons-round edit" data-id="${item.id}">edit</span>
+        <div class="vehicule-status ${className}">
+          ${item.disponibilite}
+        </div>
+        <div class="vehicules-actions ">
+          <span class="material-icons-round edit" data-id="${item.id}">
+            edit
+          </span>
           <span class="material-icons-round delete" data-id="${item.id}">
             delete
           </span>
+        </div>
         </div>
       </div>
     `)
@@ -224,6 +238,8 @@ function createBoxes(vehicules) {
   deleteAction()
   editAction()
 }
+
+
 
 function passIdToModal() { 
   $('.delete, .edit').on('click', function () { 
@@ -318,11 +334,68 @@ function paginationFetch(page) {
   })
 }
 
+// let status = [];
+// $('.filter .option').on('click', function() {
+//   const checkbox = $(this).children('input[type=checkbox]');
+//   if ($(checkbox).is(':checked')) {
+//     $.ajax({
+//       type: "GET",
+//       url: "/vehicules/searchCheck",
+//       data: {search: $(checkbox).val()},
+//       beforeSend: function() {
+//         $('.box-container').html('')
+//         $('#no-result').hide()
+//         $('.pagination').hide()
+//         $('#loader-container').show();
+//       },
+//       success: function (response) {
+//         console.log(response);
+//         // if (value) {
+//         //   if (response.result.length > 0) {
+//         //     createBoxes(response.result)
+//         //   } else {
+//         //     $('.box-container').html('')
+//         //     $('#no-result').show()
+//         //   }
+//         //   $('#loader-container').hide()
+//         // } else {
+//         //   fetchVehicules()
+//         // }
+//       }
+//     });
+//   } 
+//   console.log(status);
+//   // $.ajax({
+//   //   type: 'POST',
+//   //   url: '/filter',
+//   //   data: $('#filter-form').serialize(),
+//   //   success: function(response) {
+//   //     // Update the view with the filtered data
+//   //   }
+//   // });
+// });
 
-$('.filter .option').on('click', function () {
-  if ($(this).children('input').is(':checked')) {
-    console.log($(this).children('input').val());
-  }
+// $('.filter .option').on('click', function () {
+//   if ($(this).children('input').is(':checked')) {
+//     console.log($(this).children('input').val());
+//   }
   
-})
+// })
+
+
+$('input[name="status"]').on('change', function() {
+  var status = $(this).val();
+  console.log(status);
+  // $.ajax({
+  //     url: '{{ route("filter-vehicles") }}',
+  //     type: 'POST',
+  //     data: { status: status },
+  //     success: function(data) {
+  //         // update the vehicles list with the filtered data
+  //     },
+  //     error: function(xhr) {
+  //         // handle the error
+  //     }
+  // });
+});
 

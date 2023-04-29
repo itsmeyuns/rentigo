@@ -36,7 +36,7 @@
           </span>
         </div>
       </form>
-      <form action="" id="myform">
+      <form>
         <div class="filter">
           <div class="option">
             <input type="checkbox"  name="status" value="En panne">

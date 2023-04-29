@@ -49,9 +49,9 @@
     <div class="form-item">
       <label for="disponibilite">disponibilité <span class="star">*</span> </label>
       <select name="disponibilite" id="disponibilite">
-        <option value="disponible">Disponible</option>
-        <option value="louer">Loué</option>
-        <option value="en panne">En panne</option>
+        <option value="Disponible">Disponible</option>
+        <option value="Loué">Loué</option>
+        <option value="En panne">En panne</option>
       </select>
     </div>
     <div class="form-item">

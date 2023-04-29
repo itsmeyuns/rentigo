@@ -36,7 +36,6 @@
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding: 20px;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
 }
@@ -67,6 +66,7 @@
   margin: auto auto 10px;
   min-width: 200px;
   max-width: 350px;
+  cursor: pointer;
 }
 
 .box .box-body img {
@@ -82,8 +82,27 @@
 
 .box .box-footer {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: space-between;
+  align-items: center;
   padding: 15px;
+}
+
+.box .box-footer .vehicule-status {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  color: #fff;
+}
+.box .box-footer .en-panne {
+  background-color: var(--danger-color);
+}
+.box .box-footer .dispo {
+  background-color: var(--primary-color);
+}
+.box .box-footer .loue {
+  background-color: var(--warning-color);
 }
 
 .box .box-footer .delete {

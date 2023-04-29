@@ -71,7 +71,7 @@ class VehiculeFactory extends Factory
             'photo' => fake()->imageUrl(),
             'nombre_portes' => fake()->numberBetween(1, 4),
             'nombre_places' => fake()->numberBetween(1, 6),
-            'disponibilite' => fake()->randomElement(['Disponible', "Louer", "En panne"]),
+            'disponibilite' => fake()->randomElement(['Disponible', "Loué", "En panne"]),
         ];
     }
 }

@@ -40,24 +40,33 @@ Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login
 
 Route::prefix('/clients')->group(function () {
   Route::get('/', [ClientController::class, 'index'])->name('clients.index');
-  Route::get('/show/{id}', [ClientController::class, 'show'])->name('clients.show');
-  Route::get('/search', [ClientController::class, 'search'])->name('clients.search');
-  Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
   Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
-  Route::get('/{id}/delete', [ClientController::class, 'delete'])->name('clients.delete');
   Route::delete('/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
-  Route::get('/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
   Route::patch('/{id}', [ClientController::class, 'update'])->name('clients.update');
-  Route::get('/fetch', [ClientController::class, 'all'])->name('clients.fetch');
+
+  Route::middleware('ajax_only')->group( function() {
+    Route::get('/{id}/show', [ClientController::class, 'show'])->name('clients.show');
+    Route::get('/fetch', [ClientController::class, 'all'])->name('clients.fetch')->middleware('ajax_only');
+    Route::get('/{id}/delete', [ClientController::class, 'delete'])->name('clients.delete');
+    Route::get('/search', [ClientController::class, 'search'])->name('clients.search');
+    Route::get('/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
+  });
+
 });
 
 Route::prefix('/vehicules')->group(function () {
   Route::get('/', [VehiculeController::class, 'index'])->name('vehicules.index');
   Route::post('/store', [VehiculeController::class, 'store'])->name('vehicules.store');
-  Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
   Route::put('/{id}', [VehiculeController::class, 'update'])->name('vehicules.update');
-  Route::get('/fetch', [VehiculeController::class, 'all']);
-  Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
   Route::delete('/{id}', [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
-  Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
+  Route::get('/searchCheck', [VehiculeController::class, 'searchCheck'])->name('vehicule.searchCheck');
+
+  Route::middleware('ajax_only')->group(function ()
+  {
+    Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
+    Route::get('/fetch', [VehiculeController::class, 'all']);
+    Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
+    Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
+  });
+
 });

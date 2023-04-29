@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class VehiculeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -34,14 +40,6 @@ class VehiculeController extends Controller
         Vehicule::create($formData);
         // Return success response if data is inserted successfully
         return response()->json(['code' => 200, 'msg' => "Le véhicule a été ajouté avec succès."], 200); 
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -107,6 +105,18 @@ class VehiculeController extends Controller
         ->get();
 
         return response()->json(['result' => $result], 200);
+    }
+
+    public function searchCheck(Request $request)
+    {
+        dd($request);
+        // $value = $request->search;
+        // $result = Vehicule::where('matricule', 'like', "%$value%")
+        // ->orWhere('marque', 'like', "%$value%")
+        // ->orWhere('modele', 'like', "%$value%")
+        // ->get();
+
+        // return response()->json(['result' => $result], 200);
     }
 
     private function uploadImage(VehiculeRequest $request, &$form)

@@ -265,7 +265,7 @@ function showAction() {
     let clientId = $(this).data('id');
     $.ajax({
       method: 'GET',
-      url: `/clients/show/${clientId}`,
+      url: `/clients/${clientId}/show`,
       success: function (response) {
         if (response.status === 200) {
           $('#ShowClientModal').modal('show')

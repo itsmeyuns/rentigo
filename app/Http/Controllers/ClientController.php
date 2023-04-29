@@ -36,11 +36,6 @@ class ClientController extends Controller
     return response()->json(['clients' => $clients]);
   }
 
-  public function create()
-  {
-      return view('clients.modal.create');
-  }
-
   public function store(ClientRequest $request)
   {   
     // Validation
