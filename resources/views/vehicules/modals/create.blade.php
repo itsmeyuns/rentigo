@@ -42,8 +42,8 @@
     <div class="form-item">
       <label for="automatique">automatique <span class="star">*</span> </label>
       <select name="automatique" id="automatique">
-        <option value="non">Non</option>
-        <option value="oui">Oui</option>
+        <option value="Non">Non</option>
+        <option value="Oui">Oui</option>
       </select>
     </div>
     <div class="form-item">

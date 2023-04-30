@@ -82,27 +82,25 @@
 
 .box .box-footer {
   display: flex;
-  /* justify-content: space-around; */
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 8px 0 5px;
 }
 
 .box .box-footer .vehicule-status {
-  border: 1px solid;
   border-radius: 8px;
   padding: 5px;
   font-size: 14px;
   color: #fff;
 }
 .box .box-footer .en-panne {
-  background-color: var(--danger-color);
+  background-color: #ff2626;
 }
 .box .box-footer .dispo {
-  background-color: var(--primary-color);
+  background-color: #42a547;
 }
 .box .box-footer .loue {
-  background-color: var(--warning-color);
+  background-color: #ff860a;
 }
 
 .box .box-footer .delete {
@@ -406,6 +404,18 @@
   height: 45px;
   -webkit-animation: spin89345 1s linear infinite;
   animation: spin89345 1s linear infinite;
+}
+
+
+#empty-data {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 @-webkit-keyframes spin89345 {

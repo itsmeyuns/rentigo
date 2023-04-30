@@ -6,6 +6,8 @@
 
 @section('content')
 <div class="vehicules-section">
+
+  {{-- Start Modals --}}
   <div id="AddVehiculeModal" class="modal">
     @include('vehicules.modals.create')
   </div>
@@ -15,7 +17,9 @@
   <div id="EditVehiculeModal" class="modal">
     @include('vehicules.modals.edit')
   </div>
+  {{-- End Modals --}}
 
+  {{-- Start Head Section --}}
   <div class="vehicule-section-head">
     <div class="bar">
       <form id="search-vehicule-form">
@@ -54,18 +58,25 @@
       </form>
     </div>
   </div>
+  {{-- End Head Section --}}
 
+  {{-- Start Body Section --}}
   <div class="vehicule-section-body">
-    <div class="box-container">
-    </div>
+    <div class="box-container"></div>
     <div id="loader-container">
       <div class="loader"></div>
     </div>
     <div id="no-result">
-      <img src="{{asset('pics/no-data.svg')}}" alt="">
+      <img src="{{asset('pics/no-data.svg')}}" alt="no data picture">
       <p class="text">Aucun résultat trouvé</p>
     </div>
+
+    <div id="empty-data">
+      il n'y a aucun véhicule à afficher pour le moment.
+    </div>
+
   </div>
+  {{-- Start Body Section --}}
 
   <div class="pagination">
     <div class="details"></div>

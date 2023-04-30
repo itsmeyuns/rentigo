@@ -51,7 +51,7 @@
       <label for="edit_disponibilite">disponibilité <span class="star">*</span> </label>
       <select name="disponibilite" id="edit_disponibilite">
         <option value="Disponible">Disponible</option>
-        <option value="Louer">Loué</option>
+        <option value="Loué">Loué</option>
         <option value="En panne">En panne</option>
       </select>
     </div>

@@ -25,7 +25,7 @@ class VehiculeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => ['required', 'string', 'max:30', Rule::unique('vehicules')->ignore($this->id)],
+            'matricule' => ['required', 'string', 'max:30', Rule::unique('vehicules')->ignore($this->id)->whereNull('deleted_at')],
             'marque' => 'required | string | max:100',
             'modele' => 'required | string | max:80',
             'couleur' => 'required | string | max:40',

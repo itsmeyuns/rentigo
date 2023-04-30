@@ -77,6 +77,7 @@ $(document).ready(function () {
         $('#no-result').hide()
         $('.pagination').hide()
         $('#loader-container').show();
+        $("#empty-data").hide()
       },
       success: function (response) {
         if (value) {
@@ -157,6 +158,7 @@ function fetchVehicules() {
       $('.box-container').html('')
       $('#loader-container').show(); // Show the loader when the AJAX request starts
       $('#no-result').hide()
+      $("#empty-data").hide()
     },
     success: function(response) {
       let vehicules = response.vehicules.data
@@ -196,44 +198,49 @@ function fetchVehicules() {
 }
 
 function createBoxes(vehicules) {
-  console.log(vehicules);
+  console.log(vehicules.length);
   $('.box-container').html('')
-  $.each(vehicules, function (key, item) {
-    let className = 'dispo';
-    if (item.disponibilite === 'En panne') {
-      className = "en-panne";
-    }
-    if (item.disponibilite === 'Loué') {
-      className = "loue";
-    } 
-    $('.box-container').append(`
-      <div class="box">
-        <div class="box-header">
-          <div class="box-inner">
-            <h3 class="vehicule-marque">${item.marque}</h3>
-            <p class="vehicule-model">${item.modele}</p>
+  $("#empty-data").hide()
+  if (vehicules.length > 0) {
+    $.each(vehicules, function (key, item) {
+      let className = 'dispo';
+      if (item.disponibilite === 'En panne') {
+        className = "en-panne";
+      }
+      if (item.disponibilite === 'Loué') {
+        className = "loue";
+      } 
+      $('.box-container').append(`
+        <div class="box">
+          <div class="box-header">
+            <div class="box-inner">
+              <h3 class="vehicule-marque">${item.marque}</h3>
+              <p class="vehicule-model">${item.modele}</p>
+            </div>
+            <p class="vehicule-prix-location">${item.prix_location}MAD<span>/Jour</span></p>
           </div>
-          <p class="vehicule-prix-location">${item.prix_location}MAD<span>/Jour</span></p>
+          <div class="box-body">
+            <img src="${item.photo}" alt="" class="vehicule-photo">
+          </div>
+          <div class="box-footer">
+          <div class="vehicule-status ${className}">
+            ${item.disponibilite}
+          </div>
+          <div class="vehicules-actions ">
+            <span class="material-icons-round edit" data-id="${item.id}">
+              edit
+            </span>
+            <span class="material-icons-round delete" data-id="${item.id}">
+              delete
+            </span>
+          </div>
+          </div>
         </div>
-        <div class="box-body">
-          <img src="${item.photo}" alt="" class="vehicule-photo">
-        </div>
-        <div class="box-footer">
-        <div class="vehicule-status ${className}">
-          ${item.disponibilite}
-        </div>
-        <div class="vehicules-actions ">
-          <span class="material-icons-round edit" data-id="${item.id}">
-            edit
-          </span>
-          <span class="material-icons-round delete" data-id="${item.id}">
-            delete
-          </span>
-        </div>
-        </div>
-      </div>
-    `)
-  })
+      `)
+    })
+  } else {
+    $("#empty-data").show()
+  }
   passIdToModal()
   deleteAction()
   editAction()
@@ -276,7 +283,7 @@ function editAction() {
         $('#edit_uploadedImage').attr('src', `${response.vehicule.photo}`);
       },
       error: function (response) {
-          notification.error(response.responseJSON.msg)
+        notification.error(response.responseJSON.msg)
       }
     });
   });
