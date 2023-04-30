@@ -23,4 +23,10 @@ class Vehicule extends Model
         'nombre_places',
         'disponibilite',
     ];
+
+    public function extras()
+    {
+        return $this->belongsToMany(Extra::class);
+    }
+
 }

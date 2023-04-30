@@ -64,6 +64,16 @@ $(document).ready(function () {
   $('.ajouter').on('click', function () {
     resetForm(addForm)
     $('#AddVehiculeModal').modal('show')
+
+    $.ajax({
+      type: "GET",
+      url: "/test",
+      success: function (response) {
+        console.log(response.extras);
+      }
+    });
+
+
   });
 
   $('#rechercher').on('input', function () { 

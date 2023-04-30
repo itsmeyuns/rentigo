@@ -63,10 +63,12 @@ Route::prefix('/vehicules')->group(function () {
 
   Route::middleware('ajax_only')->group(function ()
   {
-    Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
     Route::get('/fetch', [VehiculeController::class, 'all']);
+    Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
     Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
     Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
   });
 
 });
+
+Route::get('/test', [VehiculeController::class, 'test']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VehiculeRequest;
+use App\Models\Extra;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,13 @@ class VehiculeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function test()
+    {
+        // $vehicule = Vehicule::find(2);
+        $extras = Extra::all();
+        return response()->json(['extras' => $extras]);
     }
 
     /**
