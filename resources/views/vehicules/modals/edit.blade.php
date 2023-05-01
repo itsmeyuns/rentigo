@@ -65,39 +65,35 @@
       <input type="text" name="nombre_places" id="edit_nombre_places">
       <div class="error nombre_places_error"></div>
     </div>
-    <div class="checkboxes">
-      <div class="left-boxes">
-        <div class="box-field">
+    <div class="extras-container">
+        {{-- <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_gps" value="gps">
           <label for="gps">GPS</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_triangleDePanne" value="triangle de panne">
           <label for="triangleDePanne">Triangle de panne</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_gilet" value="gilet">
           <label for="gilet">Gilet</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_cameraDeRecul" value="Caméra de recul">
           <label for="cameraDeRecul">Caméra de recul</label>
         </div>
-      </div>
-      <div class="right-boxes">
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_extincteur" value="extincteur">
           <label for="extincteur">Extincteur</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_regulateurDeVitesse" value="Régulateur de vitesse">
           <label for="regulateurDeVitesse">Régulateur de vitesse</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="edit_siegeBebe" value="Siège bébé">
           <label for="siegeBebe">Siège bébé</label>
-        </div>
-      </div>
+        </div> --}}
     </div>
     <div class="form-item input-file-holder">
       <div class="img-container">

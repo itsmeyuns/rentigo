@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiculeController;
@@ -71,4 +72,8 @@ Route::prefix('/vehicules')->group(function () {
 
 });
 
-Route::get('/test', [VehiculeController::class, 'test']);
+
+Route::prefix('/extras')->group(function ()
+{
+  Route::get('/', [ExtraController::class, 'all'])->middleware('ajax_only');
+});

@@ -16,13 +16,6 @@ class VehiculeController extends Controller
         $this->middleware('auth');
     }
 
-    public function test()
-    {
-        // $vehicule = Vehicule::find(2);
-        $extras = Extra::all();
-        return response()->json(['extras' => $extras]);
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -41,11 +34,14 @@ class VehiculeController extends Controller
      */
     public function store(VehiculeRequest $request)
     {
-
         $formData =  $request->validated();
         $this->uploadImage($request, $formData);
         // Insert a Vehicule to database
-        Vehicule::create($formData);
+        $vehicule = Vehicule::create($formData);
+        // Insert Vehicule Extras
+        $extras = $request->extras;
+        $vehicule->extras()->attach($extras);
+
         // Return success response if data is inserted successfully
         return response()->json(['code' => 200, 'msg' => "Le véhicule a été ajouté avec succès."], 200); 
     }
@@ -57,7 +53,7 @@ class VehiculeController extends Controller
     {
         $vehicule = Vehicule::find($id);
         if ($vehicule) {
-        return response()->json(['status' => 200, 'vehicule' => $vehicule], 200); 
+            return response()->json(['status' => 200, 'vehicule' => $vehicule, 'extras_vehicule' => $vehicule->extras], 200); 
         }
         return response()->json(['status' => 404,'msg' => "Ce véhicule n'existe pas"], 404); 
     }
@@ -71,9 +67,11 @@ class VehiculeController extends Controller
         $validatedData = $request->validated();
         $vehicule = Vehicule::find($id);
         $this->uploadImage($request, $validatedData);
+        $extras = $request->extras;
         if ($vehicule) {
-        $vehicule->update($validatedData);
-        // Return success response if data is updated successfully
+            $vehicule->update($validatedData);
+            $vehicule->extras()->sync($extras);
+            // Return success response if data is updated successfully
             return response()->json(['status' => 200, 'msg' => 'Le véhicule a été modifié avec succès'], 200); 
         } 
         // If The Véhicule Doesn't Exists
@@ -97,8 +95,10 @@ class VehiculeController extends Controller
     {
         $vehicule = Vehicule::find($id);
         if ($vehicule) {
-        $vehicule->delete();
-        return response()->json(['status' => 200, 'success' => 'Le vehicule a été supprimé avec succès'], 200);
+            // Detach all extras from the vehicle
+            $vehicule->extras()->detach();
+            $vehicule->delete();
+            return response()->json(['status' => 200, 'success' => 'Le vehicule a été supprimé avec succès'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Ce vehicule n'existe pas"], 404); 
     }

@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('extra_vehicule', function (Blueprint $table) {
-          $table->unsignedBigInteger('extra_id');
-          $table->unsignedBigInteger('vehicule_id');
-          $table->foreign('extra_id')
-                ->references('id')
-                ->on('extras')
-                ->onDelete('cascade'); 
-          $table->foreign('vehicule_id')
-                ->references('id')
-                ->on('vehicules')
-                ->onDelete('cascade');
+        $table->unsignedBigInteger('extra_id');
+        $table->unsignedBigInteger('vehicule_id');
+        $table->foreign('extra_id')
+              ->references('id')
+              ->on('extras')
+              ->onDelete('cascade'); 
+        $table->foreign('vehicule_id')
+              ->references('id')
+              ->on('vehicules')
+              ->onDelete('cascade');
         });
     }
 

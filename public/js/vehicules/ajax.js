@@ -64,16 +64,7 @@ $(document).ready(function () {
   $('.ajouter').on('click', function () {
     resetForm(addForm)
     $('#AddVehiculeModal').modal('show')
-
-    $.ajax({
-      type: "GET",
-      url: "/test",
-      success: function (response) {
-        console.log(response.extras);
-      }
-    });
-
-
+    getExtras()
   });
 
   $('#rechercher').on('input', function () { 
@@ -273,6 +264,7 @@ function editAction() {
     // Get the vehicule ID from the hidden input
     let vehiculeId = $('#editVehiculeId').val();
     let editForm = $('#edit-vehicule-form')
+    getExtras()
     // Send an Ajax request to edit the vehicule
     $.ajax({
       url: `/vehicules/${vehiculeId}/edit`,
@@ -291,6 +283,14 @@ function editAction() {
         })
         $('.imgPreview').show();
         $('#edit_uploadedImage').attr('src', `${response.vehicule.photo}`);
+        const extras_vehicule = response.extras_vehicule;
+        const checkboxes = $('.extras-container:visible input[name="extras[]"]');
+        $.each(extras_vehicule, function(index, value) {
+          // Find the checkbox with the corresponding value and set the "checked" attribute
+          const matchingCheckbox = checkboxes.filter(`[value="${value.id}"]`);
+          console.log(matchingCheckbox);
+          matchingCheckbox.prop('checked', true);
+        });
       },
       error: function (response) {
         notification.error(response.responseJSON.msg)
@@ -325,7 +325,6 @@ function navigate() {
   });
 
 }
-
 
 function paginationFetch(page) {
   $.ajax({
@@ -416,3 +415,27 @@ $('input[name="status"]').on('change', function() {
   // });
 });
 
+function createExtras(extras) {
+  $.each(extras, function (key, value) {
+    $('.extras-container').append(`
+      <div class="extra-box">
+        <input type="checkbox" name="extras[]" value="${value.id}">
+        <label>${value.nom}</label>
+      </div>
+    `)
+  })
+}
+
+function getExtras() {
+  $.ajax({
+    type: "GET",
+    url: "/extras",
+    beforeSend: function () {
+      $('.extras-container').html('');
+    },
+    success: function (response) {
+      const extras = response.extras;
+      createExtras(extras)
+    }
+  });
+}

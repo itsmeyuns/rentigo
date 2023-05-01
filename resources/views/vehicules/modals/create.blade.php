@@ -64,40 +64,57 @@
       <input type="text" name="nombre_places" id="nombre_places">
       <div class="error nombre_places_error"></div>
     </div>
-    <div class="checkboxes">
-      <div class="left-boxes">
-        <div class="box-field">
+    <div class="extras-container">
+      <div id="loader-container">
+        <div class="loader"></div>
+      </div>
+    </div>
+    {{-- <div class="extras-container">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="gps" value="gps">
           <label for="gps">GPS</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
+          <input type="checkbox" name="extras[]" id="gps" value="gps">
+          <label for="gps">GPS</label>
+        </div>
+        <div class="extra-box">
+          <input type="checkbox" name="extras[]" id="gps" value="gps">
+          <label for="gps">GPS</label>
+        </div>
+        <div class="extra-box">
+          <input type="checkbox" name="extras[]" id="gps" value="gps">
+          <label for="gps">GPS</label>
+        </div>
+        <div class="extra-box">
+          <input type="checkbox" name="extras[]" id="gps" value="gps">
+          <label for="gps">GPS</label>
+        </div>
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="triangleDePanne" value="triangle de panne">
           <label for="triangleDePanne">Triangle de panne</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="gilet" value="gilet">
           <label for="gilet">Gilet</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="cameraDeRecul" value="Caméra de recul">
           <label for="cameraDeRecul">Caméra de recul</label>
         </div>
-      </div>
-      <div class="right-boxes">
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="extincteur" value="extincteur">
           <label for="extincteur">Extincteur</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="regulateurDeVitesse" value="Régulateur de vitesse">
           <label for="regulateurDeVitesse">Régulateur de vitesse</label>
         </div>
-        <div class="box-field">
+        <div class="extra-box">
           <input type="checkbox" name="extras[]" id="siegeBebe" value="Siège bébé">
           <label for="siegeBebe">Siège bébé</label>
         </div>
-      </div>
-    </div>
+    </div> --}}
     <div class="form-item input-file-holder">
       <div class="img-container">
         <div class="file-label">
