@@ -29,4 +29,8 @@ class Vehicule extends Model
         return $this->belongsToMany(Extra::class);
     }
 
+    public function vidanges() {
+        return $this->hasMany(Vidange::class);
+    }
+
 }

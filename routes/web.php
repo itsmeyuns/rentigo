@@ -60,12 +60,13 @@ Route::prefix('/vehicules')->group(function () {
   Route::post('/store', [VehiculeController::class, 'store'])->name('vehicules.store');
   Route::put('/{id}', [VehiculeController::class, 'update'])->name('vehicules.update');
   Route::delete('/{id}', [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
+  Route::get('/{id}/show', [VehiculeController::class, 'show'])->name('vehicules.show');
   
   Route::middleware('ajax_only')->group(function ()
   {
     Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
     Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
-    Route::get('/vehicules/fetch', [VehiculeController::class, 'all'])->name('vehicules.fetch');
+    Route::get('/fetch', [VehiculeController::class, 'all'])->name('vehicules.fetch');
     Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
     Route::get('/filter', [VehiculeController::class, 'filterDisponibilite'])->name('vehicule.filter');
   });

@@ -29,6 +29,7 @@ class VehiculeController extends Controller
         $vehicules = Vehicule::orderBy('id', 'desc')->paginate(12);
         return response()->json(['vehicules' => $vehicules], 200);
     }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -123,6 +124,13 @@ class VehiculeController extends Controller
                             ->get();
 
         return response()->json(['result' => $result], 200);
+    }
+
+    public function show($id)
+    {
+        $vehicule = Vehicule::findOrFail($id);
+        $prochainVidange = $vehicule->vidanges()->latest('id')->first();
+        return view('vehicules.show', compact('vehicule', 'prochainVidange'));
     }
 
     private function uploadImage(VehiculeRequest $request, &$form)
