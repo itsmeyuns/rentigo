@@ -17,7 +17,9 @@
   <title>Rentigo | @yield('title', 'Page non trouvée')</title>
 </head>
 <body>
-
+  <div id="main-loader-container">
+    <div class="main-loader"></div>
+  </div>
   <div class="grid-container">
 
     @include('includes.header')

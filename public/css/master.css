@@ -1,6 +1,6 @@
 :root {
-  --main-color: #004EDA;
-  --secondary-color: #FFFFFF;
+  --main-color: #004eda;
+  --secondary-color: #ffffff;
   --text-color: #373736;
   --hover-color: #e7e9f9;
   --primary-color: #2962ff;
@@ -16,7 +16,11 @@
   border: none;
   text-decoration: none;
   outline: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  position: relative;
 }
 
 ::-moz-scrollbar {
@@ -53,14 +57,14 @@
 }
 
 @font-face {
-  font-family: 'Material Icons Round';
+  font-family: "Material Icons Round";
   font-style: normal;
   font-weight: 400;
-  src: url(../material-icons/iconfont-ronded.woff2) format('woff2');
+  src: url(../material-icons/iconfont-ronded.woff2) format("woff2");
 }
 
 .material-icons-round {
-  font-family: 'Material Icons Round';
+  font-family: "Material Icons Round";
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -96,7 +100,7 @@ span.show {
 }
 
 span.show:hover {
-  color: #45AA4A;
+  color: #45aa4a;
   transform: scale(1.1);
 }
 
@@ -105,17 +109,17 @@ span.delete {
 }
 
 span.delete:hover {
-  color: #E71D1D;
+  color: #e71d1d;
   transform: scale(1.1);
 }
 
 span.edit {
   color: var(--primary-color);
-  transition: .3s;
+  transition: 0.3s;
 }
 
 span.edit:hover {
-  color: #0B5EBD;
+  color: #0b5ebd;
   transform: scale(1.1);
 }
 
@@ -134,7 +138,7 @@ span.edit:hover {
   margin-bottom: 6px;
 }
 
-.delete-modal .text  .subtext {
+.delete-modal .text .subtext {
   font-size: 16px;
 }
 
@@ -157,7 +161,7 @@ span.edit:hover {
 }
 
 .delete-modal .modal-buttons #confirmationButton:hover {
-  background-color: #E71D1D ;
+  background-color: #e71d1d;
 }
 
 .delete-modal .modal-buttons #cancelButton {
@@ -205,10 +209,83 @@ span.edit:hover {
   justify-content: center;
 }
 
-.pagination .link:hover, 
+.pagination .link:hover,
 .pagination .link.active {
   background-color: var(--main-color);
   color: #fff;
 }
 
 /* End Pagination */
+
+/* Start Main Loader */
+#main-loader-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f2f2f2;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.main-loader {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: #004dff;
+  background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, currentColor)
+      )
+      center/100% 4px,
+    -webkit-gradient(linear, left top, left bottom, color-stop(0, currentColor))
+      center/4px 100%,
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - 7px),
+      currentColor calc(100% - 6px)
+    ),
+    radial-gradient(circle 7px, currentColor 94%, #0000 0);
+  background: linear-gradient(currentColor 0 0) center/100% 4px,
+    linear-gradient(currentColor 0 0) center/4px 100%,
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - 7px),
+      currentColor calc(100% - 6px)
+    ),
+    radial-gradient(circle 7px, currentColor 94%, #0000 0);
+  background-repeat: no-repeat;
+  -webkit-animation: spinner 1s infinite linear;
+  animation: spinner 1s infinite linear;
+  position: relative;
+}
+
+.main-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+@-webkit-keyframes spinner {
+  to {
+    -webkit-transform: rotate(0.5turn);
+    transform: rotate(0.5turn);
+  }
+}
+
+@keyframes spinner {
+  to {
+    -webkit-transform: rotate(0.5turn);
+    transform: rotate(0.5turn);
+  }
+}
+
+/* End Main Loader */
