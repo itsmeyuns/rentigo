@@ -48,8 +48,8 @@
       </select>
     </div>
     <div class="form-item">
-      <label for="edit_disponibilite">disponibilité <span class="star">*</span> </label>
-      <select name="disponibilite" id="edit_disponibilite">
+      <label for="edit_status">disponibilité <span class="star">*</span> </label>
+      <select name="status" id="edit_status">
         <option value="Disponible">Disponible</option>
         <option value="Loué">Loué</option>
         <option value="En panne">En panne</option>

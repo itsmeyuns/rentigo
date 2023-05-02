@@ -36,7 +36,7 @@ class VehiculeRequest extends FormRequest
             'photo' => 'image | mimes:jpeg,png,jpg | max:2048',
             'nombre_portes' => 'required | integer | min:1',
             'nombre_places' => 'required | integer | min:1',
-            'disponibilite' => 'required | string | max:50',
+            'status' => 'required | string | max:50',
         ];
     }
     public function faildValidation(Validator $validator)

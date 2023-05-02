@@ -115,16 +115,14 @@ class VehiculeController extends Controller
         return response()->json(['result' => $result], 200);
     }
 
-    public function searchCheck(Request $request)
+    public function filterDisponibilite(Request $request)
     {
-        dd($request);
-        // $value = $request->search;
-        // $result = Vehicule::where('matricule', 'like', "%$value%")
-        // ->orWhere('marque', 'like', "%$value%")
-        // ->orWhere('modele', 'like', "%$value%")
-        // ->get();
+        $arrayFilter = $request->filter;
+        $result = Vehicule::whereIn('status', $arrayFilter)
+                            ->orderBy('id', 'desc')
+                            ->get();
 
-        // return response()->json(['result' => $result], 200);
+        return response()->json(['result' => $result], 200);
     }
 
     private function uploadImage(VehiculeRequest $request, &$form)

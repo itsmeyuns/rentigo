@@ -96,6 +96,38 @@ $(document).ready(function () {
     });
   })
 
+  // Filter Vehicules By Availability
+  $('.filter .option').on('click', function () {
+    const status = $('input[name="status"]');
+    let arryFilter = []
+    $.each(status, function (key, value) {
+      if ($(value).is(':checked')) {
+        arryFilter.push($(value).val())
+      }  
+    })
+    if (arryFilter.length > 0 && arryFilter.length < 3) {
+      $.ajax({
+        type: "GET",
+        url: "/vehicules/filter",
+        data: {filter: arryFilter},
+        beforeSend: function() {
+          $('.box-container').html('')
+          $('#no-result').hide()
+          $('#empty-data').hide()
+          $('.pagination').hide()
+          $('#loader-container').show();
+        },
+        success: function (response) {
+          const vehicles = response.result
+          createBoxes(vehicles)
+          $('#loader-container').hide();
+        }
+      });
+    } else {
+      fetchVehicules()
+    }
+  })
+
   $(editForm).on('submit',function (e) { 
     e.preventDefault();
     // Get the client ID from the hidden input
@@ -151,7 +183,11 @@ function resetForm(form) {
 
 }
 
-function fetchVehicules() { 
+function fetchVehicules() {
+  // Reset Filter
+  $('#rechercher').val('');
+  $('.filter input[type="checkbox"]').prop('checked', true);
+  $('.filter .option').addClass('checked');
   $.ajax({
     url: 'vehicules/fetch',
     type: 'GET',
@@ -199,16 +235,15 @@ function fetchVehicules() {
 }
 
 function createBoxes(vehicules) {
-  console.log(vehicules.length);
   $('.box-container').html('')
   $("#empty-data").hide()
   if (vehicules.length > 0) {
     $.each(vehicules, function (key, item) {
       let className = 'dispo';
-      if (item.disponibilite === 'En panne') {
+      if (item.status === 'En panne') {
         className = "en-panne";
       }
-      if (item.disponibilite === 'Loué') {
+      if (item.status === 'Loué') {
         className = "loue";
       } 
       $('.box-container').append(`
@@ -225,7 +260,7 @@ function createBoxes(vehicules) {
           </div>
           <div class="box-footer">
           <div class="vehicule-status ${className}">
-            ${item.disponibilite}
+            ${item.status}
           </div>
           <div class="vehicules-actions ">
             <span class="material-icons-round edit" data-id="${item.id}">
@@ -349,71 +384,6 @@ function paginationFetch(page) {
     }
   })
 }
-
-// let status = [];
-// $('.filter .option').on('click', function() {
-//   const checkbox = $(this).children('input[type=checkbox]');
-//   if ($(checkbox).is(':checked')) {
-//     $.ajax({
-//       type: "GET",
-//       url: "/vehicules/searchCheck",
-//       data: {search: $(checkbox).val()},
-//       beforeSend: function() {
-//         $('.box-container').html('')
-//         $('#no-result').hide()
-//         $('.pagination').hide()
-//         $('#loader-container').show();
-//       },
-//       success: function (response) {
-//         console.log(response);
-//         // if (value) {
-//         //   if (response.result.length > 0) {
-//         //     createBoxes(response.result)
-//         //   } else {
-//         //     $('.box-container').html('')
-//         //     $('#no-result').show()
-//         //   }
-//         //   $('#loader-container').hide()
-//         // } else {
-//         //   fetchVehicules()
-//         // }
-//       }
-//     });
-//   } 
-//   console.log(status);
-//   // $.ajax({
-//   //   type: 'POST',
-//   //   url: '/filter',
-//   //   data: $('#filter-form').serialize(),
-//   //   success: function(response) {
-//   //     // Update the view with the filtered data
-//   //   }
-//   // });
-// });
-
-// $('.filter .option').on('click', function () {
-//   if ($(this).children('input').is(':checked')) {
-//     console.log($(this).children('input').val());
-//   }
-  
-// })
-
-
-$('input[name="status"]').on('change', function() {
-  var status = $(this).val();
-  console.log(status);
-  // $.ajax({
-  //     url: '{{ route("filter-vehicles") }}',
-  //     type: 'POST',
-  //     data: { status: status },
-  //     success: function(data) {
-  //         // update the vehicles list with the filtered data
-  //     },
-  //     error: function(xhr) {
-  //         // handle the error
-  //     }
-  // });
-});
 
 function createExtras(extras) {
   $.each(extras, function (key, value) {

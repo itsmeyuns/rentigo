@@ -47,8 +47,8 @@
       </select>
     </div>
     <div class="form-item">
-      <label for="disponibilite">disponibilité <span class="star">*</span> </label>
-      <select name="disponibilite" id="disponibilite">
+      <label for="status">disponibilité <span class="star">*</span> </label>
+      <select name="status" id="status">
         <option value="Disponible">Disponible</option>
         <option value="Loué">Loué</option>
         <option value="En panne">En panne</option>
@@ -65,9 +65,6 @@
       <div class="error nombre_places_error"></div>
     </div>
     <div class="extras-container">
-      <div id="loader-container">
-        <div class="loader"></div>
-      </div>
     </div>
     {{-- <div class="extras-container">
         <div class="extra-box">
