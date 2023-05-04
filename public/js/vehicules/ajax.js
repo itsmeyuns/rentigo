@@ -180,7 +180,6 @@ function resetForm(form) {
     $('#imgPreview').hide();
     $('#uploadedImage').attr('src', '');
   }
-
 }
 
 function fetchVehicules() {
@@ -358,7 +357,6 @@ function navigate() {
       paginationFetch(page)
     }
   });
-
 }
 
 function paginationFetch(page) {

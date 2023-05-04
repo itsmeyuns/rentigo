@@ -63,7 +63,7 @@
   {{-- Start Body Section --}}
   <div class="vehicule-section-body">
     <div class="box-container"></div>
-    <div id="loader-container">
+    <div id="loader-container" class="loader-container">
       <div class="loader"></div>
     </div>
     <div id="no-result">

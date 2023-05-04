@@ -58,12 +58,6 @@
     <div class="form-item full-width">
       <label for="observation">Observation</label>
       <textarea name="observation" id="observation"></textarea>
-      <div class="error">
-        @error('observation')
-          {{$message}}
-        @enderror
-      </div>
-
     </div>
     <div class="form-item">
       <button id='add-client-button' type="submit">Ajouter</button>

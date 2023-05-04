@@ -5,6 +5,7 @@ use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiculeController;
+use App\Http\Controllers\VidangeController;
 use App\Http\Requests\VehiculeRequest;
 use App\Models\Client;
 
@@ -59,17 +60,28 @@ Route::prefix('/vehicules')->group(function () {
   Route::get('/', [VehiculeController::class, 'index'])->name('vehicules.index');
   Route::post('/store', [VehiculeController::class, 'store'])->name('vehicules.store');
   Route::put('/{id}', [VehiculeController::class, 'update'])->name('vehicules.update');
-  Route::delete('/{id}', [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
+  Route::delete('/{id}', [VehiculeController::class, 'destroy'])->name('vehicules.destroy');
   Route::get('/{id}/show', [VehiculeController::class, 'show'])->name('vehicules.show');
   
   Route::middleware('ajax_only')->group(function ()
   {
     Route::get('/{id}/edit', [VehiculeController::class, 'edit'])->name('vehicules.edit');
-    Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicule.delete');
+    Route::get('/{id}/delete', [VehiculeController::class, 'delete'])->name('vehicules.delete');
     Route::get('/fetch', [VehiculeController::class, 'all'])->name('vehicules.fetch');
-    Route::get('/search', [VehiculeController::class, 'search'])->name('vehicule.search');
-    Route::get('/filter', [VehiculeController::class, 'filterDisponibilite'])->name('vehicule.filter');
+    Route::get('/search', [VehiculeController::class, 'search'])->name('vehicules.search');
+    Route::get('/filter', [VehiculeController::class, 'filterDisponibilite'])->name('vehicules.filter');
   });
+
+});
+
+
+Route::prefix('vidanges')->group(function () {
+  Route::post('/store', [VidangeController::class, 'store'])->name('vidanges.store');
+  Route::get('/{id}/fetch', [VidangeController::class, 'all'])->name('vidanges.fetch');
+  Route::get('/{id}/delete', [VidangeController::class, 'delete'])->name('vidanges.delete');
+  Route::get('/{id}/edit', [VidangeController::class, 'edit'])->name('vidanges.edit');
+  Route::put('/{id}', [VidangeController::class, 'update'])->name('vidanges.update');
+  Route::delete('/{id}', [VidangeController::class, 'destroy'])->name('vidanges.destroy');
 
 });
 

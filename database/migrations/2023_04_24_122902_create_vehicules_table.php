@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('photo')->nullable()->default('pics/vehicules/deafult-vehicule.png');
             $table->integer('nombre_portes');
             $table->integer('nombre_places');
-            $table->string('disponibilite', 50);
+            $table->string('status', 50);
             $table->timestamps();
             $table->softDeletes();
             $table->string('matricule_unique')->virtualAs("CONCAT(matricule, '#',IF(deleted_at IS NULL, '-', deleted_at))");

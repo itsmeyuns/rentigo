@@ -85,7 +85,7 @@ class VehiculeController extends Controller
         if ($vehicule) {
             return response()->json(['status' => 200, 'vehicule' => $vehicule], 200); 
         }
-        // If The Client Doesn't Exists
+        // If The Vehicule Doesn't Exists
         return response()->json(['status' => 404, 'msg' => "Ce vehicule n'existe pas"], 404);
     }
 
@@ -129,7 +129,7 @@ class VehiculeController extends Controller
     public function show($id)
     {
         $vehicule = Vehicule::findOrFail($id);
-        $prochainVidange = $vehicule->vidanges()->latest('id')->first();
+        $prochainVidange = $vehicule->vidanges()->latest('id')->first()->km_prochain_vidange ?? '-';
         return view('vehicules.show', compact('vehicule', 'prochainVidange'));
     }
 

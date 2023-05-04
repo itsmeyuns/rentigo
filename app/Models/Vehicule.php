@@ -33,4 +33,16 @@ class Vehicule extends Model
         return $this->hasMany(Vidange::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Event triggered before the deletion of the Vehicle model
+        static::deleting(function ($vehicule) {
+            // Delete all instances of Vidange associated with this Vehicle model
+            $vehicule->vidanges()->delete();
+        });
+    }
+
+
 }

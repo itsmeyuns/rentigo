@@ -289,3 +289,20 @@ span.edit:hover {
 }
 
 /* End Main Loader */
+
+.form-item textarea {
+  resize: none;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  height: 59px;
+  padding: 15px;
+  margin-top: 8px;
+}
+
+.form-item textarea::-webkit-scrollbar {
+  width: 0;
+}
