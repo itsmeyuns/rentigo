@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
@@ -77,13 +78,30 @@ Route::prefix('/vehicules')->group(function () {
 
 Route::prefix('vidanges')->group(function () {
   Route::post('/store', [VidangeController::class, 'store'])->name('vidanges.store');
-  Route::get('/{id}/fetch', [VidangeController::class, 'all'])->name('vidanges.fetch');
-  Route::get('/{id}/delete', [VidangeController::class, 'delete'])->name('vidanges.delete');
-  Route::get('/{id}/edit', [VidangeController::class, 'edit'])->name('vidanges.edit');
   Route::put('/{id}', [VidangeController::class, 'update'])->name('vidanges.update');
   Route::delete('/{id}', [VidangeController::class, 'destroy'])->name('vidanges.destroy');
 
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{id}/fetch', [VidangeController::class, 'all'])->name('vidanges.fetch');
+    Route::get('/{id}/delete', [VidangeController::class, 'delete'])->name('vidanges.delete');
+    Route::get('/{id}/edit', [VidangeController::class, 'edit'])->name('vidanges.edit');
+  });
+
 });
+
+Route::prefix('assurances')->group(function () {
+  Route::post('/store', [AssuranceController::class, 'store'])->name('assurances.store');
+  Route::put('/{id}', [AssuranceController::class, 'update'])->name('assurances.update');
+  Route::delete('/{id}', [AssuranceController::class, 'destroy'])->name('assurances.destroy');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{id}/fetch', [AssuranceController::class, 'all'])->name('assurances.fetch');
+    Route::get('/{id}/delete', [AssuranceController::class, 'delete'])->name('assurances.delete');
+    Route::get('/{id}/edit', [AssuranceController::class, 'edit'])->name('assurances.edit');
+  });
+
+});
+
 
 
 Route::prefix('/extras')->group(function ()

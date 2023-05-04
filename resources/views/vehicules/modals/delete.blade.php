@@ -5,7 +5,7 @@
     <p class="subtext">Cette action est irréversible.</p>
   </div>
   <div class="modal-buttons">
-    <button id="confirmationButton">Supprimer</button>
-    <button id="cancelButton">Annuler</button>
+    <button id="confirmationButton" class="confirmationButton">Supprimer</button>
+    <button id="cancelButton" class="cancelButton">Annuler</button>
   </div>
 </div>

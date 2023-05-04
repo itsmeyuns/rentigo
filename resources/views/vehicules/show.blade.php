@@ -137,21 +137,22 @@
     </div>
   </div>
 
-  <div class="vidange-section">
-    <div id="AddVidangeeModal" class="modal">
-      @include('vehicules.vidange.modals.create')
+  {{-- Vidange --}}
+  <div class="section" id="vidange-section">
+    <div id="AddVidangeModal" class="modal">
+      @include('vehicules.vidanges.modals.create')
     </div>
     <div id="DeleteVidangeModal" class="modal delete-modal">
-      @include('vehicules.vidange.modals.delete')
+      @include('vehicules.vidanges.modals.delete')
     </div>
     <div id="EditVidangeModal" class="modal">
-      @include('vehicules.vidange.modals.edit')
+      @include('vehicules.vidanges.modals.edit')
     </div>
-    <div class="vidange-section-header">
+    <div class="section-header">
       <h2 class="main-title">Vidange</h2>
-      <button id="ajouter-vidange" class="material-icons-round" title="Ajouter Vidange">add_circle</button>
+      <button id="ajouter-vidange" class="material-icons-round ajouter-button" title="Ajouter Vidange">add_circle</button>
     </div>
-    <div class="vidange-section-body"> 
+    <div class="section-body"> 
       <div id="vidange-loader-container" class="loader-container">
         <div class="loader"></div>
       </div>
@@ -176,12 +177,53 @@
       </div>
     </div>
   </div>
+  {{-- Vidange --}}
+
+  {{-- Assurance --}}
+  <div class="section"id="assurance-section">
+    <div id="AddAssuranceModal" class="modal">
+      @include('vehicules.assurances.modals.create')
+    </div>
+    <div id="DeleteAssuranceModal" class="modal delete-modal">
+      @include('vehicules.assurances.modals.delete')
+    </div>
+    <div id="EditAssuranceModal" class="modal">
+      @include('vehicules.assurances.modals.edit')
+    </div>
+    <div class="section-header">
+      <h2 class="main-title">Assurance</h2>
+      <button id="ajouter-assurance" class="material-icons-round ajouter-button" title="Ajouter Assurance">add_circle</button>
+    </div>
+    <div class="section-body"> 
+      <div id="assurance-loader-container" class="loader-container">
+        <div class="loader"></div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="assurance-pagination">
+      <div class="details"></div>
+      <div class="links">
+      </div>
+    </div>
+  </div>
+  {{-- Assurance --}}
 </div>
 @stop
 
 @section('js')
 {{-- <script src="{{ asset('js/vehicules/vehicules.js') }}"></script>
 <script src="{{ asset('js/vehicules/ajax.js') }}"></script> --}}
-<script src="{{ asset('js/vehicules/vidange/vidange.js') }}"></script>
-<script src="{{ asset('js/vehicules/vidange/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicules/vidanges/vidanges.js') }}"></script>
+<script src="{{ asset('js/vehicules/vidanges/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicules/assurances/assurances.js') }}"></script>
+<script src="{{ asset('js/vehicules/assurances/ajax.js') }}"></script>
 @stop

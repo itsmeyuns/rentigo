@@ -1,6 +1,7 @@
-const addForm = $('#add-vidange-form');
-const editForm = $('#edit-vidange-form');
-const tbody = $('.vidange-section tbody');
+const addVidangeForm = $('#add-vidange-form');
+const editVidangeForm = $('#edit-vidange-form');
+const vidangeTable = $('#vidange-section tbody');
+
 $(document).ready(function () {
 
   fetchVidanges()
@@ -33,16 +34,16 @@ $(document).ready(function () {
 
   // Show addVidangeModal
   $('#ajouter-vidange').on('click', function () {
-    resetForm(addForm)
-    $('#AddVidangeeModal').modal('show')
+    resetForm(addVidangeForm)
+    $('#AddVidangeModal').modal('show')
   })
 
-  $(editForm).on('submit',function (e) { 
+  $(editVidangeForm).on('submit',function (e) { 
     e.preventDefault();
     // Get the vidange ID from the hidden input
     let vidangeId = $('#editVidangeId').val()
     // Get data from the form
-    let formData = new FormData(editForm[0]);
+    let formData = new FormData(editVidangeForm[0]);
     formData.append('_method', 'put');
     $.ajax({
       type: 'POST',
@@ -51,7 +52,7 @@ $(document).ready(function () {
       contentType: false,
       processData: false,
       beforeSend:function(){
-        $(editForm).find('div.error').text('');
+        $(editVidangeForm).find('div.error').text('');
       },
       success: function (response) {
         $('.jquery-modal').hide();
@@ -79,7 +80,7 @@ $(document).ready(function () {
 });
 
 function addAction() {
-  $(addForm).on('submit', function (e) {
+  $(addVidangeForm).on('submit', function (e) {
     e.preventDefault()
     let formData = new FormData(this);
     $.ajax({
@@ -89,10 +90,10 @@ function addAction() {
       processData:false,
       contentType:false,
       beforeSend:function(){
-        $(addForm).find('div.error').text('');
+        $(addVidangeForm).find('div.error').text('');
       },
       success: function (response) {
-        resetForm(addForm)
+        resetForm(addVidangeForm)
         $('.jquery-modal').hide();
         fetchVidanges()
         notification.success(response.msg)
@@ -116,7 +117,7 @@ function fetchVidanges() {
     url: `/vidanges/${vehiculeId}/fetch`,
     type: 'GET',
     beforeSend: function() {
-      $(tbody).html('')
+      $(vidangeTable).html('')
       $('#vidange-loader-container').show(); // Show the loader when the AJAX request starts
     },
     success: function(response) {
@@ -172,17 +173,17 @@ function paginationFetch(page) {
     method: 'GET',
     url: `/vidanges/${vehiculeId}/fetch?page=${page}`,
     beforeSend: function() {
-      $(tbody).html('')
+      $(vidangeTable).html('')
       $('#vidange-loader-container').show();
     },
     success: function (response) { 
       let vidanges = response.vidanges.data;
-      $('.next-page').attr('href', response.vidanges.next_page_url);
-      $('.prev-page').attr('href', response.vidanges.prev_page_url);
-      $('.details').html(`Page: <b>${response.vidanges.current_page}</b> | affichant <b>${response.vidanges.from}</b> - <b>${response.vidanges.to}</b> de <b>${response.vidanges.total}</b>`)
+      $('#vidange-pagination .next-page').attr('href', response.vidanges.next_page_url);
+      $('#vidange-pagination .prev-page').attr('href', response.vidanges.prev_page_url);
+      $('#vidange-pagination .details').html(`Page: <b>${response.vidanges.current_page}</b> | affichant <b>${response.vidanges.from}</b> - <b>${response.vidanges.to}</b> de <b>${response.vidanges.total}</b>`)
       fillTable(vidanges);
-      $('.link').removeClass('active')
-      $.each($('.link'), function (index, link) {
+      $('#vidange-pagination .link').removeClass('active')
+      $.each($('#vidange-pagination .link'), function (index, link) {
         ($(link).data('page') == response.vidanges.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
       });
       $('#vidange-loader-container').hide();
@@ -191,9 +192,9 @@ function paginationFetch(page) {
 }
 
 function fillTable(data) {
-  $(tbody).html('')
+  $(vidangeTable).html('')
   $.each(data, function (key, item) {
-    $(tbody).append(`
+    $(vidangeTable).append(`
     <tr>
       <td data-th="Type">${item.type}</td>
       <td data-th="Date">${item.date}</td>
@@ -216,9 +217,9 @@ function fillTable(data) {
 }
 
 function defaultTable() {
-  let tbodyLenght = $(tbody).children().length;
+  let tbodyLenght = $(vidangeTable).children().length;
   for (let i = tbodyLenght; i < 5; i++) {
-    $('tbody').append(`
+    $(vidangeTable).append(`
       <tr>
         <td data-th=""></td>
         <td data-th=""></td>
@@ -262,14 +263,14 @@ function editAction() {
   $('.edit-vidange').on('click', function() {
     // Get the vidange ID from the hidden input
     let vidangeId = $('#editVidangeId').val();
-    let editForm = $('#edit-vidange-form')
+    let editVidangeForm = $('#edit-vidange-form')
     // Send an Ajax request to edit the vehicule
     $.ajax({
       url: `/vidanges/${vidangeId}/edit`,
       type: 'GET',
       success: function(response) {
       // Reset Errors
-      resetForm(editForm)
+      resetForm(editVidangeForm)
       $('#EditVidangeModal').modal('show')
       $.each(response.vidange, function(key, val) {
         $(`#edit_${key}`).val(val);

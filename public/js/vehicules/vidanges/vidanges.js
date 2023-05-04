@@ -1,20 +1,20 @@
-let addVidangeForm = document.getElementById('add-vidange-form');
-let editVidangeForm = document.getElementById('edit-vidange-form');
+let addVidangeForm2 = document.getElementById('add-vidange-form');
+let editVidangeForm2 = document.getElementById('edit-vidange-form');
 let addVidangeButton = document.getElementById('add-vidange-button');
 let editVidangeButton = document.getElementById('edit-vidange-button');
 
-validationOnBlur(addVidangeForm)
+validationOnBlur(addVidangeForm2)
 
 addVidangeButton.addEventListener('click', (event) => {
-  validateDate(addVidangeForm)
-  if (!validateFields(addVidangeForm) || !validateDate(addVidangeForm)) {
+  validateDate(addVidangeForm2)
+  if (!validateFields(addVidangeForm2) || !validateDate(addVidangeForm2)) {
     event.preventDefault()
   }
 })
 
 editVidangeButton.addEventListener('click', (event) => {
-  validateDate(editVidangeForm)
-  if (!validateFields(editVidangeForm) || !validateDate(editVidangeForm)) {
+  validateDate(editVidangeForm2)
+  if (!validateFields(editVidangeForm2) || !validateDate(editVidangeForm2)) {
     event.preventDefault()
   }
 })
@@ -34,8 +34,8 @@ function validateDate(form) {
   return valid
 }
 
-validationOnBlur(addVidangeForm)
-validationOnBlur(editVidangeForm)
+validationOnBlur(addVidangeForm2)
+validationOnBlur(editVidangeForm2)
 function validationOnBlur(form) {
   let inputs = form.querySelectorAll('input:not(input[type=date])');
   inputs.forEach((input)=>{

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VidangeRequest;
-use App\Models\Vidange;
+use App\Http\Requests\AssuranceRequest;
+use App\Models\Assurance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
-class VidangeController extends Controller
+class AssuranceController extends Controller
 {
 
     public function __construct()
@@ -17,17 +16,17 @@ class VidangeController extends Controller
 
     public function all($id)
     {
-        $vidanges = Vidange::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
-        return response()->json(['vidanges' => $vidanges], 200);
+        $assurances = Assurance::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
+        return response()->json(['assurances' => $assurances], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VidangeRequest $request)
-    {
+    public function store(AssuranceRequest $request)
+    {   
         $formData = $request->validated();
-        Vidange::create($formData);
+        Assurance::create($formData);
         return response()->json(['msg' => 'Opération effectuée avec succès.']);
     }
 
@@ -36,9 +35,9 @@ class VidangeController extends Controller
      */
     public function edit($id)
     {
-        $vidange = Vidange::find($id);
-        if ($vidange) {
-            return response()->json(['status' => 200, 'vidange' => $vidange], 200); 
+        $assurance = Assurance::find($id);
+        if ($assurance) {
+            return response()->json(['status' => 200, 'assurance' => $assurance], 200); 
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404); 
     }
@@ -46,24 +45,24 @@ class VidangeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VidangeRequest $request, string $id)
+    public function update(AssuranceRequest $request, string $id)
     {
         // Validation
         $validatedData = $request->validated();
-        $vidange = Vidange::find($id);
-        if ($vidange) {
-            $vidange->update($validatedData);
+        $assurance = Assurance::find($id);
+        if ($assurance) {
+            $assurance->update($validatedData);
             // Return success response if data is updated successfully
-            return response()->json(['status' => 200, 'msg' => 'Vidange a été modifié avec succès'], 200); 
+            return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
         } 
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }
 
     public function delete($id)
     {
-        $vidange = Vidange::find($id);
-        if ($vidange) {
-            return response()->json(['status' => 200, 'vidange' => $vidange], 200); 
+        $assurance = Assurance::find($id);
+        if ($assurance) {
+            return response()->json(['status' => 200, 'assurance' => $assurance], 200); 
         }
         return response()->json(['status' => 404, 'msg' => "Cette information n'existe pas"], 404);
     }
@@ -73,10 +72,10 @@ class VidangeController extends Controller
      */
     public function destroy(string $id)
     {
-        $vidange = Vidange::find($id);
-        if ($vidange) {
-            $vidange->delete();
-            return response()->json(['status' => 200, 'success' => 'Vidange a été supprimé avec succès'], 200);
+        $assurance = Assurance::find($id);
+        if ($assurance) {
+            $assurance->delete();
+            return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }

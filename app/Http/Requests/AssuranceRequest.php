@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class VidangeRequest extends FormRequest
+class AssuranceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class VidangeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required | integer | min:1',
-            'date' => 'required | date | before_or_equal:today',
-            'km_actuel' => 'required | integer | min:0',
-            'km_prochain_vidange' => 'required | integer | min:1',
-            'cout' => 'required | numeric | min:1',
-            'observation' => 'nullable',
+            'date_debut' => 'required | date',
+            'date_fin' => 'required | date | after:date_debut',
             'vehicule_id' => 'required | integer'
         ];
     }

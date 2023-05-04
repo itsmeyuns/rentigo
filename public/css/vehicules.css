@@ -402,7 +402,13 @@
   }
 }
 
-/* Show Vehicule */
+/* Start Show Vehicule */
+.vehicule-infos .ajouter-button {
+  padding: 15px;
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  border-radius: 10px;
+}
 
 .vehicule-demo {
   display: flex;
@@ -495,21 +501,23 @@
   }
 }
 
-/* Show Vehicule */
+.vehicule-infos  .section-body {
+  position: relative;
+  min-height: 260px;
+  overflow: auto;
+}
+
+.vehicule-infos .section {
+  margin: 20px 0;
+
+}
+
+.vehicule-infos .section-header {
+  margin-bottom: 15px;
+}
+
+/* End Show Vehicule */
 
 .readonly-input {
   background-color: var(--hover-color);
-}
-
-/* Vidange */
-.vidange-section-header #ajouter-vidange {
-  padding: 15px;
-  background-color: var(--hover-color);
-  color: var(--primary-color);
-  border-radius: 10px;
-}
-.vidange-section-body {
-  margin: 20px 0;
-  position: relative;
-  min-height: 260px;
 }
