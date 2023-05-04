@@ -261,7 +261,10 @@ function createBoxes(vehicules) {
           <div class="vehicule-status ${className}">
             ${item.status}
           </div>
-          <div class="vehicules-actions ">
+          <div class="vehicule-actions ">
+            <a href="/vehicules/${item.id}/show">
+              <span class="material-icons-round show">visibility</span>
+            </a>
             <span class="material-icons-round edit" data-id="${item.id}">
               edit
             </span>

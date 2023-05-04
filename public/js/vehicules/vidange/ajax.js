@@ -1,40 +1,6 @@
 const addForm = $('#add-vidange-form');
 const editForm = $('#edit-vidange-form');
 const tbody = $('.vidange-section tbody');
-
-function addAction() {
-  $(addForm).on('submit', function (e) {
-    e.preventDefault()
-    let formData = new FormData(this);
-    $.ajax({
-      type: "POST",
-      url: $(this).attr('action'),
-      data: formData,
-      processData:false,
-      contentType:false,
-      beforeSend:function(){
-        $(addForm).find('div.error').text('');
-      },
-      success: function (response) {
-        resetForm(addForm)
-        $('.jquery-modal').hide();
-        fetchVidanges()
-        notification.success(response.msg)
-      },
-      error: function (response) {
-        console.log(response);
-        let errors = response.responseJSON.errors;
-        $.each(errors, function (field, messages) {
-          $('.error.' + field + '_error').html(messages[0]);
-          $('.error.' + field + '_error').prev().removeClass('success');
-          $('.error.' + field + '_error').prev().addClass('bounce');
-        });
-      }
-    });
-  })
-}
-
-
 $(document).ready(function () {
 
   fetchVidanges()
@@ -112,6 +78,38 @@ $(document).ready(function () {
   addAction()
 });
 
+function addAction() {
+  $(addForm).on('submit', function (e) {
+    e.preventDefault()
+    let formData = new FormData(this);
+    $.ajax({
+      type: "POST",
+      url: $(this).attr('action'),
+      data: formData,
+      processData:false,
+      contentType:false,
+      beforeSend:function(){
+        $(addForm).find('div.error').text('');
+      },
+      success: function (response) {
+        resetForm(addForm)
+        $('.jquery-modal').hide();
+        fetchVidanges()
+        notification.success(response.msg)
+      },
+      error: function (response) {
+        console.log(response);
+        let errors = response.responseJSON.errors;
+        $.each(errors, function (field, messages) {
+          $('.error.' + field + '_error').html(messages[0]);
+          $('.error.' + field + '_error').prev().removeClass('success');
+          $('.error.' + field + '_error').prev().addClass('bounce');
+        });
+      }
+    });
+  })
+}
+
 function fetchVidanges() { 
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
@@ -168,7 +166,6 @@ function navigate() {
   });
 }
 
-
 function paginationFetch(page) {
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
@@ -203,7 +200,7 @@ function fillTable(data) {
       <td data-th="Km">${item.km_actuel}</td>
       <td data-th="Prochain vidange">${item.km_prochain_vidange}</td>
       <td data-th="cout">${item.cout}</td>
-      <td data-th="observation">${item.observation}</td>
+      <td data-th="observation">${item.observation ?? ''}</td>
       <td data-th="Actions">
         <span class="material-icons-round edit edit-vidange" data-id="${item.id}">edit</span>
         <span class="material-icons-round delete delete-vidange" data-id="${item.id}">delete</span> 

@@ -290,6 +290,7 @@ span.edit:hover {
 
 /* End Main Loader */
 
+/* Start Form */
 .form-item textarea {
   resize: none;
   font-size: 14px;
@@ -306,3 +307,57 @@ span.edit:hover {
 .form-item textarea::-webkit-scrollbar {
   width: 0;
 }
+
+.error {
+  font-size: 12px;
+  color: var(--danger-color);
+}
+
+.success {
+  border-color: var(--success-color) !important;
+}
+
+.bounce {
+  outline: 0;
+  border-color: var(--danger-color) !important;
+  animation-name: bounce;
+  animation-duration: 0.5s;
+  animation-delay: 0.25s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+  37% {
+    transform: translateX(5px);
+    timing-function: ease-out;
+  }
+  55% {
+    transform: translateX(-5px);
+    timing-function: ease-in;
+  }
+  73% {
+    transform: translateX(4px);
+    timing-function: ease-out;
+  }
+  82% {
+    transform: translateX(-4px);
+    timing-function: ease-in;
+  }
+  91% {
+    transform: translateX(2px);
+    timing-function: ease-out;
+  }
+  96% {
+    transform: translateX(-2px);
+    timing-function: ease-in;
+  }
+  100% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+}
+/* End Form */
+

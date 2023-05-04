@@ -1,6 +1,6 @@
 @import url(master.css);
 @import url(filterBar.css);
-
+/* Start Filter */
 .filter {
   display: flex;
 }
@@ -17,7 +17,7 @@
   border-radius: 5px;
 }
 
-.filter .option input[type=checkbox] {
+.filter .option input[type="checkbox"] {
   display: none;
 }
 
@@ -25,7 +25,9 @@
   background-color: var(--hover-color);
   color: var(--main-color);
 }
+/* Start Filter */
 
+/* Start Vehicules Container */
 .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -73,7 +75,7 @@
   width: 100%;
   aspect-ratio: 3/2;
   object-fit: contain;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .box-body:hover img {
@@ -85,6 +87,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0 5px;
+}
+
+.box .vehicule-actions .material-icons-round {
+  font-size: 22px;
 }
 
 .box .box-footer .vehicule-status {
@@ -103,19 +109,15 @@
   background-color: #ff860a;
 }
 
-.box .box-footer .delete {
-  color: var(--danger-color);
-}
-.box .box-footer .edit {
-  color: var(--primary-color);
-}
-
 
 @media screen and (max-width: 740px) {
   .filter div {
     padding: 3px 10px;
   }
 }
+
+/* Start Vehicules Container */
+
 
 /* Ajouter vehicule */
 
@@ -148,7 +150,7 @@
 }
 
 .form-container .form-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -3px;
   width: 35px;
@@ -171,12 +173,11 @@
   text-transform: capitalize;
 }
 
-
-.form-container form .star{
+.form-container form .star {
   color: var(--danger-color);
 }
 
-.form-item input:not(input[type=checkbox], input[type=file]),
+.form-item input:not(input[type="checkbox"], input[type="file"]),
 .form-item select {
   font-size: 14px;
   font-weight: 400;
@@ -188,53 +189,11 @@
   margin: 8px 0;
 }
 
-.form-item input[type=number]::-webkit-outer-spin-button,  .form-item input[type=number]::-webkit-inner-spin-button{
+.form-item input[type="number"]::-webkit-outer-spin-button,
+.form-item input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
   appearance: none;
-}
-
-.bounce {
-  outline: 0;
-  border-color: var(--danger-color) !important;
-  animation-name: bounce;
-  animation-duration: .5s;
-  animation-delay: 0.25s;
-}
-
-@keyframes bounce {
-  0% {
-    transform: translateX(0px);
-    timing-function: ease-in;
-  }
-  37% {
-    transform: translateX(5px);
-    timing-function: ease-out;
-  }
-  55% {
-    transform: translateX(-5px);
-    timing-function: ease-in;
-  }
-  73% {
-    transform: translateX(4px);
-    timing-function: ease-out;
-  }
-  82% {
-    transform: translateX(-4px);
-    timing-function: ease-in;
-  }
-  91% {
-    transform: translateX(2px);
-    timing-function: ease-out;
-  }
-  96% {
-    transform: translateX(-2px);
-    timing-function: ease-in;
-  }
-  100% {
-    transform: translateX(0px);
-    timing-function: ease-in;
-  }
 }
 
 .form-item select {
@@ -294,11 +253,11 @@
   justify-content: center;
 }
 
-.extras-container .extra-box{
+.extras-container .extra-box {
   margin: 3px 0;
 }
 
-.form-container form .input-file-holder input[type=file] {
+.form-container form .input-file-holder input[type="file"] {
   border: none;
   height: 100%;
   opacity: 0;
@@ -360,17 +319,6 @@
   font-weight: 700;
 }
 
-
-
-.error {
-  font-size: 12px;
-  color: var(--danger-color);
-}
-
-.success {
-  border-color: var(--success-color) !important;
-}
-
 .vehicule-section-body {
   position: relative;
   min-height: 400px;
@@ -386,7 +334,7 @@
 #no-result .text {
   font-size: 25px;
   font-weight: 500;
-} 
+}
 
 .loader-container {
   display: none;
@@ -423,27 +371,26 @@
 @-webkit-keyframes spin89345 {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 @keyframes spin89345 {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
-
 
 @media screen and (max-width: 600px) {
   .form-item {
@@ -515,14 +462,14 @@
   font-size: 20px;
 }
 
-.main-row  .vi-box {
+.main-row .vi-box {
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin: 15px 10px;
 }
 
-.main-row  .vi-box .row {
+.main-row .vi-box .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -535,7 +482,7 @@
   text-transform: capitalize;
 }
 
-.main-row  .vi-box .column {
+.main-row .vi-box .column {
   min-width: 130px;
 }
 
@@ -543,13 +490,12 @@
   .vehicule-demo .left-box {
     width: 100%;
   }
-  .vehicule-demo .left-box img{
+  .vehicule-demo .left-box img {
     max-width: 100%;
   }
 }
 
 /* Show Vehicule */
-
 
 .readonly-input {
   background-color: var(--hover-color);
@@ -561,7 +507,7 @@
   background-color: var(--hover-color);
   color: var(--primary-color);
   border-radius: 10px;
-} 
+}
 .vidange-section-body {
   margin: 20px 0;
   position: relative;
