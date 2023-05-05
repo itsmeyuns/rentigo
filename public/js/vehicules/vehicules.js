@@ -66,25 +66,6 @@ imagePreview("edit_photo", "edit_uploadedImage", "edit_imgPreview")
 imagePreview("photo", "uploadedImage", "imgPreview")
 
 
-function setErrors(element, message) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-
-  element.classList.remove('success')
-  element.classList.add('bounce');
-  errorDiv.innerText = message;
-}
-
-function setSuccess(element) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-
-  element.classList.remove('bounce')
-  element.classList.add('success')
-  errorDiv.innerText = '';
-}
-
-
 function validateFields(form) {
   let valid = true;
   let inputs = form.querySelectorAll('input:not(input[type=checkbox], input[type=file])');

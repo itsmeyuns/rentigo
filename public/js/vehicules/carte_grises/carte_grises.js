@@ -1,7 +1,7 @@
-let addCarteGForm2 = document.getElementById('add-carte-g-form');
-let editCarteGForm2 = document.getElementById('edit-carte-g-form');
-let addCarteGButton = document.getElementById('add-carte-g-button');
-let editCarteGButton = document.getElementById('edit-carte-g-button');
+const addCarteGForm2 = document.getElementById('add-carte-g-form');
+const editCarteGForm2 = document.getElementById('edit-carte-g-form');
+const addCarteGButton = document.getElementById('add-carte-g-button');
+const editCarteGButton = document.getElementById('edit-carte-g-button');
 
 addCarteGButton.addEventListener('click', (event) => {
   if (!validateFields(addCarteGForm2)) {
@@ -30,21 +30,4 @@ function validateFields(form) {
     }
   })
   return valid;
-}
-
-function setErrors(element, message) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-
-  element.classList.remove('success')
-  element.classList.add('bounce');
-  errorDiv.innerText = message;
-}
-
-function setSuccess(element) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-  element.classList.remove('bounce')
-  element.classList.add('success')
-  errorDiv.innerText = '';
 }

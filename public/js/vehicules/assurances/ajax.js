@@ -126,46 +126,11 @@ function fetchAssurances() {
       const assurances = response.assurances.data
       const links = response.assurances.links
       fillAssuranceTable(assurances)
-      if (assurances.length > 0) {
-        $('#assurance-pagination').show()
-        $('#assurance-pagination .details').html(`Page: <b>${response.assurances.current_page}</b> | affichant <b>${response.assurances.from}</b> - <b>${response.assurances.to}</b> de <b>${response.assurances.total}</b>`)
-        $('#assurance-pagination div.links').html('')
-        // Add Pagination links
-        $.each(links, function (index, link) {
-          let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
-          if (index === 0) {
-            element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_before</span>
-                      </a>`
-          }
-          else if (index === links.length-1) {
-            element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_next</span>
-                      </a>`
-          }
-          $('#assurance-pagination div.links').append(element)
-        })
-        // Add Active Class To Element That Represent Page 1
-        $('#assurance-pagination .link:nth-child(2)').addClass('active')
-        navigateAssurance()
-      } else {
-        $('#assurance-pagination').hide()
-      }
+      createPaginationLinks(response.assurances, '#assurance-pagination', paginationAssuranceFetch)
       $('#assurance-loader-container').hide();
     },
     error: function(error) {
       console.error(error.responseJSON);
-    }
-  });
-}
-
-
-function navigateAssurance() {
-  $('#assurance-pagination a').on('click', function (event) {  
-    event.preventDefault()
-    if ($(this).attr('href')) {
-      let page = $(this).attr('href').split('page=')[1]
-      paginationAssuranceFetch(page)
     }
   });
 }

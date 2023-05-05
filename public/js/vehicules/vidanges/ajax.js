@@ -2,6 +2,53 @@ const addVidangeForm = $('#add-vidange-form');
 const editVidangeForm = $('#edit-vidange-form');
 const vidangeTable = $('#vidange-section tbody');
 
+// Start Global Functions
+function createPaginationLinks(object, paginationId, paginationFetch) {
+  const links = object.links;
+  // const pagination = 
+  console.log(paginationId);
+  if (object.data.length > 0) {
+    const currentPage = object.current_page
+    const from = object.from
+    const to = object.to
+    const total = object.total
+    $(paginationId).show()
+    $(`${paginationId} .details`).html(`Page: <b>${currentPage}</b> | affichant <b>${from}</b> - <b>${to}</b> de <b>${total}</b>`)
+    $(`${paginationId} div.links`).html('')
+    // Add Pagination links
+    $.each(links, function (index, link) {
+      let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
+      if (index === 0) {
+        element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
+                    <span class="material-icons-round">navigate_before</span>
+                  </a>`
+      }
+      else if (index === links.length-1) {
+        element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
+                    <span class="material-icons-round">navigate_next</span>
+                  </a>`
+      }
+      $(`${paginationId} div.links`).append(element)
+    })
+    // Add Active Class To Element That Represent Page 1
+    $(`${paginationId} .link:nth-child(2)`).addClass('active')
+    navigate(paginationId, paginationFetch)
+  } else {
+    $(paginationId).hide()
+  }
+}
+
+function navigate(paginationId, pgFetch) {
+  $(`${paginationId} a`).on('click', function (event) {  
+    event.preventDefault()
+    if ($(this).attr('href')) {
+      let page = $(this).attr('href').split('page=')[1]
+      pgFetch(page)
+    }
+  });
+}
+// End Global Functions
+
 $(document).ready(function () {
 
   fetchVidanges()
@@ -124,31 +171,7 @@ function fetchVidanges() {
       const vidanges = response.vidanges.data
       const links = response.vidanges.links
       fillTable(vidanges)
-      if (vidanges.length > 0) {
-        $('#vidange-pagination').show()
-        $('#vidange-pagination .details').html(`Page: <b>${response.vidanges.current_page}</b> | affichant <b>${response.vidanges.from}</b> - <b>${response.vidanges.to}</b> de <b>${response.vidanges.total}</b>`)
-        $('#vidange-pagination div.links').html('')
-        // Add Pagination links
-        $.each(links, function (index, link) {
-          let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
-          if (index === 0) {
-            element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_before</span>
-                      </a>`
-          }
-          else if (index === links.length-1) {
-            element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_next</span>
-                      </a>`
-          }
-          $('#vidange-pagination div.links').append(element)
-        })
-        // Add Active Class To Element That Represent Page 1
-        $('#vidange-pagination .link:nth-child(2)').addClass('active')
-        navigate()
-      } else {
-        $('#vidange-pagination').hide()
-      }
+      createPaginationLinks(response.vidanges, '#vidange-pagination', paginationFetch)
       $('#vidange-loader-container').hide();
     },
     error: function(error) {
@@ -157,17 +180,8 @@ function fetchVidanges() {
   });
 }
 
-function navigate() {
-  $('#vidange-pagination a').on('click', function (event) {  
-    event.preventDefault()
-    if ($(this).attr('href')) {
-      let page = $(this).attr('href').split('page=')[1]
-      paginationFetch(page)
-    }
-  });
-}
-
 function paginationFetch(page) {
+  console.log(page);
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
     method: 'GET',

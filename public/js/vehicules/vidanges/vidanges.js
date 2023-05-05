@@ -106,21 +106,3 @@ function calcKmProchainVidange(typeVidangeId, kmActuelId, kmProchainVidangeId) {
 calcKmProchainVidange('edit_type', 'edit_km_actuel', 'edit_km_prochain_vidange')
 calcKmProchainVidange('type', 'km_actuel', 'km_prochain_vidange')
 
-
-
-function setErrors(element, message) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-
-  element.classList.remove('success')
-  element.classList.add('bounce');
-  errorDiv.innerText = message;
-}
-
-function setSuccess(element) {
-  const inputParent = element.parentElement;
-  const errorDiv = inputParent.querySelector('.error');
-  element.classList.remove('bounce')
-  element.classList.add('success')
-  errorDiv.innerText = '';
-}
