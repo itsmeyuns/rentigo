@@ -25,10 +25,10 @@ const links = document.querySelectorAll('.sidebar-list-item');
 // Add a click event listener to each link
 links.forEach(link => {
     let pathname = new URL(link.firstElementChild.href).pathname;
-    if (window.location.pathname === pathname) {
+    if (window.location.pathname.startsWith(pathname)) {
       link.classList.add('active')
     }
-  })
+})
 
 
 

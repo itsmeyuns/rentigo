@@ -216,6 +216,45 @@
     </div>
   </div>
   {{-- Assurance --}}
+
+  {{-- Carte Grise --}}
+  <div class="section" id="carte-grise-section">
+    <div id="AddCarteGModal" class="modal">
+      @include('vehicules.carte_grise.modals.create')
+    </div>
+    <div id="DeleteCarteGModal" class="modal delete-modal">
+      @include('vehicules.carte_grise.modals.delete')
+    </div>
+    <div id="EditCarteGModal" class="modal">
+      @include('vehicules.carte_grise.modals.edit')
+    </div>
+    <div class="section-header">
+      <h2 class="main-title">Carte Grise</h2>
+      <button id="ajouter-carte-g" class="material-icons-round ajouter-button" title="Ajouter Carte Grise">add_circle</button>
+    </div>
+    <div class="section-body"> 
+      <div id="carte-g-loader-container" class="loader-container">
+        <div class="loader"></div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="carte-g-pagination">
+      <div class="details"></div>
+      <div class="links">
+      </div>
+    </div>
+  </div>
+  {{-- Carte Grise --}}
+
 </div>
 @stop
 
@@ -226,4 +265,6 @@
 <script src="{{ asset('js/vehicules/vidanges/ajax.js') }}"></script>
 <script src="{{ asset('js/vehicules/assurances/assurances.js') }}"></script>
 <script src="{{ asset('js/vehicules/assurances/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicules/carte_grises/carte_grises.js') }}"></script>
+<script src="{{ asset('js/vehicules/carte_grises/ajax.js') }}"></script>
 @stop

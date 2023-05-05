@@ -33,6 +33,11 @@ class Vehicule extends Model
         return $this->hasMany(Vidange::class);
     }
 
+    public function carteGrises()
+    {
+        return $this->hasMany(CarteGrise::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

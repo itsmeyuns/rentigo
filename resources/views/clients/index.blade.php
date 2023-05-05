@@ -6,16 +6,16 @@
 @section('title', 'Clients')
 @section('content')
 <div id="AddClientModal" class="modal">
-  @include('clients.modal.create')
+  @include('clients.modals.create')
 </div>
 <div id="DeleteClientModal" class="modal delete-modal">
-  @include('clients.modal.delete')
+  @include('clients.modals.delete')
 </div>
 <div id="EditClientModal" class="modal">
-  @include('clients.modal.edit')
+  @include('clients.modals.edit')
 </div>
 <div id="ShowClientModal" class="modal">
-  @include('clients.modal.show')
+  @include('clients.modals.show')
 </div>
 <div class="bar">
   <form action="">

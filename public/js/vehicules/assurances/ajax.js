@@ -82,7 +82,7 @@ function fillAssuranceTable(data) {
       </td>
     </tr>
     `);
-  });resetAssuranceForm
+  });
   defaultAssuranceTable()
   // Actions
   passIdToAssuranceModal()

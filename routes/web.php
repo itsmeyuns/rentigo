@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssuranceController;
+use App\Http\Controllers\CarteGriseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,7 @@ Route::prefix('/clients')->group(function () {
 
 });
 
+// Start Vehicule
 Route::prefix('/vehicules')->group(function () {
   Route::get('/', [VehiculeController::class, 'index'])->name('vehicules.index');
   Route::post('/store', [VehiculeController::class, 'store'])->name('vehicules.store');
@@ -74,8 +76,10 @@ Route::prefix('/vehicules')->group(function () {
   });
 
 });
+// End Vehicule
 
 
+// Start Vidange
 Route::prefix('vidanges')->group(function () {
   Route::post('/store', [VidangeController::class, 'store'])->name('vidanges.store');
   Route::put('/{id}', [VidangeController::class, 'update'])->name('vidanges.update');
@@ -88,7 +92,9 @@ Route::prefix('vidanges')->group(function () {
   });
 
 });
+// End Vidange
 
+// Start Assurance
 Route::prefix('assurances')->group(function () {
   Route::post('/store', [AssuranceController::class, 'store'])->name('assurances.store');
   Route::put('/{id}', [AssuranceController::class, 'update'])->name('assurances.update');
@@ -101,7 +107,23 @@ Route::prefix('assurances')->group(function () {
   });
 
 });
+// End Assurance
 
+
+// Start Assurance
+Route::prefix('carte-grises')->group(function () {
+  Route::post('/store', [CarteGriseController::class, 'store'])->name('carte-grises.store');
+  Route::put('/{id}', [CarteGriseController::class, 'update'])->name('carte-grises.update');
+  Route::delete('/{id}', [CarteGriseController::class, 'destroy'])->name('carte-grises.destroy');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{id}/fetch', [CarteGriseController::class, 'all'])->name('carte-grises.fetch');
+    Route::get('/{id}/delete', [CarteGriseController::class, 'delete'])->name('carte-grises.delete');
+    Route::get('/{id}/edit', [CarteGriseController::class, 'edit'])->name('carte-grises.edit');
+  });
+
+});
+// End Assurance
 
 
 Route::prefix('/extras')->group(function ()
