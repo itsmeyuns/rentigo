@@ -255,6 +255,44 @@
   </div>
   {{-- Carte Grise --}}
 
+  {{-- Visite Technique --}}
+  <div class="section" id="visite-technique-section">
+    <div id="AddVisiteTechModal" class="modal">
+      @include('vehicules.visite_techniques.modals.create')
+    </div>
+    <div id="DeleteVisiteTechModal" class="modal delete-modal">
+      @include('vehicules.visite_techniques.modals.delete')
+    </div>
+    <div id="EditVisiteTechModal" class="modal">
+      @include('vehicules.visite_techniques.modals.edit')
+    </div>
+    <div class="section-header">
+      <h2 class="main-title">Visite Technique</h2>
+      <button id="ajouter-visite-tech" class="material-icons-round ajouter-button" title="Ajouter Visite Technique">add_circle</button>
+    </div>
+    <div class="section-body"> 
+      <div id="visite-tech-loader-container" class="loader-container">
+        <div class="loader"></div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="visite-tech-pagination">
+      <div class="details"></div>
+      <div class="links">
+      </div>
+    </div>
+  </div>
+  {{-- Visite Technique --}}
+
 </div>
 @stop
 
@@ -267,4 +305,6 @@
 <script src="{{ asset('js/vehicules/assurances/ajax.js') }}"></script>
 <script src="{{ asset('js/vehicules/carte_grises/carte_grises.js') }}"></script>
 <script src="{{ asset('js/vehicules/carte_grises/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicules/visite_techniques/visite_techniques.js') }}"></script>
+<script src="{{ asset('js/vehicules/visite_techniques/ajax.js') }}"></script>
 @stop

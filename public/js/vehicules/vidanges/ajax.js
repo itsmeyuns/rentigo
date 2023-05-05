@@ -5,8 +5,6 @@ const vidangeTable = $('#vidange-section tbody');
 // Start Global Functions
 function createPaginationLinks(object, paginationId, paginationFetch) {
   const links = object.links;
-  // const pagination = 
-  console.log(paginationId);
   if (object.data.length > 0) {
     const currentPage = object.current_page
     const from = object.from

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
+use App\Http\Controllers\VisiteTechniqueController;
 use App\Http\Requests\VehiculeRequest;
 use App\Models\Client;
 
@@ -110,7 +111,7 @@ Route::prefix('assurances')->group(function () {
 // End Assurance
 
 
-// Start Assurance
+// Start Carte Grise
 Route::prefix('carte-grises')->group(function () {
   Route::post('/store', [CarteGriseController::class, 'store'])->name('carte-grises.store');
   Route::put('/{id}', [CarteGriseController::class, 'update'])->name('carte-grises.update');
@@ -123,8 +124,22 @@ Route::prefix('carte-grises')->group(function () {
   });
 
 });
-// End Assurance
+// End Carte Grise
 
+// Start Visite Technique
+Route::prefix('visite-techniques')->group(function () {
+  Route::post('/store', [VisiteTechniqueController::class, 'store'])->name('visite-techniques.store');
+  Route::put('/{id}', [VisiteTechniqueController::class, 'update'])->name('visite-techniques.update');
+  Route::delete('/{id}', [VisiteTechniqueController::class, 'destroy'])->name('visite-techniques.destroy');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{id}/fetch', [VisiteTechniqueController::class, 'all'])->name('visite-techniques.fetch');
+    Route::get('/{id}/delete', [VisiteTechniqueController::class, 'delete'])->name('visite-techniques.delete');
+    Route::get('/{id}/edit', [VisiteTechniqueController::class, 'edit'])->name('visite-techniques.edit');
+  });
+
+});
+// End Visite Technique
 
 Route::prefix('/extras')->group(function ()
 {
