@@ -167,7 +167,7 @@ function fetchVidanges() {
     },
     success: function(response) {
       const vidanges = response.vidanges.data
-      const links = response.vidanges.links
+      $('#prochain-vidange').text(response.prochaine_vidange)
       fillTable(vidanges)
       createPaginationLinks(response.vidanges, '#vidange-pagination', paginationFetch)
       $('#vidange-loader-container').hide();

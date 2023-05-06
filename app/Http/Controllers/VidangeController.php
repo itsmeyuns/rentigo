@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VidangeRequest;
+use App\Models\Vehicule;
 use App\Models\Vidange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,9 @@ class VidangeController extends Controller
     public function all($id)
     {
         $vidanges = Vidange::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
-        return response()->json(['vidanges' => $vidanges], 200);
+        // $vidanges = Vehicule::find($id)->vidanges()->paginate(1);
+        $prochaineVidange = Vidange::where('vehicule_id', $id)->min('km_prochain_vidange') ?? "-";
+        return response()->json(['vidanges' => $vidanges, 'prochaine_vidange' => $prochaineVidange], 200);
     }
 
     /**

@@ -94,7 +94,7 @@
               </div>
               <div class="column">
                 <p class="info-label">Vidange à</p>
-                <span> {{$prochainVidange}}</span>
+                <span id="prochain-vidange">-</span>
               </div>
             </div>
             <div class="row">
@@ -118,17 +118,17 @@
             <div class="row">
               <div class="column">
                 <p class="info-label">Assurance</p>
-                <span>2022-09-03</span>
+                <span id="prochaine-assurance">-</span>
               </div>
               <div class="column">
                 <p class="info-label">La visite technique</p>
-                <span>2022-09-03</span>
+                <span id="prochaine-visite-tech">-</span>
               </div>
             </div>
             <div class="row">
               <div class="column">
                 <p class="info-label">carte grise</p>
-                <span>2022-09-03</span>
+                <span id="prochaine-carte-g">-</span>
               </div>
             </div>
           </div>

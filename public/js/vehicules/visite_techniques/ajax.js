@@ -90,6 +90,7 @@ function fetchVisiteTechniques() {
     },
     success: function(response) {
       const visiteTechniques = response.visite_techniques.data
+      $('#prochaine-visite-tech').text(response.prochaine_visite_technique)
       fillVisiteTechniqueTable(visiteTechniques)
       createPaginationLinks(response.visite_techniques, '#visite-tech-pagination', paginationVisiteTechFetch)
       $('#visite-tech-loader-container').hide()

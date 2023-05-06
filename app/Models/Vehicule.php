@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Vehicule extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
+    protected $cascadeDeletes = ['vidanges', 'assurances', 'carteGrises', 'visiteTechniques'];
     protected $fillable = [
         'matricule',
         'marque',
@@ -38,16 +40,14 @@ class Vehicule extends Model
         return $this->hasMany(CarteGrise::class);
     }
 
-    protected static function boot()
+    public function assurances()
     {
-        parent::boot();
-
-        // Event triggered before the deletion of the Vehicle model
-        static::deleting(function ($vehicule) {
-            // Delete all instances of Vidange associated with this Vehicle model
-            $vehicule->vidanges()->delete();
-        });
+        return $this->hasMany(Assurance::class);
     }
 
+    public function visiteTechniques()
+    {
+        return $this->hasMany(VisiteTechnique::class);
+    }
 
 }

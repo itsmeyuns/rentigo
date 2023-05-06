@@ -17,7 +17,8 @@ class CarteGriseController extends Controller
     public function all($id)
     {
         $carteGrises = CarteGrise::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
-        return response()->json(['carte_grises' => $carteGrises], 200);
+        $prochaineCarteGrise = CarteGrise::where('vehicule_id', $id)->min('date_fin') ?? "-";
+        return response()->json(['carte_grises' => $carteGrises, 'prochaine_carte_grise' => $prochaineCarteGrise], 200);
     }
 
     /**
