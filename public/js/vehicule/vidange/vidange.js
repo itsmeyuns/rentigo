@@ -2,9 +2,7 @@ let addVidangeForm2 = document.getElementById('add-vidange-form');
 let editVidangeForm2 = document.getElementById('edit-vidange-form');
 let addVidangeButton = document.getElementById('add-vidange-button');
 let editVidangeButton = document.getElementById('edit-vidange-button');
-
-validationOnBlur(addVidangeForm2)
-
+console.log(editVidangeForm2, editVidangeButton);
 addVidangeButton.addEventListener('click', (event) => {
   validateDate(addVidangeForm2)
   if (!validateFields(addVidangeForm2) || !validateDate(addVidangeForm2)) {
@@ -37,7 +35,7 @@ function validateDate(form) {
 validationOnBlur(addVidangeForm2)
 validationOnBlur(editVidangeForm2)
 function validationOnBlur(form) {
-  let inputs = form.querySelectorAll('input:not(input[type=date])');
+  let inputs = form.querySelectorAll('input');
   inputs.forEach((input)=>{
     if (!input.classList.contains('readonly-input')) {
       input.addEventListener('blur', function () {
@@ -69,7 +67,6 @@ function validateFields(form) {
   return valid;
 }
 
-
 const numberFields = ['type','cout', 'edit_type', 'edit_cout'];
 numberFields.forEach((field)=>{
   console.log(document.getElementById(field));
@@ -80,14 +77,13 @@ numberFields.forEach((field)=>{
 
 function onlyNumbers(event) {
   const pressedKey = event.keyCode
-  const allowedKeyCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 109, 8];
+  const allowedKeyCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 109, 110, 59, 8];
   if (allowedKeyCodes.includes(pressedKey)) {
     return true
   } else {
     event.preventDefault()
   }
 }
-
 
 function calcKmProchainVidange(typeVidangeId, kmActuelId, kmProchainVidangeId) {
   const typeVidange = document.getElementById(typeVidangeId);

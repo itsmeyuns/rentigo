@@ -83,7 +83,6 @@ function validateFields(form) {
 
 }
 
-
 const numberFields = ['nombre_places', 'nombre_portes', 'prix_location', 'kilometrage', 'edit_nombre_places', 'edit_nombre_portes', 'edit_prix_location', 'edit_kilometrage'];
 numberFields.forEach((field)=>{
   document.getElementById(field).addEventListener('keydown', function (event) {

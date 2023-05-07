@@ -9,13 +9,13 @@
 
   {{-- Start Modals --}}
   <div id="AddVehiculeModal" class="modal">
-    @include('vehicules.modals.create')
+    @include('vehicule.modals.create')
   </div>
   <div id="DeleteVehiculeModal" class="modal delete-modal">
-    @include('vehicules.modals.delete')
+    @include('vehicule.modals.delete')
   </div>
   <div id="EditVehiculeModal" class="modal">
-    @include('vehicules.modals.edit')
+    @include('vehicule.modals.edit')
   </div>
   {{-- End Modals --}}
 
@@ -88,6 +88,6 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/vehicules/vehicules.js') }}"></script>
-<script src="{{ asset('js/vehicules/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/vehicule.js') }}"></script>
+<script src="{{ asset('js/vehicule/ajax.js') }}"></script>
 @stop

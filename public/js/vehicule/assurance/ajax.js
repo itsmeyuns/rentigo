@@ -1,11 +1,80 @@
 const addAssuranceForm = $('#add-assurance-form');
 const editAssuranceForm = $('#edit-assurance-form');
 const assuranceTable = $('#assurance-section tbody');
-// Show addassuranceModal
-$('#ajouter-assurance').on('click', function () {
-  resetAssuranceForm(addAssuranceForm)
-  $('#AddAssuranceModal').modal('show')
-})
+
+$(document).ready(function () {
+  fetchAssurances()
+
+  // Hide Delete Modal
+  $('#cancelAssuranceButton').on('click', function () {
+    $('#DeleteAssuranceModal').parent().hide()
+  })
+  // Add an event listener to the confirm delete button in the modal
+  $('#confirmationAssuranceButton').on('click', function() {
+    // Get the assurance ID from the hidden
+    let assuranceId = $('#deleteAssuranceId').val();
+    // Send an Ajax request to delete assurance
+    $.ajax({
+      url: `/assurances/${assuranceId}`,
+      type: 'DELETE',
+      beforeSend: function () { 
+        $('.jquery-modal').hide();
+      },
+      success: function(response) {
+        notification.success(response.success);
+        fetchAssurances()
+      },
+      error: function (response) {
+        notification.error(response.responseJSON.msg)
+      }
+    });
+  });
+
+  // Show addassuranceModal
+  $('#ajouter-assurance').on('click', function () {
+    resetAssuranceForm(addAssuranceForm)
+    $('#AddAssuranceModal').modal('show')
+  })
+
+  $(editAssuranceForm).on('submit',function (e) { 
+    e.preventDefault();
+    // Get the assurance ID from the hidden input
+    let assuranceId = $('#editAssuranceId').val()
+    // Get data from the form
+    let formData = new FormData(editAssuranceForm[0]);
+    formData.append('_method', 'put');
+    $.ajax({
+      type: 'POST',
+      url: `/assurances/${assuranceId}`,
+      data: formData,
+      contentType: false,
+      processData: false,
+      beforeSend:function(){
+        $(editAssuranceForm).find('div.error').text('');
+      },
+      success: function (response) {
+        $('.jquery-modal').hide();
+        notification.success(response.msg);
+        fetchAssurances()
+      },
+      error: function (response) {
+        let errors = response.responseJSON.errors;
+        if (errors) {
+          $.each(errors, function (field, messages) {
+            $('.error.' + field + '_error').html(messages[0]);
+            $('.error.' + field + '_error').prev().removeClass('success');
+            $('.error.' + field + '_error').prev().addClass('bounce');
+          });
+        } else {
+          $('.jquery-modal').hide();
+          notification.error(response.responseJSON.msg)
+        }
+      }
+    });
+  });
+
+  addAssuranceAction()
+});
 
 function addAssuranceAction() {
   $(addAssuranceForm).on('submit', function (e) {
@@ -38,36 +107,45 @@ function addAssuranceAction() {
   })
 }
 
-$(document).ready(function () {
-  fetchAssurances()
-
-  // Hide Delete Modal
-  $('#cancelAssuranceButton').on('click', function () {
-    $('#DeleteAssuranceModal').parent().hide()
-  })
-  // Add an event listener to the confirm delete button in the modal
-  $('#confirmationAssuranceButton').on('click', function() {
-    // Get the assurance ID from the hidden
-    let assuranceId = $('#deleteAssuranceId').val();
-    // Send an Ajax request to delete assurance
+function editAssuranceAction() {
+  $('.edit-assurance').on('click', function() {
+    // Get the assrance ID from the hidden input
+    const assuranceId = $('#editAssuranceId').val();
+    let editAssuranceForm = $('#edit-assurance-form')
+    // Send an Ajax request to edit the vehicule
     $.ajax({
-      url: `/assurances/${assuranceId}`,
-      type: 'DELETE',
-      beforeSend: function () { 
-        $('.jquery-modal').hide();
-      },
+      url: `/assurances/${assuranceId}/edit`,
+      type: 'GET',
       success: function(response) {
-        notification.success(response.success);
-        fetchAssurances()
+      // Reset Errors
+      resetAssuranceForm(editAssuranceForm)
+      $('#EditAssuranceModal').modal('show')
+      $.each(response.assurance, function(key, val) {
+        $(`#edit_${key}`).val(val);
+      })
       },
       error: function (response) {
         notification.error(response.responseJSON.msg)
       }
     });
   });
+}
 
-  addAssuranceAction()
-});
+function deleteAssuranceAction() {
+  $('.delete-assurance').on('click', function () { 
+    let assuranceId = $(this).attr('data-id');
+    $.ajax({
+      url: `/assurances/${assuranceId}/delete`,
+      type: 'GET',
+      success: function() {
+        $('#DeleteAssuranceModal').modal('show')
+      },
+      error: function (response) { 
+        notification.error(response.responseJSON.msg)
+      }
+    });
+  })
+}
 
 function fillAssuranceTable(data) {
   $(assuranceTable).html('')
@@ -103,16 +181,6 @@ function defaultAssuranceTable() {
   }
 }
 
-function resetAssuranceForm(form) { 
-  const formType = $(form).attr('id')
-  $(form).find('div.error').text('');
-  $('input').removeClass('success');
-  $('input').removeClass('bounce');
-  if (formType === 'add-assurance-form') {
-    $(form)[0].reset();
-  }
-}
-
 function fetchAssurances() {
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
@@ -133,6 +201,16 @@ function fetchAssurances() {
       console.error(error.responseJSON);
     }
   });
+}
+
+function resetAssuranceForm(form) { 
+  const formType = $(form).attr('id')
+  $(form).find('div.error').text('');
+  $('input').removeClass('success');
+  $('input').removeClass('bounce');
+  if (formType === 'add-assurance-form') {
+    $(form)[0].reset();
+  }
 }
 
 function paginationAssuranceFetch(page) {
@@ -159,23 +237,6 @@ function paginationAssuranceFetch(page) {
   })
 }
 
-
-function deleteAssuranceAction() {
-  $('.delete-assurance').on('click', function () { 
-    let assuranceId = $(this).attr('data-id');
-    $.ajax({
-      url: `/assurances/${assuranceId}/delete`,
-      type: 'GET',
-      success: function() {
-        $('#DeleteAssuranceModal').modal('show')
-      },
-      error: function (response) { 
-        notification.error(response.responseJSON.msg)
-      }
-    });
-  })
-}
-
 function passIdToAssuranceModal() { 
   $('.delete-assurance, .edit-assurance').on('click', function () { 
     let id = $(this).attr('data-id');
@@ -185,64 +246,3 @@ function passIdToAssuranceModal() {
     $('#editAssuranceId').val(id);
   })
 }
-
-function editAssuranceAction() {
-  $('.edit-assurance').on('click', function() {
-    // Get the assrance ID from the hidden input
-    const assuranceId = $('#editAssuranceId').val();
-    let editAssuranceForm = $('#edit-assurance-form')
-    // Send an Ajax request to edit the vehicule
-    $.ajax({
-      url: `/assurances/${assuranceId}/edit`,
-      type: 'GET',
-      success: function(response) {
-      // Reset Errors
-      resetAssuranceForm(editAssuranceForm)
-      $('#EditAssuranceModal').modal('show')
-      $.each(response.assurance, function(key, val) {
-        $(`#edit_${key}`).val(val);
-      })
-      },
-      error: function (response) {
-        notification.error(response.responseJSON.msg)
-      }
-    });
-  });
-}
-
-$(editAssuranceForm).on('submit',function (e) { 
-  e.preventDefault();
-  // Get the assurance ID from the hidden input
-  let assuranceId = $('#editAssuranceId').val()
-  // Get data from the form
-  let formData = new FormData(editAssuranceForm[0]);
-  formData.append('_method', 'put');
-  $.ajax({
-    type: 'POST',
-    url: `/assurances/${assuranceId}`,
-    data: formData,
-    contentType: false,
-    processData: false,
-    beforeSend:function(){
-      $(editAssuranceForm).find('div.error').text('');
-    },
-    success: function (response) {
-      $('.jquery-modal').hide();
-      notification.success(response.msg);
-      fetchAssurances()
-    },
-    error: function (response) {
-      let errors = response.responseJSON.errors;
-      if (errors) {
-        $.each(errors, function (field, messages) {
-          $('.error.' + field + '_error').html(messages[0]);
-          $('.error.' + field + '_error').prev().removeClass('success');
-          $('.error.' + field + '_error').prev().addClass('bounce');
-        });
-      } else {
-        $('.jquery-modal').hide();
-        notification.error(response.responseJSON.msg)
-      }
-    }
-  });
-});

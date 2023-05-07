@@ -138,57 +138,57 @@
   </div>
 
   {{-- Vidange --}}
-  <div class="section" id="vidange-section">
-    <div id="AddVidangeModal" class="modal">
-      @include('vehicules.vidanges.modals.create')
-    </div>
-    <div id="DeleteVidangeModal" class="modal delete-modal">
-      @include('vehicules.vidanges.modals.delete')
-    </div>
-    <div id="EditVidangeModal" class="modal">
-      @include('vehicules.vidanges.modals.edit')
-    </div>
-    <div class="section-header">
-      <h2 class="main-title">Vidange</h2>
-      <button id="ajouter-vidange" class="material-icons-round ajouter-button" title="Ajouter Vidange">add_circle</button>
-    </div>
-    <div class="section-body"> 
-      <div id="vidange-loader-container" class="loader-container">
-        <div class="loader"></div>
+    <div class="section" id="vidange-section">
+      <div id="AddVidangeModal" class="modal">
+        @include('vehicule.vidange.modals.create')
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Km</th>
-            <th>Prochain vidange</th>
-            <th>Coût</th>
-            <th>Observation</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="vidange-pagination">
-      <div class="details"></div>
-      <div class="links">
+      <div id="DeleteVidangeModal" class="modal delete-modal">
+        @include('vehicule.vidange.modals.delete')
+      </div>
+      <div id="EditVidangeModal" class="modal">
+        @include('vehicule.vidange.modals.edit')
+      </div>
+      <div class="section-header">
+        <h2 class="main-title">Vidange</h2>
+        <button id="ajouter-vidange" class="material-icons-round ajouter-button" title="Ajouter Vidange">add_circle</button>
+      </div>
+      <div class="section-body"> 
+        <div id="vidange-loader-container" class="loader-container">
+          <div class="loader"></div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Km</th>
+              <th>Prochain vidange</th>
+              <th>Coût</th>
+              <th>Observation</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="vidange-pagination">
+        <div class="details"></div>
+        <div class="links">
+        </div>
       </div>
     </div>
-  </div>
   {{-- Vidange --}}
 
   {{-- Assurance --}}
   <div class="section"id="assurance-section">
     <div id="AddAssuranceModal" class="modal">
-      @include('vehicules.assurances.modals.create')
+      @include('vehicule.assurance.modals.create')
     </div>
     <div id="DeleteAssuranceModal" class="modal delete-modal">
-      @include('vehicules.assurances.modals.delete')
+      @include('vehicule.assurance.modals.delete')
     </div>
     <div id="EditAssuranceModal" class="modal">
-      @include('vehicules.assurances.modals.edit')
+      @include('vehicule.assurance.modals.edit')
     </div>
     <div class="section-header">
       <h2 class="main-title">Assurance</h2>
@@ -220,13 +220,13 @@
   {{-- Carte Grise --}}
   <div class="section" id="carte-grise-section">
     <div id="AddCarteGModal" class="modal">
-      @include('vehicules.carte_grise.modals.create')
+      @include('vehicule.carte_grise.modals.create')
     </div>
     <div id="DeleteCarteGModal" class="modal delete-modal">
-      @include('vehicules.carte_grise.modals.delete')
+      @include('vehicule.carte_grise.modals.delete')
     </div>
     <div id="EditCarteGModal" class="modal">
-      @include('vehicules.carte_grise.modals.edit')
+      @include('vehicule.carte_grise.modals.edit')
     </div>
     <div class="section-header">
       <h2 class="main-title">Carte Grise</h2>
@@ -258,13 +258,13 @@
   {{-- Visite Technique --}}
   <div class="section" id="visite-technique-section">
     <div id="AddVisiteTechModal" class="modal">
-      @include('vehicules.visite_techniques.modals.create')
+      @include('vehicule.visite_technique.modals.create')
     </div>
     <div id="DeleteVisiteTechModal" class="modal delete-modal">
-      @include('vehicules.visite_techniques.modals.delete')
+      @include('vehicule.visite_technique.modals.delete')
     </div>
     <div id="EditVisiteTechModal" class="modal">
-      @include('vehicules.visite_techniques.modals.edit')
+      @include('vehicule.visite_technique.modals.edit')
     </div>
     <div class="section-header">
       <h2 class="main-title">Visite Technique</h2>
@@ -293,18 +293,59 @@
   </div>
   {{-- Visite Technique --}}
 
+  {{-- Entretien --}}
+  <div class="section" id="entretien-section">
+    <div id="AddEntretienModal" class="modal">
+      @include('vehicule.entretien.modals.create')
+    </div>
+    <div id="DeleteEntretienModal" class="modal delete-modal">
+      @include('vehicule.entretien.modals.delete')
+    </div>
+    <div id="EditEntretienModal" class="modal">
+      @include('vehicule.entretien.modals.edit')
+    </div>
+    <div class="section-header">
+      <h2 class="main-title">Entretien</h2>
+      <button id="ajouter-entretien" class="material-icons-round ajouter-button" title="Ajouter Entretien">add_circle</button>
+    </div>
+    <div class="section-body"> 
+      <div id="entretien-loader-container" class="loader-container">
+        <div class="loader"></div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Km</th>
+            <th>Coût</th>
+            <th>Observation</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="entretien-pagination">
+      <div class="details"></div>
+      <div class="links">
+      </div>
+    </div>
+  </div>
+  {{-- Entretien --}}
+
 </div>
 @stop
 
 @section('js')
-{{-- <script src="{{ asset('js/vehicules/vehicules.js') }}"></script>
-<script src="{{ asset('js/vehicules/ajax.js') }}"></script> --}}
-<script src="{{ asset('js/vehicules/vidanges/vidanges.js') }}"></script>
-<script src="{{ asset('js/vehicules/vidanges/ajax.js') }}"></script>
-<script src="{{ asset('js/vehicules/assurances/assurances.js') }}"></script>
-<script src="{{ asset('js/vehicules/assurances/ajax.js') }}"></script>
-<script src="{{ asset('js/vehicules/carte_grises/carte_grises.js') }}"></script>
-<script src="{{ asset('js/vehicules/carte_grises/ajax.js') }}"></script>
-<script src="{{ asset('js/vehicules/visite_techniques/visite_techniques.js') }}"></script>
-<script src="{{ asset('js/vehicules/visite_techniques/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/vidange/vidange.js') }}"></script>
+<script src="{{ asset('js/vehicule/vidange/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/assurance/assurance.js') }}"></script>
+<script src="{{ asset('js/vehicule/assurance/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/carte_grise/carte_grise.js') }}"></script>
+<script src="{{ asset('js/vehicule/carte_grise/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/visite_technique/visite_technique.js') }}"></script>
+<script src="{{ asset('js/vehicule/visite_technique/ajax.js') }}"></script>
+<script src="{{ asset('js/vehicule/entretien/entretien.js') }}"></script>
+<script src="{{ asset('js/vehicule/entretien/ajax.js') }}"></script>
 @stop

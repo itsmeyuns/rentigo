@@ -2,13 +2,12 @@ const addVisiteTechForm = $('#add-visite-technique-form');
 const editVisiteTechForm = $('#edit-visite-technique-form');
 const visiteTechTable = $('#visite-technique-section tbody');
 
-
 $(document).ready(function () {
   fetchVisiteTechniques()
 
   // Show AddAssuranceModal
   $('#ajouter-visite-tech').on('click', function () {
-    // resetVisiteTechForm(addVisiteTechForm)
+    resetVisiteTechForm(addVisiteTechForm)
     $('#AddVisiteTechModal').modal('show')
   })
 
@@ -55,7 +54,7 @@ $(document).ready(function () {
         $(editVisiteTechForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         notification.success(response.msg);
         fetchVisiteTechniques()
       },
@@ -68,7 +67,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').hide();
+          $('.jquery-modal').fadeOut(500);;
           notification.error(response.responseJSON.msg)
         }
       }
@@ -116,7 +115,7 @@ function addVisiteTechniqueAction() {
       },
       success: function (response) {
         resetVisiteTechForm(addVisiteTechForm)
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         fetchVisiteTechniques()
         notification.success(response.msg)
       },

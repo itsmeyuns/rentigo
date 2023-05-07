@@ -54,7 +54,7 @@ $(document).ready(function () {
         $(editCarteGForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         notification.success(response.msg);
         fetchCarteGrises()
       },
@@ -67,7 +67,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').hide();
+          $('.jquery-modal').fadeOut(500);;
           notification.error(response.responseJSON.msg)
         }
       }
@@ -77,29 +77,6 @@ $(document).ready(function () {
   addCarteGriseAction()
 
 });
-
-function fetchCarteGrises() {
-  const vehiculeId = $('.vehicule-demo').data("vehicule-id");
-  $.ajax({
-    url: `/carte-grises/${vehiculeId}/fetch`,
-    type: 'GET',
-    beforeSend: function() {
-      $(carteGriseTable).html('')
-      $('#carte-g-loader-container').show(); // Show the loader when the AJAX request starts
-    },
-    success: function(response) {
-      const carteGrises = response.carte_grises.data
-      const links = response.carte_grises.links
-      $('#prochaine-carte-g').text(response.prochaine_carte_grise)
-      fillCarteGriseTable(carteGrises)
-      createPaginationLinks(response.carte_grises, '#carte-g-pagination', paginationCarteGriseFetch)
-      $('#carte-g-loader-container').hide()
-    },
-    error: function(error) {
-      console.error(error.responseJSON);
-    }
-  });
-}
 
 function addCarteGriseAction() {
   $(addCarteGForm).on('submit', function (e) {
@@ -116,7 +93,7 @@ function addCarteGriseAction() {
       },
       success: function (response) {
         resetCarteGriseForm(addCarteGForm)
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         fetchCarteGrises()
         notification.success(response.msg)
       },
@@ -171,29 +148,27 @@ function deleteCarteGriseAction() {
   })
 }
 
-function paginationCarteGriseFetch(page) {
-  console.log(page);
+function fetchCarteGrises() {
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
-    method: 'GET',
-    url: `/carte-grises/${vehiculeId}/fetch?page=${page}`,
+    url: `/carte-grises/${vehiculeId}/fetch`,
+    type: 'GET',
     beforeSend: function() {
       $(carteGriseTable).html('')
-      $('#carte-g-loader-container').show();
+      $('#carte-g-loader-container').show(); // Show the loader when the AJAX request starts
     },
-    success: function (response) { 
-      let carteGrises = response.carte_grises.data;
-      $('#carte-g-pagination .next-page').attr('href', response.carte_grises.next_page_url);
-      $('#carte-g-pagination .prev-page').attr('href', response.carte_grises.prev_page_url);
-      $('#carte-g-pagination .details').html(`Page: <b>${response.carte_grises.current_page}</b> | affichant <b>${response.carte_grises.from}</b> - <b>${response.carte_grises.to}</b> de <b>${response.carte_grises.total}</b>`)
-      fillCarteGriseTable(carteGrises);
-      $('#carte-g-pagination .link').removeClass('active')
-      $.each($('#carte-g-pagination .link'), function (index, link) {
-        ($(link).data('page') == response.carte_grises.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
-      });
-      $('#carte-g-loader-container').hide();
+    success: function(response) {
+      const carteGrises = response.carte_grises.data
+      const links = response.carte_grises.links
+      $('#prochaine-carte-g').text(response.prochaine_carte_grise)
+      fillCarteGriseTable(carteGrises)
+      createPaginationLinks(response.carte_grises, '#carte-g-pagination', paginationCarteGriseFetch)
+      $('#carte-g-loader-container').hide()
+    },
+    error: function(error) {
+      console.error(error.responseJSON);
     }
-  })
+  });
 }
 
 function fillCarteGriseTable(data) {
@@ -217,6 +192,19 @@ function fillCarteGriseTable(data) {
   editCarteGriseAction()
 }
 
+function defaultCarteGriseTable() {
+  let tbodyLenght = $(carteGriseTable).children().length;
+  for (let i = tbodyLenght; i < 5; i++) {
+    $(carteGriseTable).append(`
+      <tr>
+        <td data-th=""></td>
+        <td data-th=""></td>
+        <td data-th=""></td>
+      </tr> 
+    `)
+  }
+}
+
 function passIdToCarteGriseModal() { 
   $('.delete-carte-grise, .edit-carte-grise').on('click', function () { 
     let id = $(this).attr('data-id');
@@ -237,15 +225,27 @@ function resetCarteGriseForm(form) {
   }
 }
 
-function defaultCarteGriseTable() {
-  let tbodyLenght = $(carteGriseTable).children().length;
-  for (let i = tbodyLenght; i < 5; i++) {
-    $(carteGriseTable).append(`
-      <tr>
-        <td data-th=""></td>
-        <td data-th=""></td>
-        <td data-th=""></td>
-      </tr> 
-    `)
-  }
+function paginationCarteGriseFetch(page) {
+  console.log(page);
+  const vehiculeId = $('.vehicule-demo').data("vehicule-id");
+  $.ajax({
+    method: 'GET',
+    url: `/carte-grises/${vehiculeId}/fetch?page=${page}`,
+    beforeSend: function() {
+      $(carteGriseTable).html('')
+      $('#carte-g-loader-container').show();
+    },
+    success: function (response) { 
+      let carteGrises = response.carte_grises.data;
+      $('#carte-g-pagination .next-page').attr('href', response.carte_grises.next_page_url);
+      $('#carte-g-pagination .prev-page').attr('href', response.carte_grises.prev_page_url);
+      $('#carte-g-pagination .details').html(`Page: <b>${response.carte_grises.current_page}</b> | affichant <b>${response.carte_grises.from}</b> - <b>${response.carte_grises.to}</b> de <b>${response.carte_grises.total}</b>`)
+      fillCarteGriseTable(carteGrises);
+      $('#carte-g-pagination .link').removeClass('active')
+      $.each($('#carte-g-pagination .link'), function (index, link) {
+        ($(link).data('page') == response.carte_grises.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
+      });
+      $('#carte-g-loader-container').hide();
+    }
+  })
 }

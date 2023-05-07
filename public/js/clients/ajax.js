@@ -18,7 +18,7 @@ $(document).ready(function(){
       url: `/clients/${clientId}`,
       type: 'DELETE',
       success: function(response) {
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         if (response.status === 200) {
           notification.success(response.success);
           fetchClients()
@@ -91,7 +91,7 @@ $(document).ready(function(){
         $(editForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         if (response.status === 200) {
           notification.success(response.success);
           fetchClients()
@@ -299,7 +299,7 @@ function addAction() {
       },
       success: function (response) {
         resetAddClientForm()
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);;
         fetchClients()
         notification.success(response.success)
       },

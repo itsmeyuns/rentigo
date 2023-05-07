@@ -10,7 +10,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 class Vehicule extends Model
 {
     use HasFactory, SoftDeletes, CascadeSoftDeletes;
-    protected $cascadeDeletes = ['vidanges', 'assurances', 'carteGrises', 'visiteTechniques'];
+    protected $cascadeDeletes = ['vidanges', 'assurances', 'carteGrises', 'visiteTechniques', 'entretiens'];
     protected $fillable = [
         'matricule',
         'marque',
@@ -48,6 +48,10 @@ class Vehicule extends Model
     public function visiteTechniques()
     {
         return $this->hasMany(VisiteTechnique::class);
+    }
+
+    public function entretiens() {
+        return $this->hasMany(Entretien::class);
     }
 
 }

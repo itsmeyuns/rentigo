@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VidangeRequest;
 use App\Models\Vehicule;
 use App\Models\Vidange;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class VidangeController extends Controller

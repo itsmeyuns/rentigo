@@ -3,14 +3,14 @@
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\CarteGriseController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
-use App\Http\Requests\VehiculeRequest;
-use App\Models\Client;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -140,6 +140,22 @@ Route::prefix('visite-techniques')->group(function () {
 
 });
 // End Visite Technique
+
+
+// Start Entretien
+Route::prefix('entretiens')->group(function () {
+  Route::post('/store', [EntretienController::class, 'store'])->name('entretiens.store');
+  Route::put('/{id}', [EntretienController::class, 'update'])->name('entretiens.update');
+  Route::delete('/{id}', [EntretienController::class, 'destroy'])->name('entretiens.destroy');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{id}/fetch', [EntretienController::class, 'all'])->name('entretiens.fetch');
+    Route::get('/{id}/delete', [EntretienController::class, 'delete'])->name('entretiens.delete');
+    Route::get('/{id}/edit', [EntretienController::class, 'edit'])->name('entretiens.edit');
+  });
+
+});
+// End Entretien
 
 Route::prefix('/extras')->group(function ()
 {

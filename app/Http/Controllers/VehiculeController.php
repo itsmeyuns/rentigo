@@ -21,7 +21,7 @@ class VehiculeController extends Controller
      */
     public function index()
     {
-        return view('vehicules.index');
+        return view('vehicule.index');
     }
 
     public function all()
@@ -129,8 +129,7 @@ class VehiculeController extends Controller
     public function show($id)
     {
         $vehicule = Vehicule::findOrFail($id);
-        $prochainVidange = $vehicule->vidanges()->latest('id')->first()->km_prochain_vidange ?? '-';
-        return view('vehicules.show', compact('vehicule', 'prochainVidange'));
+        return view('vehicule.show', compact('vehicule'));
     }
 
     private function uploadImage(VehiculeRequest $request, &$form)

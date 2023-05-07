@@ -53,7 +53,7 @@ $(document).ready(function () {
 
   // Hide Delete Modal
   $('#cancelButton').on('click', function () {
-    $('#DeleteVidangeModal').parent().hide()
+    $('#DeleteVidangeModal').parent().fadeOut(500)
   })
 
   // Add an event listener to the confirm delete button in the modal
@@ -65,7 +65,7 @@ $(document).ready(function () {
       url: `/vidanges/${vidangeId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);
       },
       success: function(response) {
         notification.success(response.success);
@@ -83,7 +83,7 @@ $(document).ready(function () {
     $('#AddVidangeModal').modal('show')
   })
 
-  $(editVidangeForm).on('submit',function (e) { 
+  $(editVidangeForm).on('submit',function (e) {
     e.preventDefault();
     // Get the vidange ID from the hidden input
     let vidangeId = $('#editVidangeId').val()
@@ -100,7 +100,7 @@ $(document).ready(function () {
         $(editVidangeForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);
         notification.success(response.msg);
         fetchVidanges()
       },
@@ -113,10 +113,9 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').hide();
+          $('.jquery-modal').fadeOut(500);
           notification.error(response.responseJSON.msg)
         }
-        
       }
     });
   });
@@ -139,7 +138,7 @@ function addAction() {
       },
       success: function (response) {
         resetForm(addVidangeForm)
-        $('.jquery-modal').hide();
+        $('.jquery-modal').fadeOut(500);
         fetchVidanges()
         notification.success(response.msg)
       },
@@ -179,7 +178,6 @@ function fetchVidanges() {
 }
 
 function paginationFetch(page) {
-  console.log(page);
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
     method: 'GET',
