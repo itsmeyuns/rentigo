@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="menu-icon" onclick="openSidebar()">
+  <div class="menu-icon toggle-sidebar">
     <span class="material-icons-round">
       menu
     </span>

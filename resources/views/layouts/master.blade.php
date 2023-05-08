@@ -21,18 +21,21 @@
     <div class="main-loader"></div>
   </div>
 
-  <div class="grid-container">
-
-    @include('includes.header')
 
     @include('includes.sidebar')
 
-    <main class="main-container">
-      <div class="main-title">
-        <h1>@yield('title', 'Page non trouvée')</h1>
-      </div>
-      @yield('content')
-    </main>
+    <div id="content">
+      @include('includes.header')
+
+      <main class="main-container">
+        <div class="main-title">
+          <h1>@yield('title', 'Page non trouvée')</h1>
+        </div>
+        @yield('content')
+      </main>
+
+    </div>
+
 
     <div id="scroll-to-top">
       <span class="material-icons-round">
@@ -40,7 +43,6 @@
       </span>
     </div>
 
-  </div>
 
   {{-- JavaScript --}}
   <script src="{{ asset('jquery/jquery-3.6.0.js') }}"></script>

@@ -1,26 +1,20 @@
 // Sidebar
 let sidebar = document.getElementById('sidebar');
-let sidebareOpen = false;
-
-function openSidebar() {
-  if (!sidebareOpen) {
-    sidebar.classList.add('sidebar-responsive');
-    sidebareOpen = true;
-  }
-}
 
 function closeSidebar() {
-  if (sidebareOpen) {
-    sidebar.classList.remove('sidebar-responsive');
-    sidebareOpen = false;
-  }
+  sidebar.classList.add('hide');
 }
 
+// SIDEBAR COLLAPSE
+const toggleSidebar = document.querySelector('.toggle-sidebar');
 
+toggleSidebar.addEventListener('click', function () {
+	sidebar.classList.toggle('hide');
+})
 
 
 // Get all links in the sidebar
-const links = document.querySelectorAll('.sidebar-list-item');
+const links = document.querySelectorAll('.side-menu-item');
 
 // Add a click event listener to each link
 links.forEach(link => {
