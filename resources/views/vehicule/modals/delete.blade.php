@@ -6,6 +6,6 @@
   </div>
   <div class="modal-buttons">
     <button id="confirmationButton" class="confirmationButton">Supprimer</button>
-    <button id="cancelButton" class="cancelButton">Annuler</button>
+    <button id="cancelButton" class="cancelButton" data-dismiss="modal">Annuler</button>
   </div>
 </div>

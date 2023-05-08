@@ -8,7 +8,9 @@ $(document).ready(function () {
   // Show AddAssuranceModal
   $('#ajouter-carte-g').on('click', function () {
     resetCarteGriseForm(addCarteGForm)
-    $('#AddCarteGModal').modal('show')
+    $('#AddCarteGModal').modal({
+      fadeDuration: 200
+    });
   })
 
   // Hide Delete Modal
@@ -25,7 +27,7 @@ $(document).ready(function () {
       url: `/carte-grises/${carteGriseId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -54,7 +56,7 @@ $(document).ready(function () {
         $(editCarteGForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         notification.success(response.msg);
         fetchCarteGrises()
       },
@@ -67,7 +69,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').fadeOut(500);;
+          $.modal.close();;
           notification.error(response.responseJSON.msg)
         }
       }
@@ -93,7 +95,7 @@ function addCarteGriseAction() {
       },
       success: function (response) {
         resetCarteGriseForm(addCarteGForm)
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         fetchCarteGrises()
         notification.success(response.msg)
       },
@@ -120,7 +122,9 @@ function editCarteGriseAction() {
       success: function(response) {
       // Reset Errors
       resetCarteGriseForm(editCarteGForm)
-      $('#EditCarteGModal').modal('show')
+      $('#EditCarteGModal').modal({
+      fadeDuration: 200
+    });
       $.each(response.carte_grise, function(key, val) {
         $(`#edit_${key}_carte_grise`).val(val);
       })
@@ -139,7 +143,9 @@ function deleteCarteGriseAction() {
       url: `/carte-grises/${carteGriseId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteCarteGModal').modal('show')
+        $('#DeleteCarteGModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)

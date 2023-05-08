@@ -6,7 +6,7 @@ $(document).ready(function(){
 
   // Hide Delete Modal
   $('#cancelButton').on('click', function () {
-    $('#DeleteClientModal').parent().hide()
+    $.modal.close();
   })
 
   // Add an event listener to the confirm delete button in the modal
@@ -18,7 +18,7 @@ $(document).ready(function(){
       url: `/clients/${clientId}`,
       type: 'DELETE',
       success: function(response) {
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         if (response.status === 200) {
           notification.success(response.success);
           fetchClients()
@@ -31,7 +31,9 @@ $(document).ready(function(){
 
   $('.ajouter').on('click', function () { 
     resetAddClientForm()
-    $('#AddClientModal').modal('show')
+    $('#AddClientModal').modal({
+      fadeDuration: 200
+    });
   });
 
   // Search
@@ -91,7 +93,7 @@ $(document).ready(function(){
         $(editForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();
         if (response.status === 200) {
           notification.success(response.success);
           fetchClients()
@@ -216,7 +218,9 @@ function deleteAction() {
       type: 'GET',
       success: function(response) {
         if (response.status === 200) {
-          $('#DeleteClientModal').modal('show')
+          $('#DeleteClientModal').modal({
+      fadeDuration: 200
+    });
         } else {
           notification.error(response.msg)
         }
@@ -236,7 +240,9 @@ function editAction() {
       type: 'GET',
       success: function(response) {
         if (response.status === 200) {
-          $('#EditClientModal').modal('show')
+          $('#EditClientModal').modal({
+      fadeDuration: 200
+    });
           // Reset Errors
           editForm.find('div.error').text('');
           // Update the form fields with the response data
@@ -268,7 +274,9 @@ function showAction() {
       url: `/clients/${clientId}/show`,
       success: function (response) {
         if (response.status === 200) {
-          $('#ShowClientModal').modal('show')
+          $('#ShowClientModal').modal({
+      fadeDuration: 200
+    });
           $.each(response.client, function (key, value) {
             if (key === 'email' && !value) {
               $(`#show_${key}`).html('#####')
@@ -299,7 +307,7 @@ function addAction() {
       },
       success: function (response) {
         resetAddClientForm()
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         fetchClients()
         notification.success(response.success)
       },

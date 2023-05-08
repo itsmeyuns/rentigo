@@ -53,7 +53,7 @@ $(document).ready(function () {
 
   // Hide Delete Modal
   $('#cancelButton').on('click', function () {
-    $('#DeleteVidangeModal').parent().fadeOut(500)
+    $.modal.close();
   })
 
   // Add an event listener to the confirm delete button in the modal
@@ -65,7 +65,7 @@ $(document).ready(function () {
       url: `/vidanges/${vidangeId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -80,7 +80,9 @@ $(document).ready(function () {
   // Show addVidangeModal
   $('#ajouter-vidange').on('click', function () {
     resetForm(addVidangeForm)
-    $('#AddVidangeModal').modal('show')
+    $('#AddVidangeModal').modal({
+      fadeDuration: 200
+    });
   })
 
   $(editVidangeForm).on('submit',function (e) {
@@ -100,7 +102,7 @@ $(document).ready(function () {
         $(editVidangeForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
         notification.success(response.msg);
         fetchVidanges()
       },
@@ -113,7 +115,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').fadeOut(500);
+          $.modal.close();
           notification.error(response.responseJSON.msg)
         }
       }
@@ -138,7 +140,7 @@ function addAction() {
       },
       success: function (response) {
         resetForm(addVidangeForm)
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
         fetchVidanges()
         notification.success(response.msg)
       },
@@ -260,7 +262,9 @@ function deleteAction() {
       url: `/vidanges/${vidangeId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteVidangeModal').modal('show')
+        $('#DeleteVidangeModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)
@@ -281,7 +285,9 @@ function editAction() {
       success: function(response) {
       // Reset Errors
       resetForm(editVidangeForm)
-      $('#EditVidangeModal').modal('show')
+      $('#EditVidangeModal').modal({
+      fadeDuration: 200
+    });
       $.each(response.vidange, function(key, val) {
         $(`#edit_${key}`).val(val);
       })

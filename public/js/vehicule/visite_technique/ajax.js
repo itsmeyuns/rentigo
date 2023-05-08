@@ -8,7 +8,9 @@ $(document).ready(function () {
   // Show AddAssuranceModal
   $('#ajouter-visite-tech').on('click', function () {
     resetVisiteTechForm(addVisiteTechForm)
-    $('#AddVisiteTechModal').modal('show')
+    $('#AddVisiteTechModal').modal({
+      fadeDuration: 200
+    });
   })
 
   // Hide Delete Modal
@@ -25,7 +27,7 @@ $(document).ready(function () {
       url: `/visite-techniques/${visiteTechId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -54,7 +56,7 @@ $(document).ready(function () {
         $(editVisiteTechForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         notification.success(response.msg);
         fetchVisiteTechniques()
       },
@@ -67,7 +69,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').fadeOut(500);;
+          $.modal.close();;
           notification.error(response.responseJSON.msg)
         }
       }
@@ -115,7 +117,7 @@ function addVisiteTechniqueAction() {
       },
       success: function (response) {
         resetVisiteTechForm(addVisiteTechForm)
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();;
         fetchVisiteTechniques()
         notification.success(response.msg)
       },
@@ -142,7 +144,9 @@ function editVisiteTechniqueAction() {
       success: function(response) {
       // Reset Errors
       resetVisiteTechForm(editVisiteTechForm)
-      $('#EditVisiteTechModal').modal('show')
+      $('#EditVisiteTechModal').modal({
+      fadeDuration: 200
+    });
       $.each(response.visite_technique, function(key, val) {
         $(`#edit_${key}_visite_technique`).val(val);
       })
@@ -161,7 +165,9 @@ function deleteVisiteTechniqueAction() {
       url: `/visite-techniques/${visiteTechId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteVisiteTechModal').modal('show')
+        $('#DeleteVisiteTechModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)

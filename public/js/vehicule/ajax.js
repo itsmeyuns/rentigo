@@ -15,7 +15,7 @@ function addAction() {
       },
       success: function (response) {
         resetForm(addForm)
-        $('.jquery-modal').hide();
+        $.modal.close();
         fetchVehicules()
         notification.success(response.msg);
       },
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
   // Hide Delete Modal
   $('#cancelButton').on('click', function () {
-    $('#DeleteVehiculeModal').parent().hide()
+    $.modal.close();
   })
 
   // Add an event listener to the confirm delete button in the modal
@@ -48,7 +48,7 @@ $(document).ready(function () {
       url: `/vehicules/${vehiculeId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').hide();
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -63,7 +63,9 @@ $(document).ready(function () {
   // Show addVehiculeModal
   $('.ajouter').on('click', function () {
     resetForm(addForm)
-    $('#AddVehiculeModal').modal('show')
+    $("#AddVehiculeModal").modal({
+      fadeDuration: 200
+    });
     getExtras()
   });
 
@@ -145,7 +147,7 @@ $(document).ready(function () {
         $(editForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $.modal.close();
         notification.success(response.msg);
         fetchVehicules()
       },
@@ -158,7 +160,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').hide();
+          $.modal.close();
           notification.error(response.responseJSON.msg)
         }
         
@@ -300,14 +302,15 @@ function editAction() {
   $('.edit').on('click', function() {
     // Get the vehicule ID from the hidden input
     let vehiculeId = $('#editVehiculeId').val();
-    let editForm = $('#edit-vehicule-form')
     getExtras()
     // Send an Ajax request to edit the vehicule
     $.ajax({
       url: `/vehicules/${vehiculeId}/edit`,
       type: 'GET',
       success: function(response) {
-        $('#EditVehiculeModal').modal('show')
+        $('#EditVehiculeModal').modal({
+      fadeDuration: 200
+    });
         // Reset Errors
         resetForm(editForm)
         // Update the form fields with the response data
@@ -343,7 +346,9 @@ function deleteAction() {
       url: `/vehicules/${vehiculeId}/delete`,
       type: 'GET',
       success: function(response) {
-        $('#DeleteVehiculeModal').modal('show')
+        $('#DeleteVehiculeModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)

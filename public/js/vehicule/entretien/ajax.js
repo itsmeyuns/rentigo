@@ -8,12 +8,14 @@ $(document).ready(function () {
   // Show addVidangeModal
   $('#ajouter-entretien').on('click', function () {
     resetEntretienForm(addEntretienForm)
-    $('#AddEntretienModal').modal('show')
+    $('#AddEntretienModal').modal({
+      fadeDuration: 200
+    });
   })
 
   // Hide Delete Modal
   $('#cancelEntretienButton').on('click', function () {
-    $('#DeleteEntretienModal').parent().fadeOut(500)
+    $.modal.close();
   })
 
   // Add an event listener to the confirm delete button in the modal
@@ -25,7 +27,7 @@ $(document).ready(function () {
       url: `/entretiens/${entretienId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -54,7 +56,7 @@ $(document).ready(function () {
         $(editEntretienForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').fadeOut(500);
+        $.modal.close();
         notification.success(response.msg);
         fetchEntretiens()
       },
@@ -67,7 +69,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').fadeOut(500);
+          $.modal.close();
           notification.error(response.responseJSON.msg)
         }
       }
@@ -89,13 +91,37 @@ function fetchEntretiens() {
     success: function(response) {
       const entretiens = response.entretiens.data
       fillEntretienTable(entretiens)
-      createPaginationLinks(response.entretiens, '#entretien-pagination', paginationFetch)
+      createPaginationLinks(response.entretiens, '#entretien-pagination', paginationEntretienFetch)
       $('#entretien-loader-container').hide();
     },
     error: function(error) {
       console.error(error.responseJSON);
     }
   });
+}
+
+function paginationEntretienFetch(page) {
+  const vehiculeId = $('.vehicule-demo').data("vehicule-id");
+  $.ajax({
+    method: 'GET',
+    url: `/entretiens/${vehiculeId}/fetch?page=${page}`,
+    beforeSend: function() {
+      $(entretienTable).html('')
+      $('#entretien-loader-container').show();
+    },
+    success: function (response) { 
+      let entretiens = response.entretiens.data;
+      $('#entretien-pagination .next-page').attr('href', response.entretiens.next_page_url);
+      $('#entretien-pagination .prev-page').attr('href', response.entretiens.prev_page_url);
+      $('#entretien-pagination .details').html(`Page: <b>${response.entretiens.current_page}</b> | affichant <b>${response.entretiens.from}</b> - <b>${response.entretiens.to}</b> de <b>${response.entretiens.total}</b>`)
+      fillEntretienTable(entretiens);
+      $('#entretien-pagination .link').removeClass('active')
+      $.each($('#entretien-pagination .link'), function (index, link) {
+        ($(link).data('page') == response.entretiens.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
+      });
+      $('#entretien-loader-container').hide();
+    }
+  })
 }
 
 function fillEntretienTable(data) {
@@ -149,7 +175,9 @@ function editEntretienAction() {
       success: function(response) {
       // Reset Errors
       resetEntretienForm(editEntretienForm)
-      $('#EditEntretienModal').modal('show')
+      $('#EditEntretienModal').modal({
+      fadeDuration: 200
+    });
       $.each(response.entretien, function(key, val) {
         $(`#edit_${key}_entretien`).val(val);
       })
@@ -168,7 +196,9 @@ function deleteEntretienAction() {
       url: `/entretiens/${entretienId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteEntretienModal').modal('show')
+        $('#DeleteEntretienModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)
@@ -193,7 +223,7 @@ function addEntretienAction() {
       success: function (response) {
         console.log(response);
         resetEntretienForm(addEntretienForm)
-        $('.jquery-modal').fadeOut(500);;
+        $.modal.close();
         fetchEntretiens()
         notification.success(response.msg)
       },

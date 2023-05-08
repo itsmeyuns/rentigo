@@ -7,7 +7,7 @@ $(document).ready(function () {
 
   // Hide Delete Modal
   $('#cancelAssuranceButton').on('click', function () {
-    $('#DeleteAssuranceModal').parent().hide()
+    $.modal.close();
   })
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationAssuranceButton').on('click', function() {
@@ -33,7 +33,9 @@ $(document).ready(function () {
   // Show addassuranceModal
   $('#ajouter-assurance').on('click', function () {
     resetAssuranceForm(addAssuranceForm)
-    $('#AddAssuranceModal').modal('show')
+    $('#AddAssuranceModal').modal({
+      fadeDuration: 200
+    });
   })
 
   $(editAssuranceForm).on('submit',function (e) { 
@@ -119,7 +121,9 @@ function editAssuranceAction() {
       success: function(response) {
       // Reset Errors
       resetAssuranceForm(editAssuranceForm)
-      $('#EditAssuranceModal').modal('show')
+      $('#EditAssuranceModal').modal({
+      fadeDuration: 200
+    });
       $.each(response.assurance, function(key, val) {
         $(`#edit_${key}`).val(val);
       })
@@ -138,7 +142,9 @@ function deleteAssuranceAction() {
       url: `/assurances/${assuranceId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteAssuranceModal').modal('show')
+        $('#DeleteAssuranceModal').modal({
+      fadeDuration: 200
+    });
       },
       error: function (response) { 
         notification.error(response.responseJSON.msg)
