@@ -20,6 +20,7 @@
   <div id="main-loader-container">
     <div class="main-loader"></div>
   </div>
+
   <div class="grid-container">
 
     @include('includes.header')
@@ -32,6 +33,12 @@
       </div>
       @yield('content')
     </main>
+
+    <div id="scroll-to-top">
+      <span class="material-icons-round">
+        arrow_upward
+      </span>
+    </div>
 
   </div>
 

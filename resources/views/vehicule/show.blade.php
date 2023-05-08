@@ -138,200 +138,23 @@
   </div>
 
   {{-- Vidange --}}
-    <div class="section" id="vidange-section">
-      <div id="AddVidangeModal" class="modal">
-        @include('vehicule.vidange.modals.create')
-      </div>
-      <div id="DeleteVidangeModal" class="modal delete-modal">
-        @include('vehicule.vidange.modals.delete')
-      </div>
-      <div id="EditVidangeModal" class="modal">
-        @include('vehicule.vidange.modals.edit')
-      </div>
-      <div class="section-header">
-        <h2 class="main-title">Vidange</h2>
-        <button id="ajouter-vidange" class="material-icons-round ajouter-button" title="Ajouter Vidange">add_circle</button>
-      </div>
-      <div class="section-body"> 
-        <div id="vidange-loader-container" class="loader-container">
-          <div class="loader"></div>
-        </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Date</th>
-              <th>Km</th>
-              <th>Prochain vidange</th>
-              <th>Coût</th>
-              <th>Observation</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="pagination" id="vidange-pagination">
-        <div class="details"></div>
-        <div class="links">
-        </div>
-      </div>
-    </div>
+    @include('vehicule.vidange.index')
   {{-- Vidange --}}
 
   {{-- Assurance --}}
-  <div class="section"id="assurance-section">
-    <div id="AddAssuranceModal" class="modal">
-      @include('vehicule.assurance.modals.create')
-    </div>
-    <div id="DeleteAssuranceModal" class="modal delete-modal">
-      @include('vehicule.assurance.modals.delete')
-    </div>
-    <div id="EditAssuranceModal" class="modal">
-      @include('vehicule.assurance.modals.edit')
-    </div>
-    <div class="section-header">
-      <h2 class="main-title">Assurance</h2>
-      <button id="ajouter-assurance" class="material-icons-round ajouter-button" title="Ajouter Assurance">add_circle</button>
-    </div>
-    <div class="section-body"> 
-      <div id="assurance-loader-container" class="loader-container">
-        <div class="loader"></div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="assurance-pagination">
-      <div class="details"></div>
-      <div class="links">
-      </div>
-    </div>
-  </div>
+    @include('vehicule.assurance.index')
   {{-- Assurance --}}
 
   {{-- Carte Grise --}}
-  <div class="section" id="carte-grise-section">
-    <div id="AddCarteGModal" class="modal">
-      @include('vehicule.carte_grise.modals.create')
-    </div>
-    <div id="DeleteCarteGModal" class="modal delete-modal">
-      @include('vehicule.carte_grise.modals.delete')
-    </div>
-    <div id="EditCarteGModal" class="modal">
-      @include('vehicule.carte_grise.modals.edit')
-    </div>
-    <div class="section-header">
-      <h2 class="main-title">Carte Grise</h2>
-      <button id="ajouter-carte-g" class="material-icons-round ajouter-button" title="Ajouter Carte Grise">add_circle</button>
-    </div>
-    <div class="section-body"> 
-      <div id="carte-g-loader-container" class="loader-container">
-        <div class="loader"></div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="carte-g-pagination">
-      <div class="details"></div>
-      <div class="links">
-      </div>
-    </div>
-  </div>
+    @include('vehicule.carte_grise.index')
   {{-- Carte Grise --}}
 
   {{-- Visite Technique --}}
-  <div class="section" id="visite-technique-section">
-    <div id="AddVisiteTechModal" class="modal">
-      @include('vehicule.visite_technique.modals.create')
-    </div>
-    <div id="DeleteVisiteTechModal" class="modal delete-modal">
-      @include('vehicule.visite_technique.modals.delete')
-    </div>
-    <div id="EditVisiteTechModal" class="modal">
-      @include('vehicule.visite_technique.modals.edit')
-    </div>
-    <div class="section-header">
-      <h2 class="main-title">Visite Technique</h2>
-      <button id="ajouter-visite-tech" class="material-icons-round ajouter-button" title="Ajouter Visite Technique">add_circle</button>
-    </div>
-    <div class="section-body"> 
-      <div id="visite-tech-loader-container" class="loader-container">
-        <div class="loader"></div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="visite-tech-pagination">
-      <div class="details"></div>
-      <div class="links">
-      </div>
-    </div>
-  </div>
+    @include('vehicule.visite_technique.index')
   {{-- Visite Technique --}}
 
   {{-- Entretien --}}
-  <div class="section" id="entretien-section">
-    <div id="AddEntretienModal" class="modal">
-      @include('vehicule.entretien.modals.create')
-    </div>
-    <div id="DeleteEntretienModal" class="modal delete-modal">
-      @include('vehicule.entretien.modals.delete')
-    </div>
-    <div id="EditEntretienModal" class="modal">
-      @include('vehicule.entretien.modals.edit')
-    </div>
-    <div class="section-header">
-      <h2 class="main-title">Entretien</h2>
-      <button id="ajouter-entretien" class="material-icons-round ajouter-button" title="Ajouter Entretien">add_circle</button>
-    </div>
-    <div class="section-body"> 
-      <div id="entretien-loader-container" class="loader-container">
-        <div class="loader"></div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Km</th>
-            <th>Coût</th>
-            <th>Observation</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="entretien-pagination">
-      <div class="details"></div>
-      <div class="links">
-      </div>
-    </div>
-  </div>
+    @include('vehicule.entretien.index')
   {{-- Entretien --}}
 
 </div>

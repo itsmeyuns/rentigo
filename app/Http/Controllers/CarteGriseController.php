@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CarteGriseRequest;
+use App\Http\Requests\ACVRequest;
 use App\Models\CarteGrise;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class CarteGriseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CarteGriseRequest $request)
+    public function store(ACVRequest $request)
     {   
         $formData = $request->validated();
         CarteGrise::create($formData);
@@ -46,7 +46,7 @@ class CarteGriseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CarteGriseRequest $request, string $id)
+    public function update(ACVRequest $request, string $id)
     {
         // Validation
         $validatedData = $request->validated();

@@ -71,3 +71,20 @@ function setSuccess(element) {
   element.classList.add('success')
   errorDiv.innerText = '';
 }
+
+// Back To Top
+
+const scrollToTopButton = document.getElementById('scroll-to-top')
+document.addEventListener('scroll', function (e) {
+  if (window.scrollY > 200) {
+    scrollToTopButton.style.display = 'block'
+  } else {
+    scrollToTopButton.style.display = 'none'
+  }
+})
+scrollToTopButton.addEventListener("click", () => {
+  window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+  });
+});

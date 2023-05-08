@@ -56,7 +56,7 @@ class VidangeController extends Controller
         if ($vidange) {
             $vidange->update($validatedData);
             // Return success response if data is updated successfully
-            return response()->json(['status' => 200, 'msg' => 'Vidange a été modifié avec succès'], 200); 
+            return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
         } 
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }
@@ -78,7 +78,7 @@ class VidangeController extends Controller
         $vidange = Vidange::find($id);
         if ($vidange) {
             $vidange->delete();
-            return response()->json(['status' => 200, 'success' => 'Vidange a été supprimé avec succès'], 200);
+            return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AssuranceRequest;
+use App\Http\Requests\ACVRequest;
 use App\Models\Assurance;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class AssuranceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AssuranceRequest $request)
+    public function store(ACVRequest $request)
     {   
         $formData = $request->validated();
         Assurance::create($formData);
@@ -46,7 +46,7 @@ class AssuranceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AssuranceRequest $request, string $id)
+    public function update(ACVRequest $request, string $id)
     {
         // Validation
         $validatedData = $request->validated();

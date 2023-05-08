@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VisiteTechniqueRequest;
+use App\Http\Requests\ACVRequest;
 use App\Models\VisiteTechnique;
 use Illuminate\Http\Request;
 
@@ -23,7 +23,7 @@ class VisiteTechniqueController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VisiteTechniqueRequest $request)
+    public function store(ACVRequest $request)
     {   
         $formData = $request->validated();
         VisiteTechnique::create($formData);
@@ -45,7 +45,7 @@ class VisiteTechniqueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VisiteTechniqueRequest $request, string $id)
+    public function update(ACVRequest $request, string $id)
     {
         // Validation
         $validatedData = $request->validated();
