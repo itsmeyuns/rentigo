@@ -4,7 +4,6 @@ const addReservationButton = document.getElementById('add-reservation-button');
 const editReservationButton = document.getElementById('edit-reservation-button');
 const filterForm = document.getElementById('filter-form');
 const filterButton = document.getElementById('filter-button');
-console.log(filterForm, filterButton);
 
 
 addReservationButton.addEventListener('click', function (event) {
@@ -13,24 +12,27 @@ addReservationButton.addEventListener('click', function (event) {
   }
 })
 
+editReservationButton.addEventListener('click', function (event) {
+  if (!validateFields(editReservationForm2)) {
+    event.preventDefault()
+  }
+})
+
+// Prevent Filter Form From Submitting If It's Empty
 filterButton.addEventListener('click', function (event) {
+  // Check If atleast one checkbox is checked
   const checkboxes = filterForm.querySelectorAll('input[type="checkbox"]');
   let isChecked = false;
   const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
   isChecked = (checkedCount > 0) ?? true;
 
+  // Check If Start Date and End Date are Empty
   const startDate = document.getElementById('startDate')
   const endDate = document.getElementById('endDate')
   let validDate = false;
   validDate = (!startDate.value.trim() && !endDate.value.trim()) ? false : true;
   if (!isChecked && !validDate) {
     event.preventDefault();
-  }
-})
-
-editReservationButton.addEventListener('click', function (event) {
-  if (!validateFields(editReservationForm2)) {
-    event.preventDefault()
   }
 })
 

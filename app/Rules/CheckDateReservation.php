@@ -40,11 +40,13 @@ class CheckDateReservation implements DataAwareRule, ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        //  checks if a vehicle is already reserved for the selected period
         $start = $value;
         $end = $this->data['date_fin'];
         $vehicule = $this->data['vehicule_id'];
         $reserved = Reservation::where('id', '!=', $this->id)
                                 ->where('vehicule_id', $vehicule)
+                                ->whereNotIn('status', ['Terminée', 'Annulée'])
                                 ->where(function ($query) use ($start, $end) {
                                             $query->where(function ($query) use ($start, $end) {
                                                 $query->where('date_debut', '<=', $start)
