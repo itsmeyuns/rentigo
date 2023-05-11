@@ -20,22 +20,22 @@ const selectOptions = document.querySelectorAll('.select-options');
 selectField.forEach((select) => {
   select.addEventListener('click', function () {
     this.classList.toggle('open');
-    selectField.forEach((element) => {
-      if (this !== element) {
-        element.classList.remove('open')
-      }
-    });
+    // selectField.forEach((element) => {
+    //   if (this !== element) {
+    //     element.classList.remove('open')
+    //   }
+    // });
   })
 });
 
-selectOptions.forEach(element => {
-  const selectBox = element.closest('.select-box');
-  const selectText = selectBox.querySelector('.select-text');
-  const oldSelectText = selectText.textContent;
-  element.addEventListener('click', function () {
-    const checkboxes = element.querySelectorAll('input[type="checkbox"]');
-    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-    selectText.textContent = (checkedCount === 0) ? `${oldSelectText}` : `${oldSelectText} (${checkedCount})`
-  })
-});
+// selectOptions.forEach(element => {
+//   const selectBox = element.closest('.select-box');
+//   const selectText = selectBox.querySelector('.select-text');
+//   const oldSelectText = selectText.textContent;
+//   element.addEventListener('click', function () {
+//     const checkboxes = element.querySelectorAll('input[type="checkbox"]');
+//     const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//     selectText.textContent = (checkedCount === 0) ? `${oldSelectText}` : `${oldSelectText} (${checkedCount})`
+//   })
+// });
 

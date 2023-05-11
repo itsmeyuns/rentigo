@@ -18,7 +18,7 @@ $(document).ready(function () {
       url: `/assurances/${assuranceId}`,
       type: 'DELETE',
       beforeSend: function () { 
-        $('.jquery-modal').hide();
+        $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
@@ -55,7 +55,7 @@ $(document).ready(function () {
         $(editAssuranceForm).find('div.error').text('');
       },
       success: function (response) {
-        $('.jquery-modal').hide();
+        $.modal.close();
         notification.success(response.msg);
         fetchAssurances()
       },
@@ -68,7 +68,7 @@ $(document).ready(function () {
             $('.error.' + field + '_error').prev().addClass('bounce');
           });
         } else {
-          $('.jquery-modal').hide();
+          $.modal.close();
           notification.error(response.responseJSON.msg)
         }
       }
@@ -93,7 +93,7 @@ function addAssuranceAction() {
       },
       success: function (response) {
         resetAssuranceForm(addAssuranceForm)
-        $('.jquery-modal').hide();
+        $.modal.close();
         fetchAssurances()
         notification.success(response.msg)
       },

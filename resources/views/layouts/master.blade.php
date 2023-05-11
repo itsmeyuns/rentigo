@@ -50,7 +50,7 @@
   {{-- <script src="{{asset('js/toastr.min.js')}}"></script> --}}
   <script src="{{asset('js/notyf.min.js')}}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
-  <script src="{{ asset('js/ajaxSetup.js') }}"></script>
+  <script src="{{ asset('js/mainAjax.js') }}"></script>
   @yield('js')
 </body>
 </html>

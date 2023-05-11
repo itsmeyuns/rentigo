@@ -1,41 +1,5 @@
 
 @import url(table.css);
-@media (max-width: 1265px) {
-  table td {
-    text-align: right;
-    position: relative;
-  }
-
-  table td:not(td:last-child) {
-    border-bottom: 1px solid #ccc;
-  }
-
-  tbody tr:nth-child(even){
-    background-color: #f2f2f2;
-  } 
-
-  table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-    padding-left: 15px;
-    text-align: left;
-  }
-
-  table thead {
-    display: none;
-  }
-
-  table tr, table td {
-    display: block;
-    width: 100%;
-  }
-
-  table tr {
-    margin-bottom: 15px;
-  }
-}
 
 .more-icon {
   position: relative;
@@ -50,6 +14,7 @@
   padding: 5px;
   z-index: 2;
 }
+
 .more::before {
   content: '';
   position: absolute;
@@ -80,7 +45,7 @@
 }
 
 .bar {
-  gap: 5px;
+  gap: 0;
 }
 
 .bar form {
@@ -177,7 +142,7 @@ form.filter {
   overflow-y: scroll;
   background: #fff;
   position: absolute;
-  z-index: 22;
+  z-index: 3;
   left: 50%;
   transform: translateX(-50%);
   top: 40px;
@@ -205,4 +170,13 @@ form.filter {
 .select-option input {
   accent-color: var(--main-color);
 }
+.select-option label,.select-option input {
+  cursor: pointer;
+}
 
+.btn {
+  padding: 5px 15px;
+  background: var(--hover-color);
+  color: var(--main-color);
+  border-radius: 8px;
+}

@@ -107,11 +107,11 @@ class VehiculeController extends Controller
     public function search(Request $request)
     {
 
-        $value = $request->search;
-        $result = Vehicule::where('matricule', 'like', "%$value%")
-        ->orWhere('marque', 'like', "%$value%")
-        ->orWhere('modele', 'like', "%$value%")
-        ->get();
+      $value = $request->search;
+      $result = Vehicule::where('matricule', 'like', "%$value%")
+                          ->orWhere('marque', 'like', "%$value%")
+                          ->orWhere('modele', 'like', "%$value%")
+                          ->get();
 
         return response()->json(['result' => $result], 200);
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
@@ -27,12 +28,7 @@ Route::view('/dashboard', 'dashboard')->middleware('auth');
 Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 Route::view('/contrats', 'contrats');
-Route::view('/reservations', 'reservations');
 
-
-
-
-Route::view('/vehicules/create', 'vehicules.create');
 
 Route::view('/agents', 'agents.index');
 Route::view('/agents/create', 'agents.create');
@@ -77,85 +73,106 @@ Route::prefix('/vehicules')->group(function () {
   });
 
 });
+
+  // Start Vidange
+  Route::prefix('vidanges')->group(function () {
+    Route::post('/store', [VidangeController::class, 'store'])->name('vidanges.store');
+    Route::put('/{id}', [VidangeController::class, 'update'])->name('vidanges.update');
+    Route::delete('/{id}', [VidangeController::class, 'destroy'])->name('vidanges.destroy');
+
+    Route::middleware('ajax_only')->group(function () {
+      Route::get('/{id}/fetch', [VidangeController::class, 'all'])->name('vidanges.fetch');
+      Route::get('/{id}/delete', [VidangeController::class, 'delete'])->name('vidanges.delete');
+      Route::get('/{id}/edit', [VidangeController::class, 'edit'])->name('vidanges.edit');
+    });
+
+  });
+  // End Vidange
+  // Start Assurance
+  Route::prefix('assurances')->group(function () {
+    Route::post('/store', [AssuranceController::class, 'store'])->name('assurances.store');
+    Route::put('/{id}', [AssuranceController::class, 'update'])->name('assurances.update');
+    Route::delete('/{id}', [AssuranceController::class, 'destroy'])->name('assurances.destroy');
+
+    Route::middleware('ajax_only')->group(function () {
+      Route::get('/{id}/fetch', [AssuranceController::class, 'all'])->name('assurances.fetch');
+      Route::get('/{id}/delete', [AssuranceController::class, 'delete'])->name('assurances.delete');
+      Route::get('/{id}/edit', [AssuranceController::class, 'edit'])->name('assurances.edit');
+    });
+
+  });
+  // End Assurance
+
+  // Start Carte Grise
+  Route::prefix('carte-grises')->group(function () {
+    Route::post('/store', [CarteGriseController::class, 'store'])->name('carte-grises.store');
+    Route::put('/{id}', [CarteGriseController::class, 'update'])->name('carte-grises.update');
+    Route::delete('/{id}', [CarteGriseController::class, 'destroy'])->name('carte-grises.destroy');
+
+    Route::middleware('ajax_only')->group(function () {
+      Route::get('/{id}/fetch', [CarteGriseController::class, 'all'])->name('carte-grises.fetch');
+      Route::get('/{id}/delete', [CarteGriseController::class, 'delete'])->name('carte-grises.delete');
+      Route::get('/{id}/edit', [CarteGriseController::class, 'edit'])->name('carte-grises.edit');
+    });
+
+  });
+  // End Carte Grise
+
+  // Start Visite Technique
+  Route::prefix('visite-techniques')->group(function () {
+    Route::post('/store', [VisiteTechniqueController::class, 'store'])->name('visite-techniques.store');
+    Route::put('/{id}', [VisiteTechniqueController::class, 'update'])->name('visite-techniques.update');
+    Route::delete('/{id}', [VisiteTechniqueController::class, 'destroy'])->name('visite-techniques.destroy');
+
+    Route::middleware('ajax_only')->group(function () {
+      Route::get('/{id}/fetch', [VisiteTechniqueController::class, 'all'])->name('visite-techniques.fetch');
+      Route::get('/{id}/delete', [VisiteTechniqueController::class, 'delete'])->name('visite-techniques.delete');
+      Route::get('/{id}/edit', [VisiteTechniqueController::class, 'edit'])->name('visite-techniques.edit');
+    });
+
+  });
+  // End Visite Technique
+
+
+  // Start Entretien
+  Route::prefix('entretiens')->group(function () {
+    Route::post('/store', [EntretienController::class, 'store'])->name('entretiens.store');
+    Route::put('/{id}', [EntretienController::class, 'update'])->name('entretiens.update');
+    Route::delete('/{id}', [EntretienController::class, 'destroy'])->name('entretiens.destroy');
+
+    Route::middleware('ajax_only')->group(function () {
+      Route::get('/{id}/fetch', [EntretienController::class, 'all'])->name('entretiens.fetch');
+      Route::get('/{id}/delete', [EntretienController::class, 'delete'])->name('entretiens.delete');
+      Route::get('/{id}/edit', [EntretienController::class, 'edit'])->name('entretiens.edit');
+    });
+
+  });
+  // End Entretien
+
 // End Vehicule
 
 
-// Start Vidange
-Route::prefix('vidanges')->group(function () {
-  Route::post('/store', [VidangeController::class, 'store'])->name('vidanges.store');
-  Route::put('/{id}', [VidangeController::class, 'update'])->name('vidanges.update');
-  Route::delete('/{id}', [VidangeController::class, 'destroy'])->name('vidanges.destroy');
 
-  Route::middleware('ajax_only')->group(function () {
-    Route::get('/{id}/fetch', [VidangeController::class, 'all'])->name('vidanges.fetch');
-    Route::get('/{id}/delete', [VidangeController::class, 'delete'])->name('vidanges.delete');
-    Route::get('/{id}/edit', [VidangeController::class, 'edit'])->name('vidanges.edit');
-  });
+// Start Reservation 
 
+Route::prefix('/reservations')->group(function () {
+
+  Route::get('/', [ReservationController::class, 'index'])->name('reservations.index');
+  Route::post('/store', [ReservationController::class, 'store'])->name('reservations.store');
+  Route::get('/fetch', [ReservationController::class, 'all'])->name('reservations.fetch');
+  Route::get('/{id}/delete', [ReservationController::class, 'delete'])->name('reservations.delete');
+  Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+  Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+  Route::put('/{id}', [ReservationController::class, 'update'])->name('reservations.update');
+  Route::get('/search', [ReservationController::class, 'search'])->name('reservations.search');
+  Route::get('/filter', [ReservationController::class, 'filter'])->name('reservations.filter');
 });
-// End Vidange
 
-// Start Assurance
-Route::prefix('assurances')->group(function () {
-  Route::post('/store', [AssuranceController::class, 'store'])->name('assurances.store');
-  Route::put('/{id}', [AssuranceController::class, 'update'])->name('assurances.update');
-  Route::delete('/{id}', [AssuranceController::class, 'destroy'])->name('assurances.destroy');
-
-  Route::middleware('ajax_only')->group(function () {
-    Route::get('/{id}/fetch', [AssuranceController::class, 'all'])->name('assurances.fetch');
-    Route::get('/{id}/delete', [AssuranceController::class, 'delete'])->name('assurances.delete');
-    Route::get('/{id}/edit', [AssuranceController::class, 'edit'])->name('assurances.edit');
-  });
-
-});
-// End Assurance
+// End Reservation 
 
 
-// Start Carte Grise
-Route::prefix('carte-grises')->group(function () {
-  Route::post('/store', [CarteGriseController::class, 'store'])->name('carte-grises.store');
-  Route::put('/{id}', [CarteGriseController::class, 'update'])->name('carte-grises.update');
-  Route::delete('/{id}', [CarteGriseController::class, 'destroy'])->name('carte-grises.destroy');
-
-  Route::middleware('ajax_only')->group(function () {
-    Route::get('/{id}/fetch', [CarteGriseController::class, 'all'])->name('carte-grises.fetch');
-    Route::get('/{id}/delete', [CarteGriseController::class, 'delete'])->name('carte-grises.delete');
-    Route::get('/{id}/edit', [CarteGriseController::class, 'edit'])->name('carte-grises.edit');
-  });
-
-});
-// End Carte Grise
-
-// Start Visite Technique
-Route::prefix('visite-techniques')->group(function () {
-  Route::post('/store', [VisiteTechniqueController::class, 'store'])->name('visite-techniques.store');
-  Route::put('/{id}', [VisiteTechniqueController::class, 'update'])->name('visite-techniques.update');
-  Route::delete('/{id}', [VisiteTechniqueController::class, 'destroy'])->name('visite-techniques.destroy');
-
-  Route::middleware('ajax_only')->group(function () {
-    Route::get('/{id}/fetch', [VisiteTechniqueController::class, 'all'])->name('visite-techniques.fetch');
-    Route::get('/{id}/delete', [VisiteTechniqueController::class, 'delete'])->name('visite-techniques.delete');
-    Route::get('/{id}/edit', [VisiteTechniqueController::class, 'edit'])->name('visite-techniques.edit');
-  });
-
-});
-// End Visite Technique
 
 
-// Start Entretien
-Route::prefix('entretiens')->group(function () {
-  Route::post('/store', [EntretienController::class, 'store'])->name('entretiens.store');
-  Route::put('/{id}', [EntretienController::class, 'update'])->name('entretiens.update');
-  Route::delete('/{id}', [EntretienController::class, 'destroy'])->name('entretiens.destroy');
-
-  Route::middleware('ajax_only')->group(function () {
-    Route::get('/{id}/fetch', [EntretienController::class, 'all'])->name('entretiens.fetch');
-    Route::get('/{id}/delete', [EntretienController::class, 'delete'])->name('entretiens.delete');
-    Route::get('/{id}/edit', [EntretienController::class, 'edit'])->name('entretiens.edit');
-  });
-
-});
-// End Entretien
 
 Route::prefix('/extras')->group(function ()
 {

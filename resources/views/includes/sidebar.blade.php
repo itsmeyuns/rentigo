@@ -30,17 +30,17 @@
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/contrats">
-        <span class="material-icons-round icon">
-          description
-        </span> Contrats
-      </a>
-    </li>
-    <li class="side-menu-item">
       <a href="/reservations">
         <span class="material-icons-round icon">
           list_alt
         </span> Résevations
+      </a>
+    </li>
+    <li class="side-menu-item">
+      <a href="/contrats">
+        <span class="material-icons-round icon">
+          description
+        </span> Contrats
       </a>
     </li>
     <li class="side-menu-item">

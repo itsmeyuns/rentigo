@@ -189,13 +189,6 @@
   margin: 8px 0;
 }
 
-.form-item input[type="number"]::-webkit-outer-spin-button,
-.form-item input[type="number"]::-webkit-inner-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
 .form-item select {
   cursor: pointer;
   background-color: #fff;
@@ -517,7 +510,3 @@
 }
 
 /* End Show Vehicule */
-
-.readonly-input {
-  background-color: var(--hover-color);
-}

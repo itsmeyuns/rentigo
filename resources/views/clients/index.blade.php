@@ -48,10 +48,10 @@
     </thead>
     <tbody></tbody>
   </table>
-  <div id="loader-container">
+  <div id="loader-container" class="loader-container">
     <div class="loader"></div>
   </div>
-  <div id="no-result">
+  <div id="no-result" class="no-result">
     <img src="{{asset('pics/no-data.svg')}}" alt="">
     <p class="text">Aucun résultat trouvé</p>
   </div>

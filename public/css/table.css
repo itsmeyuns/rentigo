@@ -36,6 +36,7 @@
 
 .table th {
   display: none;
+  text-transform: capitalize
 }
 
 .table td {

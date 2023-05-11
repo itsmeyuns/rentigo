@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckDateReservation;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-class ClientRequest extends FormRequest
+class ReservationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +26,22 @@ class ClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required | string | max:80',
-            'prenom' => 'required | string | max:80',
-            'sexe' => 'required | string | max:1',
-            'date_naissance' => 'required | date',
-            'lieu_naissance' => 'required | string',
-            'adresse' => 'required | string',
-            'cin' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
-            'telephone' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
-            'email' => ['nullable', 'email', Rule::unique('clients')->ignore($this->id)],
-            'numero_permis' => ['required', 'string', Rule::unique('clients')->ignore($this->id)],
-            'observation' => 'nullable'
+            'date_reservation' => 'required | date ',
+            'date_debut' => ['required', 'date' , 'after_or_equal:today', new CheckDateReservation($this->id)],
+            'date_fin' => 'required | date | after:date_debut',
+            'commentaire' => 'nullable',
+            'client_id' => 'required|exists:clients,id',
+            'vehicule_id' => 'required|exists:vehicules,id',
+            'status' => 'required | string'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'client_id.exists' => 'Le client sélectionné est invalide.',
+            'vehicule_id.exists' => 'Le client sélectionnée est invalide.',
+            'date_debut.after_or_equal' => "Le champ date de début doit être une date postérieure ou égale à aujourd'hui."
         ];
     }
 
