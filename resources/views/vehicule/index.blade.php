@@ -78,7 +78,7 @@
   </div>
   {{-- Start Body Section --}}
 
-  <div class="pagination">
+  <div class="pagination" id="vehicules-pagination">
     <div class="details"></div>
     <div class="links">
     </div>

@@ -19,6 +19,12 @@ class ClientController extends Controller
     return view('clients.index');
   }
 
+  public function all()
+  {
+    $clients = Client::orderByDesc('id')->get();
+    return response()->json(['clients' => $clients]);
+  }
+
   public function show($id)
   {
     $client = Client::find($id);
@@ -30,9 +36,9 @@ class ClientController extends Controller
     return response()->json(['status' => 422, 'msg' => "Ce client n'existe pas"]);  
   }
 
-  public function all()
+  public function fetch()
   {
-    $clients = Client::orderBy('id', 'desc')->paginate(10);
+    $clients = Client::latest()->paginate(10);
     return response()->json(['clients' => $clients]);
   }
 
@@ -107,14 +113,14 @@ class ClientController extends Controller
 
     $value = $request->search;
     $result = Client::where('nom', 'like', "%$value%")
-    ->orWhere('nom', 'like', "%$value%")
-    ->orWhere('prenom', 'like', "%$value%")
-    ->orWhere('cin', 'like', "%$value%")
-    ->orWhere('numero_permis', 'like', "%$value%")
-    ->orWhere('telephone', 'like', "%$value%")
-    ->get();
-
-    return response()->json(['result' => $result]);
+      ->orWhere('prenom', 'like', "%$value%")
+      ->orWhere('cin', 'like', "%$value%")
+      ->orWhere('numero_permis', 'like', "%$value%")
+      ->orWhere('telephone', 'like', "%$value%")
+      ->latest()
+      ->paginate(2);
+    $result->appends($request->all());
+    return response()->json(['clients' => $result]);
   }
 
 }

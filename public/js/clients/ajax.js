@@ -46,14 +46,16 @@ $(document).ready(function(){
       beforeSend: function() {
         $('tbody').html('')
         $('#no-result').hide()
-        $('.pagination').hide()
+        $('#clients-pagination').hide()
         $('#loader-container').show();
       },
       success: function (response) {
         if (value) {
-          if (response.result.length > 0) {
+          const clients = response.clients.data;
+          if (clients.length > 0) {
             // Fill in the table
-            fillTable(response.result)
+            fillTable(clients)
+            createPaginationLinks(response.clients, 'clients-pagination', paginationFetch)
           } else {
             $('tbody').html('')
             $('#no-result').show()
@@ -138,35 +140,10 @@ function fetchClients() {
       $('#no-result').hide()
     },
     success: function(response) {
-      console.log(response.clients);
       let clients = response.clients.data
-      let links = response.clients.links
       fillTable(clients)
-      if (clients.length > 0) {
-        $('.pagination').show()
-        $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
-        $('.pagination div.links').html('')
-        // Add Pagination links
-        $.each(links, function (index, link) {
-          let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
-          if (index === 0) {
-            element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_before</span>
-                      </a>`
-          }
-          else if (index === links.length-1) {
-            element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_next</span>
-                      </a>`
-          }
-          $('.pagination div.links').append(element)
-        })
-        // Add Active Class To Element That Represent Page 1
-        $('.pagination .link:nth-child(2)').addClass('active')
-        navigate()
-      } else {
-        $('.pagination').hide()
-      }
+      createPaginationLinks(response.clients, 'clients-pagination', paginationFetch)
+      
       $('#loader-container').hide();
     },
     error: function(error) {
@@ -175,21 +152,10 @@ function fetchClients() {
   });
 }
 
-function navigate() {
-  $('.pagination a').on('click', function (event) {  
-    event.preventDefault()
-    if ($(this).attr('href')) {
-      let page = $(this).attr('href').split('page=')[1]
-      paginationFetch(page)
-    }
-  });
-
-}
-
-function paginationFetch(page) {
+function paginationFetch(uri) {
   $.ajax({
     method: 'GET',
-    url: `clients/fetch?page=${page}`,
+    url: `clients/${uri}`,
     beforeSend: function() {
       $('tbody').html('')
       $('#no-result').hide()
@@ -197,12 +163,12 @@ function paginationFetch(page) {
     },
     success: function (response) { 
       let clients = response.clients.data;
-      $('.next-page').attr('href', response.clients.next_page_url);
-      $('.prev-page').attr('href', response.clients.prev_page_url);
-      $('.details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
+      $('#clients-pagination .next-page').attr('href', response.clients.next_page_url);
+      $('#clients-pagination .prev-page').attr('href', response.clients.prev_page_url);
+      $('#clients-pagination .details').html(`Page: <b>${response.clients.current_page}</b> | affichant <b>${response.clients.from}</b> - <b>${response.clients.to}</b> de <b>${response.clients.total}</b>`)
       fillTable(clients);
-      $('.link').removeClass('active')
-      $.each($('.link'), function (index, link) {
+      $('#clients-pagination .link').removeClass('active')
+      $.each($('#clients-pagination .link'), function (index, link) {
         ($(link).data('page') == response.clients.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
       });
       $('#loader-container').hide();

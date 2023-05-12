@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<div class="pagination">
+<div class="pagination" id="clients-pagination">
   <div class="details"></div>
   <div class="links">
     

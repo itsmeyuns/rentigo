@@ -11,32 +11,31 @@ $(window).on('load', function () {
 // Start Global Functions
 function createPaginationLinks(object, paginationId, paginationFetch) {
   const links = object.links;
-  // console.log(object);
   if (object.data.length > 0) {
     const currentPage = object.current_page
     const from = object.from
     const to = object.to
     const total = object.total
-    $(paginationId).show()
-    $(`${paginationId} .details`).html(`Page: <b>${currentPage}</b> | affichant <b>${from}</b> - <b>${to}</b> de <b>${total}</b>`)
-    $(`${paginationId} div.links`).html('')
+    $(`#${paginationId}`).show()
+    $(`#${paginationId} .details`).html(`Page: <b>${currentPage}</b> | affichant <b>${from}</b> - <b>${to}</b> de <b>${total}</b>`)
+    $(`#${paginationId} div.links`).html('')
     // Add Pagination links
     $.each(links, function (index, link) {
       let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
       if (index === 0) {
-        element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
+        element = `<a href="${link.url ?? ''}" class="link prev-page" data-page="${link.label}">
                     <span class="material-icons-round">navigate_before</span>
                   </a>`
       }
       else if (index === links.length-1) {
-        element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
+        element = `<a href="${link.url ?? ''}" class="link next-page" data-page="${link.label}">
                     <span class="material-icons-round">navigate_next</span>
                   </a>`
       }
-      $(`${paginationId} div.links`).append(element)
+      $(`#${paginationId} div.links`).append(element)
     })
     // Add Active Class To Element That Represent Page 1
-    $(`${paginationId} .link:nth-child(2)`).addClass('active')
+    $(`#${paginationId} .link:nth-child(2)`).addClass('active')
     navigate(paginationId, paginationFetch)
   } else {
     $(paginationId).hide()
@@ -44,12 +43,13 @@ function createPaginationLinks(object, paginationId, paginationFetch) {
 }
 
 function navigate(paginationId, pgFetch) {
-  $(`${paginationId} a`).on('click', function (event) {  
+  $(`#${paginationId} a`).on('click', function (event) {  
     event.preventDefault()
     if ($(this).attr('href')) {
-      let page = $(this).attr('href').split('page=')[1]
-      console.log(page);
-      pgFetch(page)
+      const url = $(this).attr('href')
+      const startIndex = url.lastIndexOf('/') +1 ; 
+      const uri = url.substring(startIndex); 
+      pgFetch(uri)
     }
   });
 }

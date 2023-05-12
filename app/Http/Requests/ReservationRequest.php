@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Reservation;
 use App\Rules\CheckDateReservation;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,9 +26,14 @@ class ReservationRequest extends FormRequest
      */
     public function rules(): array
     {
+        $date_reservation = 'today';
+        if ($this->id) {
+            $reservation = Reservation::find($this->id);
+            $date_reservation = $reservation->date_reservation;
+        }
         return [
-            'date_reservation' => 'required | date ',
-            'date_debut' => ['required', 'date' , 'after_or_equal:today', new CheckDateReservation($this->id)],
+            'date_reservation' => "required | date | date_equals:$date_reservation",
+            'date_debut' => ['required', 'date' , 'after_or_equal:date_reservation', new CheckDateReservation($this->id)],
             'date_fin' => 'required | date | after:date_debut',
             'commentaire' => 'nullable',
             'client_id' => 'required|exists:clients,id',
@@ -41,7 +47,7 @@ class ReservationRequest extends FormRequest
         return [
             'client_id.exists' => 'Le client sélectionné est invalide.',
             'vehicule_id.exists' => 'Le client sélectionnée est invalide.',
-            'date_debut.after_or_equal' => "Le champ date de début doit être une date postérieure ou égale à aujourd'hui."
+            'date_debut.after_or_equal' => "Le champ date de début doit être une date postérieure ou égale la date de réservation"
         ];
     }
 

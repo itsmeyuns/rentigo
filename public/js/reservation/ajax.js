@@ -97,9 +97,11 @@ $(document).ready(function () {
         },
         success: function (response) {
           if (value) {
-            if (response.result.length > 0) {
+            const reservations = response.reservations.data;
+            if (reservations.length > 0) {
               // Fill in the table
-              fillReservationsTable(response.result)
+              fillReservationsTable(reservations)
+              createPaginationLinks(response.reservations, 'reservations-pagination', paginationReservationFetch)
             } else {
               $(reservationsTable).html('')
               $('#reservations-no-result').show()
@@ -129,14 +131,11 @@ $(document).ready(function () {
       success: function (response) {
         console.log(response.reservations);
         fillReservationsTable(response.reservations.data)
-        // createPaginationLinks(response.reservations, '#reservations-pagination', paginationReservationFetch)
+        createPaginationLinks(response.reservations, 'reservations-pagination', paginationReservationFetch)
         $('#reservations-loader-container').hide();
       }
     });
   })
-
-  getClients()
-  getVehicules()
 
   addReservationAction()
 
@@ -176,50 +175,31 @@ function addReservationAction() {
 function getClients(selectClientsId = null, clientID = null) {
   $.ajax({
     type: "GET",
-    url: "/clients/fetch",
+    url: "/clients/all",
     success: function (response) {
-      const clients =  response.clients.data;
+      const clients =  response.clients;
       $(`#${selectClientsId}`).html(`<option value="" disabled selected>Sélectionner un client</option>`);
       $('#clients-list').html('')
       $.each(clients, function (index, value) { 
         $(`#${selectClientsId}`).append(`
           <option value="${value.id}" ${(value.id === clientID) && 'selected'}>${value.nom} ${value.prenom}</option>
         `);
-
-        $('#clients-list').append(`
-          <div class="select-option">
-            <input type="checkbox" name="client" id="${value.nom}-${index}">
-            <label for="${value.nom}-${index}">${value.nom} ${value.prenom}</label>
-          </div>
-        `)
-
       });
     }
   });
-  console.log($(`#${selectClientsId} option`));
 }
 
 function getVehicules(selectVehiculesId = null, vehiculeId = null) {
   $.ajax({
     type: "GET",
-    url: "/vehicules/fetch",
+    url: "/vehicules/all",
     success: function (response) {
-      const vehicules =  response.vehicules.data;
-      const vehiculesList = $('#vehicules-list');
-      $(vehiculesList).html('')
+      const vehicules =  response.vehicules;
       $(`#${selectVehiculesId}`).html(`<option value="" disabled selected>Sélectionner un véhicule</option>`)
       $.each(vehicules, function (index, value) { 
         $(`#${selectVehiculesId}`).append(`
           <option value="${value.id}" ${(value.id === vehiculeId) && 'selected'}>${value.matricule} - ${value.marque}</option>
         `)
-
-        $(vehiculesList).append(`
-          <div class="select-option">
-            <input type="checkbox" name="vehicule" id="${value.marque}-${index}">
-            <label for="${value.marque}-${index}">${value.matricule} ${value.marque}</label>
-          </div>
-        `)
-
       });
     }
   });
@@ -247,7 +227,7 @@ function fetchReservations() {
     },
     success: function(response) {
       fillReservationsTable(response.reservations.data)
-      createPaginationLinks(response.reservations,'#reservations-pagination', paginationReservationFetch)
+      createPaginationLinks(response.reservations,'reservations-pagination', paginationReservationFetch)
       $('#filter-form').trigger('reset');
       $('#reservations-loader-container').hide();
     },
@@ -350,10 +330,10 @@ function deleteReservationAction() {
   })
 }
 
-function paginationReservationFetch(page) {
+function paginationReservationFetch(uri) {
   $.ajax({
     method: 'GET',
-    url: `/reservations/fetch?page=${page}`,
+    url: `/reservations/${uri}`,
     beforeSend: function() {
       $(reservationsTable).html('')
       $('#reservations-loader-container').show();

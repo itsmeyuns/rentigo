@@ -91,7 +91,7 @@ function fetchEntretiens() {
     success: function(response) {
       const entretiens = response.entretiens.data
       fillEntretienTable(entretiens)
-      createPaginationLinks(response.entretiens, '#entretien-pagination', paginationEntretienFetch)
+      createPaginationLinks(response.entretiens, 'entretien-pagination', paginationEntretienFetch)
       $('#entretien-loader-container').hide();
     },
     error: function(error) {

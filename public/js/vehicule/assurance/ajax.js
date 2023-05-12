@@ -200,7 +200,7 @@ function fetchAssurances() {
       const assurances = response.assurances.data
       fillAssuranceTable(assurances)
       $('#prochaine-assurance').text(response.prochaine_assurance)
-      createPaginationLinks(response.assurances, '#assurance-pagination', paginationAssuranceFetch)
+      createPaginationLinks(response.assurances, 'assurance-pagination', paginationAssuranceFetch)
       $('#assurance-loader-container').hide();
     },
     error: function(error) {

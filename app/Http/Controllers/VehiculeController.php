@@ -26,7 +26,13 @@ class VehiculeController extends Controller
 
     public function all()
     {
-        $vehicules = Vehicule::orderBy('id', 'desc')->paginate(12);
+        $vehicules = Vehicule::orderByDesc('id')->get();
+        return response()->json(['vehicules' => $vehicules], 200);
+    }
+
+    public function fetch()
+    {
+        $vehicules = Vehicule::latest()->paginate(12);
         return response()->json(['vehicules' => $vehicules], 200);
     }
 
@@ -107,23 +113,24 @@ class VehiculeController extends Controller
     public function search(Request $request)
     {
 
-      $value = $request->search;
-      $result = Vehicule::where('matricule', 'like', "%$value%")
-                          ->orWhere('marque', 'like', "%$value%")
-                          ->orWhere('modele', 'like', "%$value%")
-                          ->get();
-
-        return response()->json(['result' => $result], 200);
+        $value = $request->search;
+        $result = Vehicule::where('matricule', 'like', "%$value%")
+        ->orWhere('marque', 'like', "%$value%")
+        ->orWhere('modele', 'like', "%$value%")
+        ->latest()
+        ->paginate(10);
+        $result->appends($request->all());
+        return response()->json(['vehicules' => $result], 200);
     }
 
     public function filterDisponibilite(Request $request)
     {
         $arrayFilter = $request->filter;
         $result = Vehicule::whereIn('status', $arrayFilter)
-                            ->orderBy('id', 'desc')
-                            ->get();
-
-        return response()->json(['result' => $result], 200);
+        ->latest()
+        ->paginate(10);
+        $result->appends($request->all());
+        return response()->json(['vehicules' => $result], 200);
     }
 
     public function show($id)

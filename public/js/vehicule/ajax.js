@@ -78,14 +78,16 @@ $(document).ready(function () {
       beforeSend: function() {
         $('.box-container').html('')
         $('#no-result').hide()
-        $('.pagination').hide()
+        $('#vehicules-pagination').hide()
         $('#loader-container').show();
         $("#empty-data").hide()
       },
       success: function (response) {
         if (value) {
-          if (response.result.length > 0) {
-            createBoxes(response.result)
+          const vehicules = response.vehicules.data
+          if (vehicules.length > 0) {
+            createBoxes(vehicules)
+            createPaginationLinks(response.vehicules, 'vehicules-pagination', paginationFetch)
           } else {
             $('.box-container').html('')
             $('#no-result').show()
@@ -116,12 +118,13 @@ $(document).ready(function () {
           $('.box-container').html('')
           $('#no-result').hide()
           $('#empty-data').hide()
-          $('.pagination').hide()
+          $('#vehicules-pagination').hide()
           $('#loader-container').show();
         },
         success: function (response) {
-          const vehicles = response.result
-          createBoxes(vehicles)
+          const vehicules = response.vehicules.data
+          createBoxes(vehicules)
+          createPaginationLinks(response.vehicules, 'vehicules-pagination', paginationFetch)
           $('#loader-container').hide();
         }
       });
@@ -200,33 +203,8 @@ function fetchVehicules() {
     },
     success: function(response) {
       let vehicules = response.vehicules.data
-      let links = response.vehicules.links
       createBoxes(vehicules)
-      if (vehicules.length > 0) {
-        $('.pagination').show()
-        $('.details').html(`Page: <b>${response.vehicules.current_page}</b> | affichant <b>${response.vehicules.from}</b> - <b>${response.vehicules.to}</b> de <b>${response.vehicules.total}</b>`)
-        $('.pagination div.links').html('')
-        // Add Pagination links
-        $.each(links, function (index, link) {
-          let element = `<a href="${link.url}" class="link" data-page="${link.label}">${link.label}</a>`
-          if (index === 0) {
-            element = `<a href="${link.url}" class="link prev-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_before</span>
-                      </a>`
-          }
-          else if (index === links.length-1) {
-            element = `<a href="${link.url}" class="link next-page" data-page="${link.label}">
-                        <span class="material-icons-round">navigate_next</span>
-                      </a>`
-          }
-          $('.pagination div.links').append(element)
-        })
-        // Add Active Class To Element That Represent Page 1
-        $('.pagination .link:nth-child(2)').addClass('active')
-        navigate()
-      } else {
-        $('.pagination').hide()
-      }
+      createPaginationLinks(response.vehicules, 'vehicules-pagination', paginationFetch)
       $('#loader-container').hide();
     },
     error: function(error) {
@@ -285,8 +263,6 @@ function createBoxes(vehicules) {
   deleteAction()
   editAction()
 }
-
-
 
 function passIdToModal() { 
   $('.delete, .edit').on('click', function () { 
@@ -357,20 +333,11 @@ function deleteAction() {
   })
 }
 
-function navigate() {
-  $('.pagination a').on('click', function (event) {  
-    event.preventDefault()
-    if ($(this).attr('href')) {
-      let page = $(this).attr('href').split('page=')[1]
-      paginationFetch(page)
-    }
-  });
-}
-
-function paginationFetch(page) {
+function paginationFetch(uri) {
+  console.log(uri);
   $.ajax({
     method: 'GET',
-    url: `vehicules/fetch?page=${page}`,
+    url: `vehicules/${uri}`,
     beforeSend: function() {
       $('.box-container').html('')
       $('#no-result').hide()
@@ -378,12 +345,12 @@ function paginationFetch(page) {
     },
     success: function (response) { 
       let vehicules = response.vehicules.data;
-      $('.next-page').attr('href', response.vehicules.next_page_url);
-      $('.prev-page').attr('href', response.vehicules.prev_page_url);
-      $('.details').html(`Page: <b>${response.vehicules.current_page}</b> | affichant <b>${response.vehicules.from}</b> - <b>${response.vehicules.to}</b> de <b>${response.vehicules.total}</b>`)
+      $('#vehicules-pagination .next-page').attr('href', response.vehicules.next_page_url);
+      $('#vehicules-pagination .prev-page').attr('href', response.vehicules.prev_page_url);
+      $('#vehicules-pagination .details').html(`Page: <b>${response.vehicules.current_page}</b> | affichant <b>${response.vehicules.from}</b> - <b>${response.vehicules.to}</b> de <b>${response.vehicules.total}</b>`)
       createBoxes(vehicules);
-      $('.link').removeClass('active')
-      $.each($('.link'), function (index, link) {
+      $('#vehicules-pagination .link').removeClass('active')
+      $.each($('#vehicules-pagination .link'), function (index, link) {
         ($(link).data('page') == response.vehicules.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
       });
       $('#loader-container').hide();

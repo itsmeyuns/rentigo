@@ -168,7 +168,7 @@ function fetchCarteGrises() {
       const links = response.carte_grises.links
       $('#prochaine-carte-g').text(response.prochaine_carte_grise)
       fillCarteGriseTable(carteGrises)
-      createPaginationLinks(response.carte_grises, '#carte-g-pagination', paginationCarteGriseFetch)
+      createPaginationLinks(response.carte_grises, 'carte-g-pagination', paginationCarteGriseFetch)
       $('#carte-g-loader-container').hide()
     },
     error: function(error) {
