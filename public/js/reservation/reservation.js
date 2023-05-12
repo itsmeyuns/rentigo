@@ -70,3 +70,28 @@ function validateFields(form) {
   return valid;
 
 }
+
+
+let moreIcon = document.querySelectorAll('.more-icon');
+console.log(moreIcon);
+moreIcon.forEach( (icon, index) => {
+  icon.addEventListener('click', function () {
+    let moreList = icon.firstElementChild;
+    moreIcon.forEach( function (e, i) {
+      if (index == i) {
+        moreList.classList.toggle('show')
+      } else {
+        e.firstElementChild.classList.remove('show');
+      }
+    })
+  })
+})
+
+
+const selectField = document.querySelectorAll('.select-field')
+
+selectField.forEach((select) => {
+  select.addEventListener('click', function () {
+    this.classList.toggle('open');
+  })
+});

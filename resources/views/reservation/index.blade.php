@@ -16,9 +16,10 @@
       @include('reservation.modals.edit')
     </div>
   {{-- End Modals --}}
+
   <div class="reservations-section-header">
     <div class="bar">
-      <form action="">
+      <form>
         <div class="input-holder">
           <input type="text" name="rechercher" placeholder="Rechercher" id="rechercher">
           <button type="button">
@@ -37,36 +38,6 @@
         </div>
       </form>
       <form class="filter" id="filter-form">
-        {{-- <div class="select-box-container">
-          <div class="select-box">
-            <div class="select-field">
-              <div class="select-text">Clients</div>
-              <span class="material-icons-round arrow-down">
-                expand_more
-              </span>
-            </div>
-            <div class="select-options" id="clients-list">
-              <div class="select-option">
-                <input type="checkbox" name="" id="">
-                <label for="">Ahmed Ali</label>
-              </div>
-            </div>
-          </div>
-          <div class="select-box">
-            <div class="select-field">
-              <div class="select-text">Véhicules</div>
-              <span class="material-icons-round arrow-down">
-                expand_more
-              </span>
-            </div>
-            <div class="select-options" id="vehicules-list">
-              <div class="select-option">
-                <input type="checkbox" name="" id="">
-                <label for="">Ahmed Ali</label>
-              </div>
-            </div>
-          </div>
-        </div> --}}
         <div class="select-box">
           <div class="select-field">
             <div class="select-text">Status</div>
@@ -96,16 +67,6 @@
               <label for="terminee">Terminée</label>
             </div>
           </div>          
-          {{-- <div class="select-option">
-            <select name="status" id="filter-status">
-              <option value="" disabled selected>Status Réservation</option>
-              <option value="En attente">En attente</option>
-              <option value="Confirmée">Confirmée</option>
-              <option value="Annulée">Annulée</option>
-              <option value="Terminée">Terminée</option>
-              <option value="En cours">En cours</option>
-            </select>
-          </div> --}}
         </div>
         <div class="date-picker">
           <div class="start-date">
@@ -159,13 +120,13 @@
       
     </div>
   </div>
+
 </div>
 
 
 
 @stop
 @section('js')
-    <script src="{{ asset('js/contrats.js') }}"></script>
     <script src="{{ asset('js/reservation/reservation.js') }}"></script>
     <script src="{{ asset('js/reservation/ajax.js') }}"></script>
 @endsection
