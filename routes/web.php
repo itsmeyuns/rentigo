@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\CarteGriseController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContratController;
 use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ use App\Http\Controllers\VisiteTechniqueController;
 Route::view('/dashboard', 'dashboard')->middleware('auth');
 Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
-Route::view('/contrats', 'contrats');
+
 
 
 Route::view('/agents', 'agents.index');
@@ -72,6 +73,8 @@ Route::prefix('/vehicules')->group(function () {
     Route::get('/all', [VehiculeController::class, 'all'])->name('vehicules.all');
     Route::get('/search', [VehiculeController::class, 'search'])->name('vehicules.search');
     Route::get('/filter', [VehiculeController::class, 'filterDisponibilite'])->name('vehicules.filter');
+    Route::get('/{id}/get-prix-location', [VehiculeController::class, 'getPrixLocation'])->name('vehicules.get-prix-location');
+    Route::get('/disponible', [VehiculeController::class, 'getVehiculesDisponible'])->name('vehicules.disponible');
   });
 
 });
@@ -161,18 +164,44 @@ Route::prefix('/reservations')->group(function () {
 
   Route::get('/', [ReservationController::class, 'index'])->name('reservations.index');
   Route::post('/store', [ReservationController::class, 'store'])->name('reservations.store');
-  Route::get('/fetch', [ReservationController::class, 'all'])->name('reservations.fetch');
-  Route::get('/{id}/delete', [ReservationController::class, 'delete'])->name('reservations.delete');
   Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
-  Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
   Route::put('/{id}', [ReservationController::class, 'update'])->name('reservations.update');
-  Route::get('/search', [ReservationController::class, 'search'])->name('reservations.search');
-  Route::get('/filter', [ReservationController::class, 'filter'])->name('reservations.filter');
+
+  Route::middleware('ajax_only')->group(function ()
+  {
+    Route::get('/fetch', [ReservationController::class, 'all'])->name('reservations.fetch');
+    Route::get('/{id}/delete', [ReservationController::class, 'delete'])->name('reservations.delete');
+    Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+    Route::get('/search', [ReservationController::class, 'search'])->name('reservations.search');
+    Route::get('/filter', [ReservationController::class, 'filter'])->name('reservations.filter');
+  });
+
 });
 
 // End Reservation 
 
 
+
+// Start Contrat
+
+Route::prefix('/contrats')->group(function ()
+{
+  Route::get('/', [ContratController::class, 'index'])->name('contrats.index');
+  Route::post('/store', [ContratController::class, 'store'])->name('contrats.store');
+  Route::delete('/{id}', [ContratController::class, 'destroy'])->name('contrats.destroy');
+  Route::put('/{id}', [ContratController::class, 'update'])->name('contrats.update');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/fetch', [ContratController::class, 'fetch'])->name('contrats.fetch');
+    Route::get('/{id}/delete', [ContratController::class, 'delete'])->name('contrats.delete');
+    Route::get('/{id}/edit', [ContratController::class, 'edit']);
+    Route::get('/search', [ContratController::class, 'search'])->name('contarts.search');
+    Route::get('/filter', [ContratController::class, 'filter'])->name('reservations.filter');
+  });
+
+});
+
+// End Contrat
 
 
 

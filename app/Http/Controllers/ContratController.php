@@ -3,39 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\DateTimeHelper;
-use App\Http\Requests\ReservationRequest;
-use App\Models\Reservation;
+use App\Http\Requests\ContratRequest;
+use App\Models\Contrat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Arr;
 
-class ReservationController extends Controller
+class ContratController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('reservation.index');
+        return view('contrat.index');
     }
 
-    public function all()
+    public function fetch()
     {
-        $reservations = Reservation::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
-        return response()->json(['code' => 200, 'reservations' => $reservations], 200);
+        $contrats = Contrat::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
+        return response()->json(['code' => 200, 'contrats' => $contrats], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ReservationRequest $request)
+    public function store(ContratRequest $request)
     {
         $formData = $request->validated();
         $formData['user_id'] = auth()->user()->id;
@@ -48,11 +40,10 @@ class ReservationController extends Controller
             'heure_fin' => DateTimeHelper::separateDateTime($request->date_fin)['time'],
         ];
         $formData = array_merge($formData, $dateDebut, $dateFin);
-        Reservation::create($formData);
-
+        Contrat::create($formData);
+        
         // Return success response if data is inserted successfully
         return response()->json(['code' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
-
     }
 
     /**
@@ -60,9 +51,13 @@ class ReservationController extends Controller
      */
     public function edit($id)
     {
-        $reservation = Reservation::find($id);
-        if ($reservation) {
-            return response()->json(['status' => 200, 'reservation' => $reservation], 200); 
+        $contrat = Contrat::with('vehicule')->find($id);
+        $contrat->montant = "1500";
+        $dateDebut = Carbon::parse($contrat->date_debut);
+        $dateFin = Carbon::parse($contrat->date_fin);
+        $contrat['montant'] = $contrat->vehicule->prix_location * $dateFin->diffInDays($dateDebut);
+        if ($contrat) {
+            return response()->json(['status' => 200, 'contrat' => $contrat], 200); 
         }
         return response()->json(['status' => 404, 'msg' => "Cette information n'existe pas"], 404);
     }
@@ -70,7 +65,7 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ReservationRequest $request, $id)
+    public function update(ContratRequest $request, $id)
     {
         // Validation
         $formData = $request->validated();
@@ -84,9 +79,9 @@ class ReservationController extends Controller
             'heure_fin' => DateTimeHelper::separateDateTime($request->date_fin)['time'],
         ];
         $formData = array_merge($formData, $dateDebut, $dateFin);
-        $reservation = Reservation::find($id);
-        if ($reservation) {
-            $reservation->update($formData);
+        $contrat = Contrat::find($id);
+        if ($contrat) {
+            $contrat->update($formData);
             // Return success response if data is updated successfully
             return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
         } 
@@ -95,9 +90,9 @@ class ReservationController extends Controller
 
     public function delete($id)
     {
-        $reservation = Reservation::find($id);
-        if ($reservation) {
-            return response()->json(['status' => 200, 'reservation' => $reservation], 200); 
+        $contrat = Contrat::find($id);
+        if ($contrat) {
+            return response()->json(['status' => 200, 'contrat' => $contrat], 200); 
         }
         return response()->json(['status' => 404, 'msg' => "Cette information n'existe pas"], 404);
     }
@@ -107,9 +102,9 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        $reservation = Reservation::find($id);
-        if ($reservation) {
-            $reservation->delete();
+        $contrat = Contrat::find($id);
+        if ($contrat) {
+            $contrat->delete();
             return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
@@ -121,7 +116,7 @@ class ReservationController extends Controller
     public function search(Request $request)
     {
       $value = $request->search;
-      $result = Reservation::with(['vehicule', 'client', 'user'])
+      $result = Contrat::with(['vehicule', 'client', 'user'])
                                   ->whereHas('vehicule', function ($query) use ($value) {
                                         $query->where('matricule', 'LIKE', "%$value%")
                                               ->orWhere('marque', 'LIKE', "%$value%");
@@ -137,44 +132,26 @@ class ReservationController extends Controller
                                   ->latest()
                                   ->paginate(1);
       $result->appends($request->all());
-      return response()->json(['code' => 200, "reservations" => $result], 200);
+      return response()->json(['code' => 200, "contrats" => $result], 200);
     }
 
     public function filter(Request $request)
     {
       $dateDebut = $request->date_debut;
       $dateFin = $request->date_fin;
-      $status = $request->status;
-      $reservations = Reservation::with(['vehicule', 'client', 'user'])
-      ->when($dateDebut && $dateFin && $status, function ($query) use ($dateDebut, $dateFin, $status) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->where('date_fin', '<=', $dateFin)
-                ->whereIn('status', $status);
-      })
-      ->when($dateDebut && $dateFin && !$status, function ($query) use ($dateDebut, $dateFin) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->where('date_fin', '<=', $dateFin);
-      })
-      ->when($dateDebut && !$dateFin && $status, function ($query) use ($dateDebut, $status) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && $dateFin && $status, function ($query) use ($dateFin, $status) {
-          $query->where('date_fin', '<=', $dateFin)
-                ->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && !$dateFin && $status, function ($query) use ($status) {
-          $query->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && $dateFin && !$status, function ($query) use ($dateFin) {
-          $query->where('date_fin', '<=', $dateFin);
-      })
-      ->when($dateDebut && !$dateFin && !$status, function ($query) use ($dateDebut) {
-          $query->where('date_debut', '>=', $dateDebut);
-      })
-      ->paginate(10);
-      $reservations->appends($request->all());
-      return response()->json(['reservations' => $reservations], 200);
+      $contrats = Contrat::with(['vehicule', 'client', 'user'])
+                              ->when($dateDebut && $dateFin , function ($query) use ($dateDebut, $dateFin) {
+                                  $query->where('date_debut', '>=', $dateDebut)
+                                          ->where('date_fin', '<=', $dateFin);
+                              })
+                              ->when($dateDebut && !$dateFin, function ($query) use ($dateDebut) {
+                                  $query->where('date_debut', '>=', $dateDebut);
+                              })
+                              ->when(!$dateDebut && $dateFin, function ($query) use ($dateFin) {
+                                  $query->where('date_fin', '<=', $dateFin);
+                              })
+                              ->paginate(10);
+      $contrats->appends($request->all());
+      return response()->json(['contrats' => $contrats], 200);
     }
-
 }

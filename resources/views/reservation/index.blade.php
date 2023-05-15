@@ -78,7 +78,7 @@
             <input type="date" id="endDate" name="date_fin">
           </div>
         </div>
-        <div class="div">
+        <div>
           <button type="submit" id="filter-button"  class="btn">Filter</button>
           <button type="reset" id="resetButton" class="btn">Reset</button>
         </div>

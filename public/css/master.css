@@ -95,6 +95,13 @@ button {
   cursor: pointer;
 }
 
+.btn {
+  padding: 5px 15px;
+  background: var(--hover-color);
+  color: var(--main-color);
+  border-radius: 8px;
+}
+
 span.show {
   color: var(--success-color);
 }

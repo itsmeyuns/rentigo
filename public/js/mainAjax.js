@@ -38,7 +38,7 @@ function createPaginationLinks(object, paginationId, paginationFetch) {
     $(`#${paginationId} .link:nth-child(2)`).addClass('active')
     navigate(paginationId, paginationFetch)
   } else {
-    $(paginationId).hide()
+    $(`#${paginationId}`).hide()
   }
 }
 

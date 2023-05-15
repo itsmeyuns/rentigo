@@ -1,10 +1,10 @@
-
 @import url(table.css);
 
 .more-icon {
   position: relative;
 }
-.more {
+
+.more-list {
   display: none;
   position: absolute;
   font-size: 14px;
@@ -15,7 +15,7 @@
   z-index: 2;
 }
 
-.more::before {
+.more-list::before {
   content: '';
   position: absolute;
   top: -20px;
@@ -25,22 +25,22 @@
   right:  0;
 }
 
-.more li {
+.more-list li {
   padding: 20px 20px 20px 10px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.more li:not(li:last-child) {
+.more-list li:not(li:last-child) {
   border-bottom: 1px solid #ccc
 }
 
-.more li:hover, .more li:hover > a{
+.more-list li:hover, .more-list li:hover > a{
   color: var(--main-color)
 }
 
-.show {
+.more-list.show {
   display: block;
 }
 
@@ -174,9 +174,10 @@ form.filter {
   cursor: pointer;
 }
 
-.btn {
-  padding: 5px 15px;
-  background: var(--hover-color);
-  color: var(--main-color);
-  border-radius: 8px;
+.table-container {
+  min-height: 400px;
+}
+
+.table-container .table tbody td:last-child {
+  padding: 10px !important;
 }

@@ -179,7 +179,6 @@ function getClients(selectClientsId = null, clientID = null) {
     success: function (response) {
       const clients =  response.clients;
       $(`#${selectClientsId}`).html(`<option value="" disabled selected>Sélectionner un client</option>`);
-      $('#clients-list').html('')
       $.each(clients, function (index, value) { 
         $(`#${selectClientsId}`).append(`
           <option value="${value.id}" ${(value.id === clientID) && 'selected'}>${value.nom} ${value.prenom}</option>
@@ -242,13 +241,13 @@ function fillReservationsTable(data) {
   $.each(data, function (key, item) {
     $(reservationsTable).append(`
     <tr>
-      <td data-th="date réservation">${item.date_reservation}</td>
-      <td data-th="client">${item.client.prenom} ${item.client.nom}</td>
-      <td data-th="véhicule">${item.vehicule.matricule}-${item.vehicule.marque}</td>
+      <td data-th="Date réservation">${item.date_reservation}</td>
+      <td data-th="Client">${item.client.prenom} ${item.client.nom}</td>
+      <td data-th="Véhicule">${item.vehicule.matricule}-${item.vehicule.marque}</td>
       <td data-th="Date début">${item.date_debut}</td>
       <td data-th="Date fin">${item.date_fin}</td>
-      <td data-th="status réservation">${item.status}</td>
-      <td data-th="agent">${item.user.prenom} ${item.user.nom}</td>
+      <td data-th="Status réservation">${item.status}</td>
+      <td data-th="Agent">${item.user.prenom} ${item.user.nom}</td>
       <td data-th="Actions">
         <span class="material-icons-round edit edit-reservation" data-id="${item.id}">edit</span>
         <span class="material-icons-round delete delete-reservation" data-id="${item.id}">delete</span> 
@@ -267,7 +266,6 @@ function editReservationAction() {
   $('.edit-reservation').on('click', function() {
     // Get the reservation ID from the hidden input
     let reservationId = $('#editReservationId').val();
-    console.log($('#editReservationId'));
     // Send an Ajax request to edit the vehicule
     $.ajax({
       url: `/reservations/${reservationId}/edit`,

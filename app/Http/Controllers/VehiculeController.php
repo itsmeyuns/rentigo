@@ -139,6 +139,22 @@ class VehiculeController extends Controller
         return view('vehicule.show', compact('vehicule'));
     }
 
+    public function getPrixLocation($id)
+    {
+        $vehicule = Vehicule::find($id);
+        if ($vehicule) {
+            $prixLocation = $vehicule->prix_location;
+            return response()->json(['prix_location' =>  $prixLocation], 200);
+        }
+        return response()->json(['error' => "Ce véhicule n'existe pas."], 404);
+    }
+
+    public function getVehiculesDisponible()
+    {
+        $vehicules = Vehicule::all()->where('status', 'Disponible');
+        return response()->json(['vehicules' => $vehicules], 200);
+    }
+
     private function uploadImage(VehiculeRequest $request, &$form)
     {
         if ($request->hasFile('photo')) {
