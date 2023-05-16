@@ -190,6 +190,7 @@ Route::prefix('/contrats')->group(function ()
   Route::post('/store', [ContratController::class, 'store'])->name('contrats.store');
   Route::delete('/{id}', [ContratController::class, 'destroy'])->name('contrats.destroy');
   Route::put('/{id}', [ContratController::class, 'update'])->name('contrats.update');
+  Route::get('/{id}/imprimer', [ContratController::class, 'pdf']);
 
   Route::middleware('ajax_only')->group(function () {
     Route::get('/fetch', [ContratController::class, 'fetch'])->name('contrats.fetch');

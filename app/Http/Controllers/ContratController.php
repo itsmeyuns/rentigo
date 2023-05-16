@@ -6,6 +6,8 @@ use App\Helpers\DateTimeHelper;
 use App\Http\Requests\ContratRequest;
 use App\Models\Contrat;
 use Carbon\Carbon;
+use PDF;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class ContratController extends Controller
@@ -153,5 +155,15 @@ class ContratController extends Controller
                               ->paginate(10);
       $contrats->appends($request->all());
       return response()->json(['contrats' => $contrats], 200);
+    }
+
+
+    public function pdf($id)
+    {
+        // $contrat = Contrat::with(['vehicule', 'client'])->find($id);
+        // // $pdf = PDF::loadView('contrat.pdf', ['contrat' => $contrat])->setPaper('legal', 'portrait');
+        $pdf = PDF::loadView('contrat.test');
+        // dd($pdf->setPaper('A5', 'portrait'));
+        return $pdf->stream();
     }
 }

@@ -300,7 +300,7 @@ function fillContratsTable(data) {
               <span class="material-icons-round">
                 print
               </span>
-              <a href="contrats/${item.id}">Imprimer</a>
+              <a href="contrats/${item.id}/imprimer">Imprimer</a>
             </li>
           </ul>
         </div>
