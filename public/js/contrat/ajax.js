@@ -158,21 +158,6 @@ $(document).ready(function () {
   addContratAction()
 });
 
-function getClients(selectClientsId = null, clientID = null) {
-  $.ajax({
-    type: "GET",
-    url: "/clients/all",
-    success: function (response) {
-      const clients =  response.clients;
-      $(`#${selectClientsId}`).html(`<option value="" disabled selected>Sélectionner un client</option>`);
-      $.each(clients, function (index, value) { 
-        $(`#${selectClientsId}`).append(`
-          <option value="${value.id}" ${(value.id === clientID) && 'selected'}>${value.nom} ${value.prenom}</option>
-        `);
-      });
-    }
-  });
-}
 
 function getVehiculesDispo(selectVehiculesId = null, vehiculeId = null, vehiculeObject = null) {
   $.ajax({
@@ -295,6 +280,12 @@ function fillContratsTable(data) {
                 autorenew
               </span>
               <a href="">Pronologation</a>
+            </li>
+            <li>
+              <span class="material-icons-round">
+                paid
+              </span>
+              <a href="contrats/${item.id}/reglements">Réglement</a>
             </li>
             <li>
               <span class="material-icons-round">

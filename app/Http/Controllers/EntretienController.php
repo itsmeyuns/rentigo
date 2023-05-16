@@ -15,7 +15,7 @@ class EntretienController extends Controller
 
     public function all($id)
     {
-        $entretiens = Entretien::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
+        $entretiens = Entretien::where('vehicule_id', $id)->latest()->paginate(5);
         // $entretiens = Vehicule::find($id)->entretiens()->paginate(1);
         return response()->json(['entretiens' => $entretiens], 200);
     }

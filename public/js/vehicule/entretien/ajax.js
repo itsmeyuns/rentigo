@@ -100,11 +100,11 @@ function fetchEntretiens() {
   });
 }
 
-function paginationEntretienFetch(page) {
+function paginationEntretienFetch(uri) {
   const vehiculeId = $('.vehicule-demo').data("vehicule-id");
   $.ajax({
     method: 'GET',
-    url: `/entretiens/${vehiculeId}/fetch?page=${page}`,
+    url: `/entretiens/${vehiculeId}/${uri}`,
     beforeSend: function() {
       $(entretienTable).html('')
       $('#entretien-loader-container').show();

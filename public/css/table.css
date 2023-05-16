@@ -5,6 +5,11 @@
   overflow: auto;
   min-height: 547px;
   position: relative;
+  margin-bottom: 10px;
+}
+
+#reglements-section .table-container {
+  min-height: 200px;
 }
 
 .table-container::-webkit-scrollbar:horizontal {
@@ -55,6 +60,7 @@
 
 .table td:before {
   content: attr(data-th);
+  text-transform: capitalize;
   color: #000;
   position: absolute;
   left: 0;

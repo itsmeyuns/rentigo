@@ -48,8 +48,24 @@ function navigate(paginationId, pgFetch) {
     if ($(this).attr('href')) {
       const url = $(this).attr('href')
       const startIndex = url.lastIndexOf('/') +1 ; 
-      const uri = url.substring(startIndex); 
+      const uri = url.substring(startIndex);
       pgFetch(uri)
+    }
+  });
+}
+
+function getClients(selectClientsId = null, clientID = null) {
+  $.ajax({
+    type: "GET",
+    url: "/clients/all",
+    success: function (response) {
+      const clients =  response.clients;
+      $(`#${selectClientsId}`).html(`<option value="" disabled selected>Sélectionner un client</option>`);
+      $.each(clients, function (index, value) { 
+        $(`#${selectClientsId}`).append(`
+          <option value="${value.id}" ${(value.id === clientID) ? 'selected' : ''}>${value.nom} ${value.prenom}</option>
+        `);
+      });
     }
   });
 }

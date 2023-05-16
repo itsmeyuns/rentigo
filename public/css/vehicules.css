@@ -396,12 +396,6 @@
 }
 
 /* Start Show Vehicule */
-.vehicule-infos .ajouter-button {
-  padding: 15px;
-  background-color: var(--hover-color);
-  color: var(--primary-color);
-  border-radius: 10px;
-}
 
 .vehicule-demo {
   display: flex;

@@ -38,6 +38,7 @@ function validateFields(form) {
 }
 
 validationOnBlur(addContratForm2)
+validationOnBlur(editContratForm2)
 function validationOnBlur(form) {
   let inputs = form.querySelectorAll('input, select');
   inputs.forEach((input)=>{

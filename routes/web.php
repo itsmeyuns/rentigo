@@ -8,11 +8,12 @@ use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReglementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
-
+use App\Models\Reglement;
 
 /*
 |--------------------------------------------------------------------------
@@ -200,9 +201,30 @@ Route::prefix('/contrats')->group(function ()
     Route::get('/filter', [ContratController::class, 'filter'])->name('reservations.filter');
   });
 
+  Route::get('/{id}/reglements', [ReglementController::class, 'index'])->name('reglements.index');
+    
+
 });
 
 // End Contrat
+
+// Start Reglement
+
+Route::prefix('/reglements')->group(function () {
+  Route::post('/store', [ReglementController::class, 'store'])->name('reglements.store');
+  Route::delete('/{id}', [ReglementController::class, 'destroy'])->name('reglements.destroy');
+  Route::put('/{id}', [ReglementController::class, 'update'])->name('reglements.update');
+  
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/{contrat}/fetch', [ReglementController::class, 'fetch'])->name('reglements.fetch');
+    Route::get('/{id}/delete', [ReglementController::class, 'delete'])->name('reglements.delete');
+    Route::get('/{id}/edit', [ReglementController::class, 'edit'])->name('reglements.edit');
+  });
+
+});
+
+// End Reglement
+
 
 
 

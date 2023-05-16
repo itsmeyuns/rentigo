@@ -130,6 +130,14 @@ span.edit:hover {
   transform: scale(1.1);
 }
 
+.ajouter-button {
+  padding: 15px;
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
 /* Start Delete Modal */
 
 .delete-modal {

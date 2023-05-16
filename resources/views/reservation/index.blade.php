@@ -97,7 +97,7 @@
             <th>véhicule</th>
             <th>Date début</th>
             <th>date fin</th>
-            <th>status réservation</th>
+            <th>status</th>
             <th>agent</th>
             <th>Action</th>
           </tr>

@@ -172,22 +172,6 @@ function addReservationAction() {
   })
 }
 
-function getClients(selectClientsId = null, clientID = null) {
-  $.ajax({
-    type: "GET",
-    url: "/clients/all",
-    success: function (response) {
-      const clients =  response.clients;
-      $(`#${selectClientsId}`).html(`<option value="" disabled selected>Sélectionner un client</option>`);
-      $.each(clients, function (index, value) { 
-        $(`#${selectClientsId}`).append(`
-          <option value="${value.id}" ${(value.id === clientID) && 'selected'}>${value.nom} ${value.prenom}</option>
-        `);
-      });
-    }
-  });
-}
-
 function getVehicules(selectVehiculesId = null, vehiculeId = null) {
   $.ajax({
     type: "GET",
@@ -246,7 +230,7 @@ function fillReservationsTable(data) {
       <td data-th="Véhicule">${item.vehicule.matricule}-${item.vehicule.marque}</td>
       <td data-th="Date début">${item.date_debut}</td>
       <td data-th="Date fin">${item.date_fin}</td>
-      <td data-th="Status réservation">${item.status}</td>
+      <td data-th="Status">${item.status}</td>
       <td data-th="Agent">${item.user.prenom} ${item.user.nom}</td>
       <td data-th="Actions">
         <span class="material-icons-round edit edit-reservation" data-id="${item.id}">edit</span>

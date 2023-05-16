@@ -21,8 +21,6 @@
 
     {{-- End Modals --}}
 
-
-
     <div class="contrats-section-header">
       <div class="bar">
         <form>
@@ -44,84 +42,6 @@
           </div>
         </form>
         <form class="filter" id="filter-form">
-          {{-- <div class="select-box-container">
-            <div class="select-box">
-              <div class="select-field">
-                <div class="select-text">Clients</div>
-                <span class="material-icons-round arrow-down">
-                  expand_more
-                </span>
-              </div>
-              <div class="select-options">
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-              </div>
-            </div>
-            <div class="select-box">
-              <div class="select-field">
-                <div class="select-text">Véhicules</div>
-                <span class="material-icons-round arrow-down">
-                  expand_more
-                </span>
-              </div>
-              <div class="select-options">
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali Ali Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-                <div class="select-option">
-                  <input type="checkbox" name="" id="">
-                  <label for="">Ahmed Ali</label>
-                </div>
-              </div>
-            </div>
-          </div> --}}
           <div class="date-picker">
             <div class="start-date">
               <label for="startDate">De:</label>

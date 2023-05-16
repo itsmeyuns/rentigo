@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Events\ContratDeleted;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contrat extends Model
 {
-    use HasFactory, SoftDeletes;
-
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
+    protected $cascadeDeletes = ['reglements'];
     protected $fillable = [
         'date_contrat',
         'date_debut',
@@ -39,6 +40,11 @@ class Contrat extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reglements()
+    {
+        return $this->hasMany(Reglement::class);
     }
 
 }

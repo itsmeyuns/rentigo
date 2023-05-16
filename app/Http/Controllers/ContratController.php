@@ -22,7 +22,7 @@ class ContratController extends Controller
 
     public function fetch()
     {
-        $contrats = Contrat::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
+        $contrats = Contrat::with(['vehicule', 'client', 'user'])->where('user_id', auth()->user()->id)->latest()->paginate(10);
         return response()->json(['code' => 200, 'contrats' => $contrats], 200);
     }
 
