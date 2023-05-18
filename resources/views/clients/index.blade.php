@@ -14,7 +14,7 @@
 <div id="EditClientModal" class="modal">
   @include('clients.modals.edit')
 </div>
-<div id="ShowClientModal" class="modal">
+<div id="ShowClientModal" class="modal show-modal">
   @include('clients.modals.show')
 </div>
 <div class="bar">

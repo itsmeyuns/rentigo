@@ -9,16 +9,10 @@
       <span id="show_sexe" title="sexe"></span>
     </div>
     <div class="box">
-      <span class="material-icons-round icon">
+      <span class="material-icons-round icon" title="CIN">
         badge
       </span>
       <span id="show_cin" title="CIN"></span>
-    </div>
-    <div class="box">
-      <span class="material-icons-round icon">
-        fact_check
-      </span>
-      <span id="show_numero_permis" title="Numéro de permis"></span>
     </div>
     <div class="box">
       <span class="material-icons-round icon">
@@ -49,9 +43,6 @@
         home
       </span>
       <span id="show_adresse" title="Adresse"></span>
-    </div>
-    <div class="box" id="show_observation">
-      
     </div>
   </div>
 

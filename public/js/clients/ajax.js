@@ -239,20 +239,20 @@ function showAction() {
       method: 'GET',
       url: `/clients/${clientId}/show`,
       success: function (response) {
-        if (response.status === 200) {
-          $('#ShowClientModal').modal({
-      fadeDuration: 200
-    });
-          $.each(response.client, function (key, value) {
-            if (key === 'email' && !value) {
-              $(`#show_${key}`).html('#####')
-            } else {
-              $(`#show_${key}`).html(value)
-            }
-          });
-        } else {
-          notification.error(response.msg)
-        }
+        $('#ShowClientModal').modal({
+          fadeDuration: 200
+        });
+        $.each(response.client, function (key, value) {
+          if (key === 'email' && !value) {
+            value = '####'
+          } else if (key === 'sexe') {
+            value = (value === 'H') ? 'Homme' : 'Femme';
+          }
+          $(`#show_${key}`).html(value);
+        });
+      },
+      error: function (response) {  
+        notification.error(response.responseJSON.msg)
       }
     })
 
@@ -292,8 +292,8 @@ function addAction() {
 function resetAddClientForm() { 
   $(addForm).find('div.error').text('');
   $(addForm)[0].reset();
-  $('input').removeClass('success');
-  $('input').removeClass('bounce');
+  $('input, select').removeClass('success');
+  $('input, select').removeClass('bounce');
 }
 
 function fillTable(data) {

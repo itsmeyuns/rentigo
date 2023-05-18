@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReglementController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
-use App\Models\Reglement;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +31,6 @@ Route::view('/charges', 'charges');
 Route::view('/alerts', 'dashboard');
 
 
-
-Route::view('/agents', 'agents.index');
-Route::view('/agents/create', 'agents.create');
 // Route::view('/vehicules/create', 'vehicules.create');
 
 Auth::routes(['login' => false]);
@@ -226,6 +223,24 @@ Route::prefix('/reglements')->group(function () {
 // End Reglement
 
 
+
+// Start Agent
+
+Route::prefix('/agents')->group(function () {
+  Route::get('/', [UserController::class, 'index'])->name('agents.index');
+  Route::post('/store', [UserController::class, 'store'])->name('agents.store');
+  Route::delete('/{id}', [UserController::class, 'destroy'])->name('agents.destroy');
+  Route::put('/{id}', [UserController::class, 'update'])->name('agents.update');
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/fetch', [UserController::class, 'fetch'])->name('agents.fetch');
+    Route::get('/{id}/show', [UserController::class, 'show'])->name('agents.show');
+    Route::get('/search', [UserController::class, 'search'])->name('agents.search');
+    Route::get('/{id}/delete', [UserController::class, 'delete'])->name('agents.delete');
+    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('agents.edit');
+  });
+});
+
+// End Agent
 
 
 Route::prefix('/extras')->group(function ()

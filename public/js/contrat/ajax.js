@@ -59,11 +59,11 @@ $(document).ready(function () {
 
   $(editContratForm).on('submit', function (event) {
     event.preventDefault();
-  // Get the contrat ID from the hidden input
-  const contratId = $('#editContratId').val()
-  // Get data from the form
-  const formData = new FormData(this);
-  formData.append('_method', 'put');
+    // Get the contrat ID from the hidden input
+    const contratId = $('#editContratId').val()
+    // Get data from the form
+    const formData = new FormData(this);
+    formData.append('_method', 'put');
     $.ajax({
       type: "POST",
       url: `/contrats/${contratId}`,
@@ -265,7 +265,7 @@ function fillContratsTable(data) {
       <td data-th="Client">${item.client.prenom} ${item.client.nom}</td>
       <td data-th="Véhicule">${item.vehicule.matricule} - ${item.vehicule.marque}</td>
       <td data-th="Agent">${item.user.prenom} ${item.user.nom}</td>
-      <td data-th="Actions">
+      <td data-th="Actions" class='actions'>
         <span class="material-icons-round edit edit-contrat" data-id="${item.id}">
           edit
         </span>

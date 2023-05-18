@@ -20,7 +20,7 @@ editContratButton.addEventListener('click', function (event) {
 
 function validateFields(form) {
   let valid = true;
-  let inputs = form.querySelectorAll('input, select');
+  const inputs = form.querySelectorAll('input, select');
   inputs.forEach(input => {
     if (!input.classList.contains('readonly-input')) {
       const inputValue = input.value.trim();

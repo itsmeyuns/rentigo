@@ -191,6 +191,40 @@ span.edit:hover {
 
 /* End Delete Modal */
 
+
+/* Start Show Modal */
+
+.show-modal {
+  min-width: 270px;
+  max-width: 380px !important;
+  width: 100%;
+}
+
+.show-modal .card .fullname {
+  color: #262b2b;
+}
+.show-modal .card .informations {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 500;
+  color: #303030;
+}
+.show-modal .card .informations .box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+
+}
+.show-modal .card .informations .icon {
+  color: var(--main-color);
+}
+
+/* End Show Modal */
+
 /* Start Pagination */
 
 .pagination {
@@ -351,6 +385,7 @@ span.edit:hover {
   width: calc(100% / 2 - 20px);
   min-height: 90px;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .form-container .form-item label {
@@ -475,7 +510,7 @@ span.edit:hover {
 
 @media screen and (max-width: 600px) {
   .form-item {
-    width: 100%;
+    width: 100% !important;
   }
 }
 

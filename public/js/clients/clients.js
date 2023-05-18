@@ -2,10 +2,9 @@ let addClientForm = document.getElementById('add-client-form');
 let addClientButton = document.getElementById('add-client-button');
 let editClientButton = document.getElementById('edit-client-button');
 let editClientForm = document.getElementById('edit-client-form');
-let separateVerification = ['email']
 
 addClientButton.addEventListener('click', function (e) {
-  if (!validateFields(addClientForm) || !validateEmail() || !validateMobileNumber()) {
+  if (!validateFields(addClientForm)) {
     e.preventDefault()
   } 
 })
@@ -14,7 +13,7 @@ validationOnBlur(addClientForm)
 
 
 editClientButton.addEventListener('click', function (e) {
-  if (!validateFields(editClientForm) || !validateEmail() || !validateMobileNumber()) {
+  if (!validateFields(editClientForm)) {
     e.preventDefault()
   } 
 })
@@ -23,14 +22,12 @@ validationOnBlur(editClientForm)
 
 
 function validationOnBlur(form) { 
-  let inputs = form.querySelectorAll('input');
+  let inputs = form.querySelectorAll('input, select');
   inputs.forEach((input)=>{
-    if (input.type === 'email') {
-      return
-    }
     input.addEventListener('blur', function () {
       let inputValue = input.value.trim();
       if (!inputValue) {
+        if (input.type === 'email') {reset(input); return};
         setErrors(input, 'Ce champ est obligatoire')
       } else {
         setSuccess(input)
@@ -41,18 +38,18 @@ function validationOnBlur(form) {
 
 function validateFields(form) {
   let valid = true;
-  let inputs = form.querySelectorAll('input');
+  const fields = form.querySelectorAll('input, select');
 
-  inputs.forEach(input => {
-    if (input.type === "email") {
+  fields.forEach(field => {
+    if (field.type === "email") {
       return
     }
-    const inputValue = input.value.trim();
+    const inputValue = field.value.trim();
     if (inputValue === '') {
-      setErrors(input, 'Ce champ est obligatoire');
+      setErrors(field, 'Ce champ est obligatoire');
       valid = false;
     } else {
-      setSuccess(input);
+      setSuccess(field);
     }
 
   })
@@ -60,54 +57,6 @@ function validateFields(form) {
   return valid;
 
 }
-
-
-
-//Validate Email
-
-let email = document.getElementById('email');
-function validateEmail() {
-  const emailValue = email.value
-  const validRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let emailIsValid = true;
-  if (emailValue) {
-    if (emailValue.match(validRegex)) {
-      setSuccess(email)
-    } else {
-      setErrors(email, 'Adresse e-mail invalide!')
-      emailIsValid = false;
-    }
-  } else {
-    reset(email)
-  }
-
-  return emailIsValid;
-}
-
-
-email.addEventListener('blur', validateEmail)
-
-
-
-// Validate Mobile Number
-
-let phone = document.getElementById('telephone')
-function validateMobileNumber() {
-  const phoneValue = phone.value;
-  const mobileNumberRegex = /^(?:\+\d{1,3})?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{6,12}$/;
-  let valid = true;
-  if (phoneValue) {
-    if (phoneValue.match(mobileNumberRegex)) {
-      setSuccess(phone)
-    } else {
-      setErrors(phone, 'Le numéro de téléphone mobile est invalide.')
-      valid = false;
-    }
-  }
-  return valid;
-}
-
-phone.addEventListener('blur', validateMobileNumber)
 
 
 function reset(element) {
@@ -118,12 +67,3 @@ function reset(element) {
   element.classList.remove('bounce')
   errorDiv.innerText = '';
 }
-
-
-//textarea  
-let observation = document.getElementById('observation')
-
-observation.addEventListener('keyup', function () {
-  observation.style.height = `63px`         
-  observation.style.height = `${observation.scrollHeight}px`
-})

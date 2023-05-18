@@ -27,12 +27,12 @@ class ClientRequest extends FormRequest
         return [
             'nom' => 'required | string | max:80',
             'prenom' => 'required | string | max:80',
-            'sexe' => 'required | string | max:1',
+            'sexe' => 'required | string | max:1 | in:H,F',
             'date_naissance' => 'required | date',
             'lieu_naissance' => 'required | string',
             'adresse' => 'required | string',
             'cin' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
-            'telephone' => ['required', 'string', 'max:20', Rule::unique('clients')->ignore($this->id)],
+            'telephone' => ['required', 'string', 'max:20', 'regex:/^(?:\+\d{1,3})?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{6,12}$/',Rule::unique('clients')->ignore($this->id)],
             'email' => ['nullable', 'email', Rule::unique('clients')->ignore($this->id)],
             'numero_permis' => ['required', 'string', Rule::unique('clients')->ignore($this->id)],
             'observation' => 'nullable'

@@ -30,10 +30,10 @@ class ClientController extends Controller
     $client = Client::find($id);
     if ($client) {
       // Return success response if data is updated successfully
-      return response()->json(['status' => 200 , 'client' => $client]);
+      return response()->json(['code' => 200 , 'client' => $client], 200);
     } 
     // If The Client Doesn't Exists
-    return response()->json(['status' => 422, 'msg' => "Ce client n'existe pas"]);  
+    return response()->json(['code' => 422, 'msg' => "Ce client n'existe pas"], 404);  
   }
 
   public function fetch()

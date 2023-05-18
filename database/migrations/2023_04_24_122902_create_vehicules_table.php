@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('status', 50);
             $table->timestamps();
             $table->softDeletes();
-            $table->string('matricule_unique')->virtualAs("CONCAT(matricule, '#',IF(deleted_at IS NULL, '-', deleted_at))");
+            $table->string('matricule_unique')->virtualAs("CONCAT(matricule, '#',IF(deleted_at IS NULL, '-', deleted_at))")->invisible();
             $table->unique('matricule_unique');
         });
     }

@@ -66,6 +66,15 @@ function setSuccess(element) {
   errorDiv.innerText = '';
 }
 
+//textarea  
+const observations = document.querySelectorAll('textarea')
+observations.forEach((observation) => {
+  observation.addEventListener('keyup', function () {  
+    this.style.height = `63px`         
+    this.style.height = `${this.scrollHeight}px`
+  })
+});
+
 // Back To Top
 
 const scrollToTopButton = document.getElementById('scroll-to-top')

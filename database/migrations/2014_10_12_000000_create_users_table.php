@@ -18,15 +18,24 @@ return new class extends Migration
             $table->string('login', 30);
             $table->string('sexe', 1);
             $table->date('date_naissance');
+            $table->string('lieu_naissance');
             $table->string('adresse');
-            $table->string('cin', 20)->unique();
-            $table->string('telephone')->unique();
-            $table->string('email')->unique();
+            $table->string('cin', 20);
+            $table->string('telephone');
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $table->string('cin_unique')->virtualAs("CONCAT(cin, '#',IF(deleted_at IS NULL, '-', deleted_at))")->invisible();
+            $table->unique('cin_unique');
+            $table->string('telephone_unique')->virtualAs("CONCAT(telephone, '#',IF(deleted_at IS NULL, '-', deleted_at))")->invisible();
+            $table->unique('telephone_unique');
+            $table->string('email_unique')->virtualAs("CONCAT(email, '#',IF(deleted_at IS NULL, '-', deleted_at))")->invisible();
+            $table->unique('email_unique');
+            $table->string('login_unique')->virtualAs("CONCAT(login, '#',IF(deleted_at IS NULL, '-', deleted_at))")->invisible();
+            $table->unique('login_unique');
         });
     }
 

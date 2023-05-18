@@ -24,6 +24,7 @@ class User extends Authenticatable
         'login',
         'sexe',
         'date_naissance',
+        'lieu_naissance',
         'adresse',
         'cin',
         'telephone',

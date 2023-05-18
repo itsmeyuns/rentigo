@@ -178,6 +178,3 @@ form.filter {
   min-height: 400px;
 }
 
-.table-container .table tbody td:last-child {
-  padding: 10px !important;
-}
