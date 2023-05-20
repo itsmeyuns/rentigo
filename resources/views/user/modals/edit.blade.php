@@ -1,8 +1,8 @@
 <div class="form-container">
-  <h3 class="form-title">Modifier Agent</h3>
-  <form class="add-form" id="edit-agent-form" action="{{ route('agents.store') }}" method="POST">
+  <h3 class="form-title">Modifier Utilisateur</h3>
+  <form id="edit-user-form" action="{{ route('users.store') }}" method="POST">
     @csrf
-    <input type="hidden" id="editAgentId">
+    <input type="hidden" id="editUserId">
     <div class="form-item">
       <label for="edit_nom">Nom <span class="star">*</span> </label>
       <input type="text" name="nom" id="edit_nom">
@@ -66,11 +66,19 @@
           <div class="error password_error"></div>
           <div class="material-icons-round show-password" id="editShowPassword">visibility</div>
         </div>
-        
+        <div class="form-item">
+          <label for="edit_role">rôle <span class="star">*</span></label>
+          <select name="role" id="edit_role">
+            <option value="" selected disabled>Choisir le rôle</option>
+            <option value="admin">Admin</option>
+            <option value="agent">Agent</option>
+          </select>
+          <div class="error role_error"></div>
+        </div>
       </div>
     </div>
     <div class="form-item full-width">
-      <button type="submit" id="edit-agent-button">Modifier</button>
+      <button type="submit" id="edit-user-button">Modifier</button>
     </div>
   </form>
 </div>

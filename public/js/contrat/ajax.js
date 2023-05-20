@@ -264,7 +264,7 @@ function fillContratsTable(data) {
       <td data-th="Durée">${dateDiffDays(item.date_debut, item.date_fin)}</td>
       <td data-th="Client">${item.client.prenom} ${item.client.nom}</td>
       <td data-th="Véhicule">${item.vehicule.matricule} - ${item.vehicule.marque}</td>
-      <td data-th="Agent">${item.user.prenom} ${item.user.nom}</td>
+      <td data-th="réalisé par">${item.user.prenom} ${item.user.nom}</td>
       <td data-th="Actions" class='actions'>
         <span class="material-icons-round edit edit-contrat" data-id="${item.id}">
           edit

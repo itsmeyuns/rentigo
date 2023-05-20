@@ -9,20 +9,27 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('is_admin');
+    }
+
     public function index()
     {
-        return view('agent.index');
+        return view('user.index');
     }
 
     public function show($id)
     {
-        $agent = User::find($id);
-        if ($agent) {
+        $user = User::find($id);
+        if ($user) {
         // Return success response if data is updated successfully
-        return response()->json(['code' => 200 , 'agent' => $agent], 200);
+        return response()->json(['code' => 200 , 'user' => $user], 200);
         } 
-        // If agent Doesn't Exists
-        return response()->json(['code' => 422, 'msg' => "Ce agent n'existe pas"], 404);
+        // If user Doesn't Exists
+        return response()->json(['code' => 422, 'msg' => "Ce user n'existe pas"], 404);
     }
 
     public function store(UserRequest $request)
@@ -36,15 +43,15 @@ class UserController extends Controller
 
     public function fetch()
     {
-        $agents = User::latest()->paginate(10);
-        return response()->json(['code' => 200, 'agents' => $agents], 200);
+        $users = User::where('id' , '!=', auth()->user()->id)->where('role' , '!=', 'admin')->latest()->paginate(10);
+        return response()->json(['code' => 200, 'users' => $users], 200);
     }
 
     public function delete($id)
     {
-        $agent = User::find($id);
-        if ($agent) {
-            return response()->json(['status' => 200, 'agent' => $agent], 200); 
+        $user = User::find($id);
+        if ($user) {
+            return response()->json(['status' => 200, 'user' => $user], 200); 
         }
         return response()->json(['status' => 404, 'msg' => "Cette information n'existe pas"], 404);
     }
@@ -54,9 +61,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $agent = User::find($id);
-        if ($agent) {
-            $agent->delete();
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
             return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
@@ -67,10 +74,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $agent = User::find($id);
-        // dd($agent);
-        if ($agent) {
-            return response()->json(['status' => 200, 'agent' => $agent], 200); 
+        $user = User::find($id);
+        if ($user) {
+            return response()->json(['status' => 200, 'user' => $user], 200); 
         }
         return response()->json(['status' => 404, 'msg' => "Cette information n'existe pas"], 404);
     }
@@ -82,12 +88,15 @@ class UserController extends Controller
     {
         // Validation
         $formData = $request->validated();
-        if ($request->password) {
+
+        if ($request->filled('password')) {
             $formData['password'] = Hash::make($request->password);
+        } else {
+            unset($formData['password']); // Remove the password field from the update data
         }
-        $agent = User::find($id);
-        if ($agent) {
-            $agent->update($formData);
+        $user = User::find($id);
+        if ($user) {
+            $user->update($formData);
             // Return success response if data is updated successfully
             return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
         } 
@@ -98,14 +107,18 @@ class UserController extends Controller
     {
 
         $value = $request->search;
-        $result = User::where('nom', 'like', "%$value%")
-        ->orWhere('prenom', 'like', "%$value%")
-        ->orWhere('cin', 'like', "%$value%")
-        ->orWhere('email', 'like', "%$value%")
-        ->orWhere('telephone', 'like', "%$value%")
+        $result = User::where(function ($query) use ($value) {
+            $query->where('nom', 'like', "%$value%")
+                ->orWhere('prenom', 'like', "%$value%")
+                ->orWhere('cin', 'like', "%$value%")
+                ->orWhere('email', 'like', "%$value%")
+                ->orWhere('telephone', 'like', "%$value%");
+        })
+        ->where('id', '!=', auth()->user()->id)
+        ->where('role' , '!=', 'admin')
         ->latest()
         ->paginate(10);
         $result->appends($request->all());
-        return response()->json(['agents' => $result]);
+        return response()->json(['users' => $result]);
     }
 }

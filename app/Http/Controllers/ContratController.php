@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class ContratController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +27,15 @@ class ContratController extends Controller
 
     public function fetch()
     {
-        $contrats = Contrat::with(['vehicule', 'client', 'user'])->where('user_id', auth()->user()->id)->latest()->paginate(10);
+        $user = auth()->user();
+        if ($user->isAdmin()) {
+            $contrats = Contrat::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
+        } else {
+            $contrats = $user->contrats()
+            ->with(['vehicule', 'client', 'user'])
+            ->latest()
+            ->paginate(1);
+        }
         return response()->json(['code' => 200, 'contrats' => $contrats], 200);
     }
 
@@ -54,7 +67,6 @@ class ContratController extends Controller
     public function edit($id)
     {
         $contrat = Contrat::with('vehicule')->find($id);
-        $contrat->montant = "1500";
         $dateDebut = Carbon::parse($contrat->date_debut);
         $dateFin = Carbon::parse($contrat->date_fin);
         $contrat['montant'] = $contrat->vehicule->prix_location * $dateFin->diffInDays($dateDebut);
@@ -67,25 +79,28 @@ class ContratController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ContratRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        // Validation
-        $formData = $request->validated();
-        $formData['user_id'] = auth()->user()->id;
-        $dateDebut = [
-            'date_debut' => DateTimeHelper::separateDateTime($request->date_debut)['date'],
-            'heure_debut' => DateTimeHelper::separateDateTime($request->date_debut)['time'],
-        ];
-        $dateFin = [
-            'date_fin' => DateTimeHelper::separateDateTime($request->date_fin)['date'],
-            'heure_fin' => DateTimeHelper::separateDateTime($request->date_fin)['time'],
-        ];
-        $formData = array_merge($formData, $dateDebut, $dateFin);
         $contrat = Contrat::find($id);
         if ($contrat) {
-            $contrat->update($formData);
-            // Return success response if data is updated successfully
-            return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
+            if ($contrat->user_id === auth()->user()->id || auth()->user()->isAdmin()) {
+                // Validation
+                $formData = $request->validate();
+                $dateDebut = [
+                    'date_debut' => DateTimeHelper::separateDateTime($request->date_debut)['date'],
+                    'heure_debut' => DateTimeHelper::separateDateTime($request->date_debut)['time'],
+                ];
+                $dateFin = [
+                    'date_fin' => DateTimeHelper::separateDateTime($request->date_fin)['date'],
+                    'heure_fin' => DateTimeHelper::separateDateTime($request->date_fin)['time'],
+                ];
+                $formData = array_merge($formData, $dateDebut, $dateFin);
+                $contrat->update($formData);
+                // Return success response if data is updated successfully
+                return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
+            } else {
+                return response()->json(['status' => 401,'msg' => "vous n'êtes pas autorisé(e) à effectuer cette action."], 401);
+            }
         } 
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }
@@ -106,8 +121,12 @@ class ContratController extends Controller
     {
         $contrat = Contrat::find($id);
         if ($contrat) {
-            $contrat->delete();
-            return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
+            if ($contrat->user_id === auth()->user()->id || auth()->user()->isAdmin()) {
+                $contrat->delete();
+                return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
+            } else {
+                return response()->json(['status' => 401,'msg' => "vous n'êtes pas autorisé(e) à effectuer cette action."], 401);
+            }
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
     }
@@ -118,21 +137,43 @@ class ContratController extends Controller
     public function search(Request $request)
     {
       $value = $request->search;
-      $result = Contrat::with(['vehicule', 'client', 'user'])
-                                  ->whereHas('vehicule', function ($query) use ($value) {
-                                        $query->where('matricule', 'LIKE', "%$value%")
-                                              ->orWhere('marque', 'LIKE', "%$value%");
-                                    })
-                                  ->orWhereHas('client', function ($query) use ($value) {
-                                    $query->where('nom', 'LIKE', "%$value%")
-                                          ->orWhere('prenom', 'LIKE', "%$value%");
-                                  })
-                                  ->orWhereHas('user', function ($query) use ($value) {
-                                    $query->where('nom', 'LIKE', "%$value%")
-                                          ->orWhere('prenom', 'LIKE', "%$value%");
-                                  })
-                                  ->latest()
-                                  ->paginate(1);
+      // Search in all records
+      if (auth()->user()->isAdmin()) {
+        $result = Contrat::with(['vehicule', 'client', 'user'])
+                        ->whereHas('vehicule', function ($query) use ($value) {
+                              $query->where('matricule', 'LIKE', "%$value%")
+                                    ->orWhere('marque', 'LIKE', "%$value%");
+                          })
+                        ->orWhereHas('client', function ($query) use ($value) {
+                          $query->where('nom', 'LIKE', "%$value%")
+                                ->orWhere('prenom', 'LIKE', "%$value%");
+                        })
+                        ->orWhereHas('user', function ($query) use ($value) {
+                          $query->where('nom', 'LIKE', "%$value%")
+                                ->orWhere('prenom', 'LIKE', "%$value%");
+                        })
+                        ->latest()
+                        ->paginate(10);
+      } else {
+        // Search only in records made by the logged in user
+        $result = auth()->user()->contrats()->with(['vehicule', 'client', 'user'])
+                          ->where(function ($query) use ($value) {
+                              $query->whereHas('vehicule', function ($query) use ($value) {
+                                  $query->where('matricule', 'LIKE', "%$value%")
+                                      ->orWhere('marque', 'LIKE', "%$value%");
+                              })
+                              ->orWhereHas('client', function ($query) use ($value) {
+                                  $query->where('nom', 'LIKE', "%$value%")
+                                      ->orWhere('prenom', 'LIKE', "%$value%");
+                              })
+                              ->orWhereHas('user', function ($query) use ($value) {
+                                  $query->where('nom', 'LIKE', "%$value%")
+                                      ->orWhere('prenom', 'LIKE', "%$value%");
+                              });
+                          })
+                          ->latest()
+                          ->paginate(10);
+      }
       $result->appends($request->all());
       return response()->json(['code' => 200, "contrats" => $result], 200);
     }
@@ -142,17 +183,21 @@ class ContratController extends Controller
       $dateDebut = $request->date_debut;
       $dateFin = $request->date_fin;
       $contrats = Contrat::with(['vehicule', 'client', 'user'])
-                              ->when($dateDebut && $dateFin , function ($query) use ($dateDebut, $dateFin) {
-                                  $query->where('date_debut', '>=', $dateDebut)
-                                          ->where('date_fin', '<=', $dateFin);
-                              })
-                              ->when($dateDebut && !$dateFin, function ($query) use ($dateDebut) {
-                                  $query->where('date_debut', '>=', $dateDebut);
-                              })
-                              ->when(!$dateDebut && $dateFin, function ($query) use ($dateFin) {
-                                  $query->where('date_fin', '<=', $dateFin);
-                              })
-                              ->paginate(10);
+                          ->when(!auth()->user()->isAdmin(), function ($query) {
+                            $query->where('user_id', auth()->user()->id);
+                          })
+                          ->when($dateDebut && $dateFin , function ($query) use ($dateDebut, $dateFin) {
+                              $query->where('date_debut', '>=', $dateDebut)
+                                    ->where('date_fin', '<=', $dateFin);
+                          })
+                          ->when($dateDebut && !$dateFin, function ($query) use ($dateDebut) {
+                              $query->where('date_debut', '>=', $dateDebut);
+                          })
+                          ->when(!$dateDebut && $dateFin, function ($query) use ($dateFin) {
+                              $query->where('date_fin', '<=', $dateFin);
+                          })
+                          ->latest()
+                          ->paginate(10);
       $contrats->appends($request->all());
       return response()->json(['contrats' => $contrats], 200);
     }

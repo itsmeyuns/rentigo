@@ -29,8 +29,8 @@ class ContratRequest extends FormRequest
         $date_contrat = 'today';
         // On Update
         if ($this->id) {
-            $reservation = Contrat::find($this->id);
-            $date_contrat = $reservation->date_contrat;
+            $contrat = Contrat::find($this->id);
+            $date_contrat = $contrat->date_contrat;
         }
         return [
             'date_contrat' => "required | date | date_equals:".$date_contrat,

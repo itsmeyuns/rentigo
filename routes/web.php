@@ -224,23 +224,23 @@ Route::prefix('/reglements')->group(function () {
 
 
 
-// Start Agent
+// Start User
 
-Route::prefix('/agents')->group(function () {
-  Route::get('/', [UserController::class, 'index'])->name('agents.index');
-  Route::post('/store', [UserController::class, 'store'])->name('agents.store');
-  Route::delete('/{id}', [UserController::class, 'destroy'])->name('agents.destroy');
-  Route::put('/{id}', [UserController::class, 'update'])->name('agents.update');
+Route::prefix('/users')->group(function () {
+  Route::get('/', [UserController::class, 'index'])->name('users.index');
+  Route::post('/store', [UserController::class, 'store'])->name('users.store');
+  Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+  Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
   Route::middleware('ajax_only')->group(function () {
-    Route::get('/fetch', [UserController::class, 'fetch'])->name('agents.fetch');
-    Route::get('/{id}/show', [UserController::class, 'show'])->name('agents.show');
-    Route::get('/search', [UserController::class, 'search'])->name('agents.search');
-    Route::get('/{id}/delete', [UserController::class, 'delete'])->name('agents.delete');
-    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('agents.edit');
+    Route::get('/fetch', [UserController::class, 'fetch'])->name('users.fetch');
+    Route::get('/{id}/show', [UserController::class, 'show'])->name('users.show');
+    Route::get('/search', [UserController::class, 'search'])->name('users.search');
+    Route::get('/{id}/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
   });
 });
 
-// End Agent
+// End User
 
 
 Route::prefix('/extras')->group(function ()

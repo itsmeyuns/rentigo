@@ -5,6 +5,12 @@
   </h1>
   <div class="informations">
     <div class="box">
+      <span class="material-icons-round icon">
+        admin_panel_settings
+      </span>
+      <span id="show_role"></span>
+    </div>
+    <div class="box">
       <img src="{{asset('pics/gender.svg')}}" alt="gender" title="sexe">
       <span id="show_sexe" title="sexe"></span>
     </div>

@@ -43,13 +43,15 @@
         </span> Contrats
       </a>
     </li>
-    <li class="side-menu-item">
-      <a href="/agents">
-        <span class="material-icons-round icon">
-          badge
-        </span> Agents
-      </a>
-    </li>
+    @if(auth()->user()->role === 'admin')
+      <li class="side-menu-item">
+        <a href="/users">
+          <span class="material-icons-round icon">
+            badge
+          </span> Utilisateurs
+        </a>
+      </li>
+    @endif
     <li class="side-menu-item">
       <a href="/charges">
         <span class="material-icons-round icon">

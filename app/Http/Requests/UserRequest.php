@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         $rules = [
             'nom' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:255'],
-            'login' => ['required', 'string', 'max:30', Rule::unique('users')->ignore($this->id)->whereNull('deleted_at')],
+            'login' => ['required', 'string', 'max:30',Rule::unique('users')->ignore($this->id)->whereNull('deleted_at')],
             'sexe' => ['required', 'string', 'max:1', 'in:H,F'],
             'date_naissance' => ['required', 'string', 'date'],
             'lieu_naissance' => ['required', 'string', 'max:255'],
@@ -36,10 +36,9 @@ class UserRequest extends FormRequest
             'telephone' => ['required', 'string', 'regex:/^(?:\+\d{1,3})?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{6,12}$/', Rule::unique('users')->ignore($this->id)->whereNull('deleted_at')],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->id)->whereNull('deleted_at')],
             'login' => ['required', 'string', 'max:30', Rule::unique('users')->ignore($this->id)->whereNull('deleted_at')],
+            'role' => ['required', 'in:admin,agent'],
         ];
-        if (!$this->id) {
-            $rules['password'] = ['required', 'string', 'min:8'];
-        }
+        $rules['password'] = (!$this->id) ? ['required', 'string', 'min:8'] : [Rule::when(request()->filled('password'), ['string', 'min:8'])];
         return $rules;
     }
 

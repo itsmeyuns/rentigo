@@ -72,7 +72,7 @@
               <th>durée</th>
               <th>client</th>
               <th>véhicule</th>
-              <th>agent</th>
+              <th>réalisé par</th>
               <th>Action</th>
             </tr>
           </thead>

@@ -1,29 +1,29 @@
-const addAgentForm2 = document.getElementById('add-agent-form');
-const editAgentForm2 = document.getElementById('edit-agent-form');
-const addAgentButton = document.getElementById('add-agent-button');
-const editAgentButton = document.getElementById('edit-agent-button');
+const addUserForm2 = document.getElementById('add-user-form');
+const editUserForm2 = document.getElementById('edit-user-form');
+const addUserButton = document.getElementById('add-user-button');
+const editUserButton = document.getElementById('edit-user-button');
 
 
-addAgentButton.addEventListener('click', function (e) {
-  if (!validateFields(addAgentForm2)) {
+addUserButton.addEventListener('click', function (e) {
+  if (!validateFields(addUserForm2)) {
     e.preventDefault()
   }
 })
 
-editAgentButton.addEventListener('click', function (e) {
-  if (!validateFields(editAgentForm2)) {
+editUserButton.addEventListener('click', function (e) {
+  if (!validateFields(editUserForm2)) {
     e.preventDefault()
   }
 })
 
 
-validationOnBlur(addAgentForm2);
-validationOnBlur(editAgentForm2);
+validationOnBlur(addUserForm2);
+validationOnBlur(editUserForm2);
 function validationOnBlur(form) {
   const formId = form.getAttribute('id');
   const inputs = form.querySelectorAll('input, select');
   inputs.forEach((input)=>{
-    if (formId === 'edit-agent-form' && input.type === 'password') return 
+    if (formId === 'edit-user-form' && input.type === 'password') return 
     input.addEventListener('blur', function () {
       let inputValue = input.value.trim();
       if (!inputValue) {
@@ -40,7 +40,7 @@ function validateFields(form) {
   const formId = form.getAttribute('id');
   const inputs = form.querySelectorAll('input, select');
   inputs.forEach(input => {
-    if (formId === 'edit-agent-form' && input.type === 'password') return 
+    if (formId === 'edit-user-form' && input.type === 'password') return 
     const inputValue = input.value.trim();
     if (inputValue === '') {
       setErrors(input, 'Ce champ est obligatoire');

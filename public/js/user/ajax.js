@@ -1,28 +1,28 @@
-const addAgentForm = $('#add-agent-form');
-const editAgentForm = $('#edit-agent-form');
-const agentsTable = $('#agents-section tbody');
+const addUserForm = $('#add-user-form');
+const editUserForm = $('#edit-user-form');
+const usersTable = $('#users-section tbody');
 
 $(document).ready(function () {
 
   // Hide Delete Modal
-  $('#cancelAgentButton').on('click', function () {
+  $('#cancelUserButton').on('click', function () {
     $.modal.close();
   })
 
   // Add an event listener to the confirm delete button in the modal
-  $('#confirmationAgentButton').on('click', function() {
-    // Get the agent ID from the hidden
-    const agentId = $('#deleteAgentId').val();
-    // Send an Ajax request to delete agent
+  $('#confirmationUserButton').on('click', function() {
+    // Get the user ID from the hidden
+    const userId = $('#deleteUserId').val();
+    // Send an Ajax request to delete user
     $.ajax({
-      url: `/agents/${agentId}`,
+      url: `/users/${userId}`,
       type: 'DELETE',
       beforeSend: function () { 
         $.modal.close();
       },
       success: function(response) {
         notification.success(response.success);
-        fetchAgents()
+        fetchUsers()
       },
       error: function (response) {
         notification.error(response.responseJSON.msg)
@@ -31,9 +31,9 @@ $(document).ready(function () {
   });
 
 
-  $('#ajouter-agent').on('click', function () {  
-    resetAgentForm(addAgentForm)
-    $('#AddAgentModal').modal({
+  $('#ajouter-user').on('click', function () {  
+    resetUserForm(addUserForm)
+    $('#AddUserModal').modal({
       fadeDuration: 200
     })
   });
@@ -43,43 +43,43 @@ $(document).ready(function () {
     let value = $(this).val()
     $.ajax({
       type: "GET",
-      url: "/agents/search",
+      url: "/users/search",
       data: {search: value},
       beforeSend: function() {
-        $(agentsTable).html('')
-        $('#agents-no-result').hide()
-        $('#agents-pagination').hide()
-        $('#agents-loader-container').show();
+        $(usersTable).html('')
+        $('#users-no-result').hide()
+        $('#users-pagination').hide()
+        $('#users-loader-container').show();
       },
       success: function (response) {
         if (value) {
-          const agents = response.agents.data;
-          if (agents.length > 0) {
+          const users = response.users.data;
+          if (users.length > 0) {
             // Fill in the table
-            fillAgentsTable(agents)
-            createPaginationLinks(response.agents, 'agents-pagination', paginationAgentsFetch)
+            fillUsersTable(users)
+            createPaginationLinks(response.users, 'users-pagination', paginationUsersFetch)
           } else {
-            $(agentsTable).html('')
-            $('#agents-no-result').show()
+            $(usersTable).html('')
+            $('#users-no-result').show()
           }
-          $('#agents-loader-container').hide()
+          $('#users-loader-container').hide()
         } else {
-          fetchAgents()
+          fetchUsers()
         }
       }
     });
   })
 
-  $(editAgentForm).on('submit', function (event) {
+  $(editUserForm).on('submit', function (event) {
     event.preventDefault();
     // Get the contrat ID from the hidden input
-    const agentId = $('#editAgentId').val()
+    const userId = $('#editUserId').val()
     // Get data from the form
     const formData = new FormData(this);
     formData.append('_method', 'put');
     $.ajax({
       type: "POST",
-      url: `/agents/${agentId}`,
+      url: `/users/${userId}`,
       data: formData,
       contentType: false,
       processData: false,
@@ -89,7 +89,7 @@ $(document).ready(function () {
       success: function (response) {
         $.modal.close();
         notification.success(response.msg);
-        fetchAgents()
+        fetchUsers()
       },
       error: function (response) {
         let errors = response.responseJSON.errors;
@@ -108,22 +108,22 @@ $(document).ready(function () {
 
   })
 
-  fetchAgents()
-  AddAgentAction()
+  fetchUsers()
+  AddUserAction()
 });
 
-// Show Agent Card
-function showAgentAction() { 
-  $('.show-agent').on('click', function () {
-    let agentId = $(this).data('id');
+// Show User Card
+function showUserAction() { 
+  $('.show-user').on('click', function () {
+    let userId = $(this).data('id');
     $.ajax({
       method: 'GET',
-      url: `/agents/${agentId}/show`,
+      url: `/users/${userId}/show`,
       success: function (response) {
-        $('#ShowAgentModal').modal({
+        $('#ShowUserModal').modal({
           fadeDuration: 200
         });
-        $.each(response.agent, function (key, value) {
+        $.each(response.user, function (key, value) {
           if (key === 'email' && !value) {
             value = '#####';
           } else if (key === 'sexe') {
@@ -139,8 +139,8 @@ function showAgentAction() {
   })
 }
 
-function AddAgentAction() {
-  addAgentForm.on('submit', function (event) {
+function AddUserAction() {
+  addUserForm.on('submit', function (event) {
     event.preventDefault();
     $.ajax({
       type: 'POST',
@@ -152,15 +152,14 @@ function AddAgentAction() {
         $(this).find('div.error').text('');
       },
       success: function (response) {
-        resetAgentForm(this)
+        resetUserForm(this)
         $.modal.close();
-        fetchAgents()
+        fetchUsers()
         notification.success(response.msg)
       },
       error: function (xhr) {
         let errors = xhr.responseJSON.errors;
         $.each(errors, function (field, messages) {
-          console.log(field);
           $('.error.' + field + '_error').html(messages[0]);
           $('.error.' + field + '_error').prev().removeClass('success');
           $('.error.' + field + '_error').prev().addClass('bounce');
@@ -170,19 +169,19 @@ function AddAgentAction() {
   })
 }
 
-function fetchAgents() {  
+function fetchUsers() {  
   $.ajax({
-    url: `/agents/fetch`,
+    url: `/users/fetch`,
     type: 'GET',
     beforeSend: function() {
-      $(agentsTable).html('')
-      $('#agents-loader-container').show();
-      $('#agents-no-result').hide()
+      $(usersTable).html('')
+      $('#users-loader-container').show();
+      $('#users-no-result').hide()
     },
     success: function(response) {
-      fillAgentsTable(response.agents.data)
-      createPaginationLinks(response.agents,'agents-pagination', paginationAgentsFetch)
-      $('#agents-loader-container').hide();
+      fillUsersTable(response.users.data)
+      createPaginationLinks(response.users,'users-pagination', paginationUsersFetch)
+      $('#users-loader-container').hide();
     },
     error: function(error) {
       console.error(error.responseJSON);
@@ -190,72 +189,72 @@ function fetchAgents() {
   });
 }
 
-function paginationAgentsFetch(uri) {
+function paginationUsersFetch(uri) {
   $.ajax({
     method: 'GET',
-    url: `/agents/${uri}`,
+    url: `/users/${uri}`,
     beforeSend: function() {
-      $(agentsTable).html('')
-      $('#agents-loader-container').show();
+      $(usersTable).html('')
+      $('#users-loader-container').show();
     },
     success: function (response) { 
-      const agents = response.agents.data;
-      $('#agents-pagination .next-page').attr('href', response.agents.next_page_url);
-      $('#agents-pagination .prev-page').attr('href', response.agents.prev_page_url);
-      $('#agents-pagination .details').html(`Page: <b>${response.agents.current_page}</b> | affichant <b>${response.agents.from}</b> - <b>${response.agents.to}</b> de <b>${response.agents.total}</b>`)
-      fillAgentsTable(agents);
-      $('#agents-pagination .link').removeClass('active')
-      $.each($('#agents-pagination .link'), function (index, link) {
-        ($(link).data('page') == response.agents.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
+      const users = response.users.data;
+      $('#users-pagination .next-page').attr('href', response.users.next_page_url);
+      $('#users-pagination .prev-page').attr('href', response.users.prev_page_url);
+      $('#users-pagination .details').html(`Page: <b>${response.users.current_page}</b> | affichant <b>${response.users.from}</b> - <b>${response.users.to}</b> de <b>${response.users.total}</b>`)
+      fillUsersTable(users);
+      $('#users-pagination .link').removeClass('active')
+      $.each($('#users-pagination .link'), function (index, link) {
+        ($(link).data('page') == response.users.current_page ) ? $(link).addClass('active') : $(link).removeClass('active');
       });
-      $('#agents-loader-container').hide();
+      $('#users-loader-container').hide();
     }
   })
 }
 
-function fillAgentsTable(data) {  
-  $(agentsTable).html('')
+function fillUsersTable(data) {  
+  $(usersTable).html('')
   $.each(data, function (key, item) {
-    $(agentsTable).append(`
+    $(usersTable).append(`
     <tr>
       <td data-th="nom">${item.nom}</td>
       <td data-th="prénom">${item.prenom}</td>
       <td data-th="cin">${item.cin}</td>
-      <td data-th="email">${item.email}</td>
       <td data-th="téléphone">${item.telephone}</td>
+      <td data-th="rôle">${item.role}</td>
       <td data-th="Actions" class="actions">
-        <span class="material-icons-round show show-agent" data-id="${item.id}">visibility</span>
-        <span class="material-icons-round edit edit-agent" data-id="${item.id}">edit</span>
-        <span class="material-icons-round delete delete-agent" data-id="${item.id}">delete</span>
+        <span class="material-icons-round show show-user" data-id="${item.id}">visibility</span>
+        <span class="material-icons-round edit edit-user" data-id="${item.id}">edit</span>
+        <span class="material-icons-round delete delete-user" data-id="${item.id}">delete</span>
       </td>
     </tr>
     `);
   });
-  defaultAgentsTable()
+  defaultUsersTable()
   // Actions
-  passIdToAgentModal()
-  deleteAgentAction()
-  editAgentAction()
-  showAgentAction()
+  passIdToUserModal()
+  deleteUserAction()
+  editUserAction()
+  showUserAction()
 }
 
-function editAgentAction() {
-  $('.edit-agent').on('click', function() {
-    // Get the Agent ID from the hidden input
-    let agentId = $('#editAgentId').val();
-    // Send an Ajax request to edit Agent
+function editUserAction() {
+  $('.edit-user').on('click', function() {
+    // Get the User ID from the hidden input
+    let userId = $('#editUserId').val();
+    // Send an Ajax request to edit User
     $.ajax({
-      url: `/agents/${agentId}/edit`,
+      url: `/users/${userId}/edit`,
       type: 'GET',
       success: function(response) {
-        const agent = response.agent
-        console.log(agent);
+        const user = response.user
+        console.log(user);
         // Reset Errors
-        resetAgentForm(editAgentForm);
-        $.each(agent, function (index, value) {
+        resetUserForm(editUserForm);
+        $.each(user, function (index, value) {
           $(`#edit_${index}`).val(value);
         });
-        $('#EditAgentModal').modal({
+        $('#EditUserModal').modal({
           fadeDuration: 200
         });
       },
@@ -266,14 +265,14 @@ function editAgentAction() {
   });
 }
 
-function deleteAgentAction() {
-  $('.delete-agent').on('click', function () { 
-    const agentId = $(this).attr('data-id');
+function deleteUserAction() {
+  $('.delete-user').on('click', function () { 
+    const userId = $(this).attr('data-id');
     $.ajax({
-      url: `/agents/${agentId}/delete`,
+      url: `/users/${userId}/delete`,
       type: 'GET',
       success: function() {
-        $('#DeleteAgentModal').modal({
+        $('#DeleteUserModal').modal({
           fadeDuration: 200
         });
       },
@@ -284,20 +283,20 @@ function deleteAgentAction() {
   })
 }
 
-function passIdToAgentModal() {  
-  $('.delete-agent, .edit-agent').on('click', function () { 
+function passIdToUserModal() {  
+  $('.delete-user, .edit-user').on('click', function () { 
     let id = $(this).attr('data-id');
     // To Delete Modal
-    $('#deleteAgentId').val(id);
+    $('#deleteUserId').val(id);
     // To Edit Modal
-    $('#editAgentId').val(id);
+    $('#editUserId').val(id);
   })
 }
 
-function defaultAgentsTable() {
-  let tbodyLenght = $(agentsTable).children().length;
+function defaultUsersTable() {
+  let tbodyLenght = $(usersTable).children().length;
   for (let i = tbodyLenght; i < 10; i++) {
-    $(agentsTable).append(`
+    $(usersTable).append(`
       <tr>
         <td data-th=""></td>
         <td data-th=""></td>
@@ -310,12 +309,12 @@ function defaultAgentsTable() {
   }
 }
 
-function resetAgentForm(form) { 
+function resetUserForm(form) { 
   const formType = $(form).attr('id')
   $(form).find('div.error').text('');
   $('input, select').removeClass('success');
   $('input, select').removeClass('bounce');
-  if (formType === 'add-agent-form') {
+  if (formType === 'add-user-form') {
     $(form)[0].reset();
   }
 }

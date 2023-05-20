@@ -461,6 +461,22 @@ span.edit:hover {
   border-color: var(--success-color) !important;
 }
 
+.form-container .login-infos-container .login-infos {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-container .show-password {
+  position: absolute;
+  right: 10px;
+  top: 54%;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
 .bounce {
   outline: 0;
   border-color: var(--danger-color) !important;

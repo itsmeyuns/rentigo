@@ -231,7 +231,7 @@ function fillReservationsTable(data) {
       <td data-th="Date début">${item.date_debut}</td>
       <td data-th="Date fin">${item.date_fin}</td>
       <td data-th="Status">${item.status}</td>
-      <td data-th="Agent">${item.user.prenom} ${item.user.nom}</td>
+      <td data-th="réalisé par">${item.user.prenom} ${item.user.nom}</td>
       <td data-th="Actions">
         <span class="material-icons-round edit edit-reservation" data-id="${item.id}">edit</span>
         <span class="material-icons-round delete delete-reservation" data-id="${item.id}">delete</span> 

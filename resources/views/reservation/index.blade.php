@@ -98,7 +98,7 @@
             <th>Date début</th>
             <th>date fin</th>
             <th>status</th>
-            <th>agent</th>
+            <th>réalisé par</th>
             <th>Action</th>
           </tr>
         </thead>
