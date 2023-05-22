@@ -35,7 +35,7 @@ class ReservationController extends Controller
             $reservations = $user->reservations()
             ->with(['vehicule', 'client', 'user'])
             ->latest()
-            ->paginate(1);
+            ->paginate(10);
         }
         return response()->json(['code' => 200, 'reservations' => $reservations], 200);
     }

@@ -118,7 +118,7 @@ class ClientController extends Controller
       ->orWhere('numero_permis', 'like', "%$value%")
       ->orWhere('telephone', 'like', "%$value%")
       ->latest()
-      ->paginate(2);
+      ->paginate(10);
     $result->appends($request->all());
     return response()->json(['clients' => $result]);
   }

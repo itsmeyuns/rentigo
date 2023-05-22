@@ -118,7 +118,7 @@ class VehiculeController extends Controller
         ->orWhere('marque', 'like', "%$value%")
         ->orWhere('modele', 'like', "%$value%")
         ->latest()
-        ->paginate(10);
+        ->paginate(12);
         $result->appends($request->all());
         return response()->json(['vehicules' => $result], 200);
     }
@@ -128,7 +128,7 @@ class VehiculeController extends Controller
         $arrayFilter = $request->filter;
         $result = Vehicule::whereIn('status', $arrayFilter)
         ->latest()
-        ->paginate(10);
+        ->paginate(12);
         $result->appends($request->all());
         return response()->json(['vehicules' => $result], 200);
     }

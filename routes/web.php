@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\CarteGriseController;
+use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\EntretienController;
@@ -26,8 +27,7 @@ use App\Http\Controllers\VisiteTechniqueController;
 |
 */
 
-Route::view('/dashboard', 'dashboard')->middleware('auth');
-Route::view('/charges', 'charges');
+// Route::view('/dashboard', 'dashboard')->middleware('auth');
 Route::view('/alerts', 'dashboard');
 
 
@@ -199,7 +199,6 @@ Route::prefix('/contrats')->group(function ()
   });
 
   Route::get('/{id}/reglements', [ReglementController::class, 'index'])->name('reglements.index');
-    
 
 });
 
@@ -241,6 +240,27 @@ Route::prefix('/users')->group(function () {
 });
 
 // End User
+
+
+// Start Charge
+
+Route::prefix('/charges')->group(function () {
+  Route::get('/', [ChargeController::class, 'index'])->name('charges.index');
+  Route::post('/store', [ChargeController::class, 'store'])->name('charges.store');
+  Route::delete('/{id}', [ChargeController::class, 'destroy'])->name('charges.destroy');
+  Route::put('/{id}', [ChargeController::class, 'update'])->name('charges.update');
+
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/fetch', [ChargeController::class, 'fetch'])->name('charges.fetch');
+    Route::get('/{id}/delete', [ChargeController::class, 'delete'])->name('charges.delete');
+    Route::get('/{id}/edit', [ChargeController::class, 'edit'])->name('charges.edit');
+    Route::get('/search', [ChargeController::class, 'search'])->name('charges.search');
+    Route::get('/filter', [ChargeController::class, 'filter'])->name('charges.filter');
+  });
+
+});
+
+// End Charge
 
 
 Route::prefix('/extras')->group(function ()

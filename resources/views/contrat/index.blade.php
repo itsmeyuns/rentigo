@@ -51,10 +51,10 @@
               <label for="endDate">À:</label>
               <input type="date" id="endDate" name="date_fin">
             </div>
-            <div>
-              <button type="submit" id="filter-button"  class="btn">Filter</button>
-              <button type="reset" id="resetButton" class="btn">Reset</button>
-            </div>
+          </div>
+          <div>
+            <button type="submit" id="filter-button"  class="btn">Filter</button>
+            <button type="reset" id="resetButton" class="btn">Reset</button>
           </div>
         </form>
       </div>

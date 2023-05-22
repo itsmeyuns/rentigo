@@ -141,7 +141,7 @@ span.edit:hover {
 /* Start Delete Modal */
 
 .delete-modal {
-  text-align: center;
+  text-align: center !important;
 }
 
 .delete-modal .delete-dialog {

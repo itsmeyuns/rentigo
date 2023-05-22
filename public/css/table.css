@@ -11,7 +11,8 @@
   min-height: 200px;
 }
 
-#users-section .table-container {
+#users-section .table-container,
+#charges-section .table-container {
   min-height: 400px;
 }
 

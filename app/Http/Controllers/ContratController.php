@@ -34,7 +34,7 @@ class ContratController extends Controller
             $contrats = $user->contrats()
             ->with(['vehicule', 'client', 'user'])
             ->latest()
-            ->paginate(1);
+            ->paginate(10);
         }
         return response()->json(['code' => 200, 'contrats' => $contrats], 200);
     }
@@ -56,7 +56,6 @@ class ContratController extends Controller
         ];
         $formData = array_merge($formData, $dateDebut, $dateFin);
         Contrat::create($formData);
-        
         // Return success response if data is inserted successfully
         return response()->json(['code' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 
     }
