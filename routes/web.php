@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\CarteGriseController;
 use App\Http\Controllers\ChargeController;
@@ -28,7 +29,7 @@ use App\Http\Controllers\VisiteTechniqueController;
 */
 
 // Route::view('/dashboard', 'dashboard')->middleware('auth');
-Route::view('/alerts', 'dashboard');
+// Route::view('/alerts', 'dashboard');
 
 
 // Route::view('/vehicules/create', 'vehicules.create');
@@ -258,6 +259,15 @@ Route::prefix('/charges')->group(function () {
     Route::get('/filter', [ChargeController::class, 'filter'])->name('charges.filter');
   });
 
+});
+
+// End Charge
+
+// Start Charge
+
+Route::prefix('/alertes')->group(function ()
+{
+  Route::get('/', [AlerteController::class, 'index'])->name('alertes.index');
 });
 
 // End Charge

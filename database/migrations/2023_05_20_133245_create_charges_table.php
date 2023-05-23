@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date');
             $table->float('cout');
             $table->text('observation')->nullable();
-            $table->unsignedBigInteger('externe_id')->nullable();
+            $table->string('externe_id')->nullable();
             $table->timestamps();
         });
     }

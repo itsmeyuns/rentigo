@@ -60,10 +60,10 @@
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/alerts">
+      <a href="/alertes">
         <span class="material-icons-round icon">
           notification_important
-        </span>Alerts
+        </span>Alertes
       </a>
     </li>
   </ul>

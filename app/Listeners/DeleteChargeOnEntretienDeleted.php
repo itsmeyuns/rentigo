@@ -22,6 +22,6 @@ class DeleteChargeOnEntretienDeleted
      */
     public function handle(EntretienDeleted $event): void
     {
-        Charge::where('externe_id', $event->entretien->id)->delete();
+        Charge::where('externe_id', "entretien".$event->entretien->id)->delete();
     }
 }

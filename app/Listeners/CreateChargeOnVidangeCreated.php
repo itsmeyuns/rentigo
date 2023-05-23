@@ -28,7 +28,7 @@ class CreateChargeOnVidangeCreated
             'cout' => $vidange->cout,
             'date' => $vidange->date,
             'observation' => "Vehicule N°: ".$vidange->vehicule->matricule,
-            'externe_id' => $vidange->id
+            'externe_id' => "vidange".$vidange->id
         ]);
     }
 }

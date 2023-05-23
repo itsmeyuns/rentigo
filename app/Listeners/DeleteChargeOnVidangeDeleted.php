@@ -23,6 +23,6 @@ class DeleteChargeOnVidangeDeleted
      */
     public function handle(VidangeDeleted $event): void
     {
-        Charge::where('externe_id', $event->vidange->id)->delete();
+        Charge::where('externe_id', "vidange".$event->vidange->id)->delete();
     }
 }

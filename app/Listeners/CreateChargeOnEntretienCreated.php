@@ -28,7 +28,7 @@ class CreateChargeOnEntretienCreated
             'cout' => $entretien->cout,
             'date' => $entretien->date,
             'observation' => "Vehicule N°: ".$entretien->vehicule->matricule,
-            'externe_id' => $entretien->id
+            'externe_id' => "entretien".$entretien->id
         ]);
     }
 }

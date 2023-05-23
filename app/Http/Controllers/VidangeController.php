@@ -17,9 +17,9 @@ class VidangeController extends Controller
 
     public function all($id)
     {
-        $vidanges = Vidange::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
+        $vidanges = Vidange::where('vehicule_id', $id)->orderBy('km_prochain_vidange', 'desc')->paginate(5);
         // $vidanges = Vehicule::find($id)->vidanges()->paginate(1);
-        $prochaineVidange = Vidange::where('vehicule_id', $id)->min('km_prochain_vidange') ?? "-";
+        $prochaineVidange = Vidange::where('vehicule_id', $id)->max('km_prochain_vidange') ?? "-";
         return response()->json(['vidanges' => $vidanges, 'prochaine_vidange' => $prochaineVidange], 200);
     }
 

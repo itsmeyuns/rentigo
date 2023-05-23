@@ -16,8 +16,8 @@ class AssuranceController extends Controller
 
     public function all($id)
     {
-        $assurances = Assurance::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
-        $prochaineAssurance = Assurance::where('vehicule_id', $id)->min('date_fin') ?? "-";
+        $assurances = Assurance::where('vehicule_id', $id)->orderBy('date_fin', 'desc')->paginate(5);
+        $prochaineAssurance = Assurance::where('vehicule_id', $id)->max('date_fin') ?? "-";
         return response()->json(['assurances' => $assurances, 'prochaine_assurance' => $prochaineAssurance], 200);
     }
 
