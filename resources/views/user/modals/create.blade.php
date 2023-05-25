@@ -51,9 +51,9 @@
       <input type="email" name="email" id="email">
       <div class="error email_error"></div>
     </div>
-    <div class="login-infos-container full-width">
+    <div class="sub-form-container full-width">
       <h3 class="form-title">Informations de connexion</h3>
-      <div class="login-infos">
+      <div class="sub-form">
         <div class="form-item">
           <label for="login">Login <span class="star">*</span> </label>
           <input type="text" name="login" id="login">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgenceController;
 use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\CarteGriseController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
+use App\Models\Agence;
 
 /*
 |--------------------------------------------------------------------------
@@ -265,13 +267,16 @@ Route::prefix('/charges')->group(function () {
 
 // Start Charge
 
-Route::prefix('/alertes')->group(function ()
-{
-  Route::get('/', [AlerteController::class, 'index'])->name('alertes.index');
-});
+Route::get('/alertes', [AlerteController::class, 'index'])->name('alertes.index');
 
 // End Charge
 
+// Start Agence
+
+Route::get('/agence', [AgenceController::class, 'index'])->name('agence.index');
+Route::post('/agence/store', [AgenceController::class, 'storeOrUpdate'])->name('agence.store');
+
+// End Agence
 
 Route::prefix('/extras')->group(function ()
 {

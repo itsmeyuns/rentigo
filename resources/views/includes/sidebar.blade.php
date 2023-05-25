@@ -18,26 +18,26 @@
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/clients">
+      <a href="{{route('clients.index')}}">
         <span class="material-icons-round icon">groups</span> Clients
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/vehicules">
+      <a href="{{route('vehicules.index')}}">
         <span class="material-icons-round icon">
           directions_car
         </span> Véhicules
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/reservations">
+      <a href="{{route('reservations.index')}}">
         <span class="material-icons-round icon">
           list_alt
         </span> Résevations
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/contrats">
+      <a href="{{route('contrats.index')}}">
         <span class="material-icons-round icon">
           description
         </span> Contrats
@@ -45,22 +45,30 @@
     </li>
     @if(auth()->user()->role === 'admin')
       <li class="side-menu-item">
-        <a href="/users">
+        <a href="{{route('users.index')}}">
           <span class="material-icons-round icon">
             badge
           </span> Utilisateurs
         </a>
       </li>
+      <li class="side-menu-item">
+        <a href="{{route('agence.index')}}">
+          <span class="material-icons-round icon">
+            home_work
+          </span> Agence
+        </a>
+      </li>
+      
     @endif
     <li class="side-menu-item">
-      <a href="/charges">
+      <a href="{{route('charges.index')}}">
         <span class="material-icons-round icon">
           paid
         </span> Charges
       </a>
     </li>
     <li class="side-menu-item">
-      <a href="/alertes">
+      <a href="{{route('alertes.index')}}">
         <span class="material-icons-round icon">
           notification_important
         </span>Alertes
