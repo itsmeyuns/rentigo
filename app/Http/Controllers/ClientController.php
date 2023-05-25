@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use PDF;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -122,5 +123,12 @@ class ClientController extends Controller
     $result->appends($request->all());
     return response()->json(['clients' => $result]);
   }
+
+  public function pdf()
+    {
+        $clients = Client::all();
+        $pdf = PDF::loadView('clients.pdf', ['clients' => $clients])->setPaper('A2', 'portrait');
+        return $pdf->stream();
+    }
 
 }

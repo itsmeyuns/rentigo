@@ -46,6 +46,7 @@ Route::prefix('/clients')->group(function () {
   Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
   Route::delete('/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
   Route::patch('/{id}', [ClientController::class, 'update'])->name('clients.update');
+  Route::get('/imprimer', [ClientController::class, 'pdf'])->name('clients.pdf');
 
   Route::middleware('ajax_only')->group( function() {
     Route::get('/{id}/show', [ClientController::class, 'show'])->name('clients.show');
@@ -252,6 +253,7 @@ Route::prefix('/charges')->group(function () {
   Route::post('/store', [ChargeController::class, 'store'])->name('charges.store');
   Route::delete('/{id}', [ChargeController::class, 'destroy'])->name('charges.destroy');
   Route::put('/{id}', [ChargeController::class, 'update'])->name('charges.update');
+  Route::get('/imprimer', [ChargeController::class, 'pdf'])->name('charges.pdf');
 
   Route::middleware('ajax_only')->group(function () {
     Route::get('/fetch', [ChargeController::class, 'fetch'])->name('charges.fetch');
@@ -265,11 +267,11 @@ Route::prefix('/charges')->group(function () {
 
 // End Charge
 
-// Start Charge
+// Start Alert
 
 Route::get('/alertes', [AlerteController::class, 'index'])->name('alertes.index');
 
-// End Charge
+// End Alert
 
 // Start Agence
 

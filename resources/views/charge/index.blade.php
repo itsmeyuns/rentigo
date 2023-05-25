@@ -93,8 +93,12 @@
       
     </div>
   </div>
-
 </div>
+<a class="print" href="{{route('charges.pdf')}}">
+  <span class="material-icons-round">
+    print
+  </span>Imprimer
+</a>
 
 @stop
 @section('js')

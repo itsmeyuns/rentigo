@@ -84,9 +84,7 @@ a {
   text-decoration: none;
   color: var(--text-color);
 }
-a:visited {
-  color: var(--text-color);
-}
+
 ul {
   list-style-type: none;
 }
@@ -656,3 +654,30 @@ span.edit:hover {
   color: var(--danger-color);
 }
 /* End Alerts */
+
+
+/* Start Print */
+.print {
+  position: fixed;
+  bottom: 220px;
+  right: -90px;
+  padding: 13px;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: .3s;
+}
+
+.print:hover {
+  right: 0;
+  background-color: var(--main-color);
+}
+/* End Print */

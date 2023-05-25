@@ -63,6 +63,11 @@
     
   </div>
 </div>
+<a class="print" href="{{route('clients.pdf')}}">
+  <span class="material-icons-round">
+    print
+  </span>Imprimer
+</a>
 @stop
 @section('js')
 <script src="{{ asset('js/clients/clients.js') }}"></script>

@@ -300,11 +300,10 @@ function editAction() {
         $('.imgPreview').show();
         $('#edit_uploadedImage').attr('src', `${response.vehicule.photo}`);
         const extras_vehicule = response.extras_vehicule;
-        const checkboxes = $('.extras-container:visible input[name="extras[]"]');
+        const checkboxes = $('#edit-vehicule-form input[name="extras[]"]');
         $.each(extras_vehicule, function(index, value) {
           // Find the checkbox with the corresponding value and set the "checked" attribute
           const matchingCheckbox = checkboxes.filter(`[value="${value.id}"]`);
-          console.log(matchingCheckbox);
           matchingCheckbox.prop('checked', true);
         });
       },

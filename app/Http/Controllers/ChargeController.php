@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChargeRequest;
 use App\Models\Charge;
 use Illuminate\Http\Request;
+use PDF;
 
 class ChargeController extends Controller
 {
@@ -112,6 +113,13 @@ class ChargeController extends Controller
                         ->paginate(10);
         $charges->appends($request->all());
         return response()->json(['charges' => $charges], 200);
+    }
+
+    public function pdf()
+    {
+        $charges = Charge::all();
+        $pdf = PDF::loadView('charge.pdf', ['charges' => $charges]);
+        return $pdf->stream();
     }
 
 }

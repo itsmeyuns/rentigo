@@ -39,7 +39,7 @@
   background-color: #f5f9fc;
 }
 
-.table tr:nth-child(odd):not(:first-child) {
+.table tr:nth-child(odd) {
   background-color: #ebf3f9;
 }
 

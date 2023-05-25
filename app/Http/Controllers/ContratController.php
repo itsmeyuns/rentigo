@@ -7,7 +7,6 @@ use App\Http\Requests\ContratRequest;
 use App\Models\Contrat;
 use Carbon\Carbon;
 use PDF;
-use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class ContratController extends Controller
