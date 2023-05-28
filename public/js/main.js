@@ -15,7 +15,6 @@ toggleSidebar.addEventListener('click', function () {
 
 // Get all links in the sidebar
 const links = document.querySelectorAll('.side-menu-item');
-
 // Add a click event listener to each link
 links.forEach(link => {
     let pathname = new URL(link.firstElementChild.href).pathname;
@@ -23,9 +22,6 @@ links.forEach(link => {
       link.classList.add('active')
     }
 })
-
-
-
 
 // Dropdown handling
 function openDropdown() {

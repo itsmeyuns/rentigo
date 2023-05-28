@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('heure_debut');
             $table->date('date_fin');
             $table->time('heure_fin');
+            $table->string('status')->default('impayé');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')
                 ->references('id')

@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::unprepared('DROP FUNCTION IF EXISTS montant_contrat;');
         DB::unprepared('
             CREATE FUNCTION montant_contrat (contrat_id FLOAT)
             RETURNS FLOAT

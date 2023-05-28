@@ -183,36 +183,19 @@ class ReservationController extends Controller
       $dateFin = $request->date_fin;
       $status = $request->status;
       $reservations = Reservation::with(['vehicule', 'client', 'user'])
-      ->when(!auth()->user()->isAdmin(), function ($query) {
-        $query->where('user_id', auth()->user()->id);
-      })
-      ->when($dateDebut && $dateFin && $status, function ($query) use ($dateDebut, $dateFin, $status) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->where('date_fin', '<=', $dateFin)
-                ->whereIn('status', $status);
-      })
-      ->when($dateDebut && $dateFin && !$status, function ($query) use ($dateDebut, $dateFin) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->where('date_fin', '<=', $dateFin);
-      })
-      ->when($dateDebut && !$dateFin && $status, function ($query) use ($dateDebut, $status) {
-          $query->where('date_debut', '>=', $dateDebut)
-                ->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && $dateFin && $status, function ($query) use ($dateFin, $status) {
-          $query->where('date_fin', '<=', $dateFin)
-                ->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && !$dateFin && $status, function ($query) use ($status) {
-          $query->whereIn('status', $status);
-      })
-      ->when(!$dateDebut && $dateFin && !$status, function ($query) use ($dateFin) {
-          $query->where('date_fin', '<=', $dateFin);
-      })
-      ->when($dateDebut && !$dateFin && !$status, function ($query) use ($dateDebut) {
-          $query->where('date_debut', '>=', $dateDebut);
-      })
-      ->paginate(10);
+                                ->when(!auth()->user()->isAdmin(), function ($query) {
+                                    $query->where('user_id', auth()->user()->id);
+                                })
+                                ->when($dateDebut, function ($query) use ($dateDebut) {
+                                    $query->where('date_debut', '>=', $dateDebut);
+                                })
+                                ->when($dateFin, function ($query) use ($dateFin) {
+                                    $query->where('date_fin', '<=', $dateFin);
+                                })
+                                ->when($status, function ($query) use ($status) {
+                                    $query->whereIn('status', $status);
+                                })
+                                ->paginate(10);
       $reservations->appends($request->all());
       return response()->json(['reservations' => $reservations], 200);
     }

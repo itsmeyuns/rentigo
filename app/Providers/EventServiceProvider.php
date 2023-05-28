@@ -6,9 +6,15 @@ use App\Events\ContratDeleted;
 use App\Events\EntretienCreated;
 use App\Events\EntretienDeleted;
 use App\Events\EntretienUpdated;
+use App\Events\ReglementCreated;
+use App\Events\ReglementDeleted;
+use App\Events\ReglementUpdated;
 use App\Events\VidangeCreated;
 use App\Events\VidangeDeleted;
 use App\Events\VidangeUpdated;
+use App\Listeners\ChangeContratStatusOnReglementCreated;
+use App\Listeners\ChangeContratStatusOnReglementDeleted;
+use App\Listeners\ChangeContratStatusOnReglementUpdated;
 use App\Listeners\CreateChargeOnEntretienCreated;
 use App\Listeners\CreateChargeOnVidangeCreated;
 use App\Listeners\DeleteChargeOnEntretienDeleted;
@@ -52,6 +58,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         EntretienUpdated::class => [
             UpdateChargeOnEntretienUpdated::class
+        ],
+        ReglementCreated::class => [
+            ChangeContratStatusOnReglementCreated::class
+        ],
+        ReglementDeleted::class => [
+            ChangeContratStatusOnReglementDeleted::class
+        ],
+        ReglementUpdated::class => [
+            ChangeContratStatusOnReglementUpdated::class
         ]
     ];
 

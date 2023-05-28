@@ -37,9 +37,22 @@ use App\Models\Agence;
 // Route::view('/vehicules/create', 'vehicules.create');
 
 Auth::routes(['login' => false]);
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
+
+// Start Dashboard
+
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+Route::middleware('ajax_only')->group(function () {
+  Route::get('/vehicule-chart', [HomeController::class, 'vehiculesChart']);
+  Route::get('/agents-contrats-chart', [HomeController::class, 'agentContratsChart']);
+  Route::get('/user-reservations-contrats-chart', [HomeController::class, 'userReservationsContrats']);
+  Route::get('/status-contarts', [HomeController::class, 'paidUnpaidContrats']);
+  Route::get('/reservations-contrats-chart', [HomeController::class, 'reservationsContrats']);
+  Route::get('/depenses-gains-chart', [HomeController::class, 'depensesGains']);
+});
+
+// End Dashboard
 
 Route::prefix('/clients')->group(function () {
   Route::get('/', [ClientController::class, 'index'])->name('clients.index');

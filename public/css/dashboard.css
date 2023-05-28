@@ -1,9 +1,5 @@
 @import url(master.css);
 
-body {
-  color: var(--text-color);
-}
-
 /* SIDEBAR  */
 #sidebar {
   background-color: var(--secondary-color);
@@ -257,6 +253,10 @@ body {
   cursor: pointer;
 }
 
+.cards .card a {
+  color: #fff !important;
+}
+
 .main-container .cards .card:first-child {
   background-color: var(--primary-color);
 }
@@ -288,6 +288,38 @@ body {
   transform: scale(1.1);
 }
 
+/* Charts */
+
+.charts {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.chart {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  max-width: 100%;
+  height: 400px;
+}
+
+.chart > div {
+  padding: 10px;
+  margin: auto;
+}
+
+.chart > div,.chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Charts */
+
 /*  MEDIA QUERIES  */
 
 @media screen and (max-width: 768px) {
@@ -303,15 +335,17 @@ body {
   #sidebar.hide {
     left: -100%;
   }
-
   #sidebar .close {
     display: inline;
   }
-
   #content {
 		position: relative;
     left: 0;
 		width: calc(100%);
 		transition: all .3s ease;
 	}
+  .charts {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
 }

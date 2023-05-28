@@ -8,6 +8,7 @@ use App\Models\Contrat;
 use Carbon\Carbon;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContratController extends Controller
 {
@@ -134,9 +135,9 @@ class ContratController extends Controller
      */
     public function search(Request $request)
     {
-      $value = $request->search;
-      // Search in all records
-      if (auth()->user()->isAdmin()) {
+        $value = $request->search;
+        // Search in all records
+        if (auth()->user()->isAdmin()) {
         $result = Contrat::with(['vehicule', 'client', 'user'])
                         ->whereHas('vehicule', function ($query) use ($value) {
                               $query->where('matricule', 'LIKE', "%$value%")
@@ -180,22 +181,21 @@ class ContratController extends Controller
     {
       $dateDebut = $request->date_debut;
       $dateFin = $request->date_fin;
+      $status = $request->status;
       $contrats = Contrat::with(['vehicule', 'client', 'user'])
-                          ->when(!auth()->user()->isAdmin(), function ($query) {
-                            $query->where('user_id', auth()->user()->id);
-                          })
-                          ->when($dateDebut && $dateFin , function ($query) use ($dateDebut, $dateFin) {
-                              $query->where('date_debut', '>=', $dateDebut)
-                                    ->where('date_fin', '<=', $dateFin);
-                          })
-                          ->when($dateDebut && !$dateFin, function ($query) use ($dateDebut) {
-                              $query->where('date_debut', '>=', $dateDebut);
-                          })
-                          ->when(!$dateDebut && $dateFin, function ($query) use ($dateFin) {
-                              $query->where('date_fin', '<=', $dateFin);
-                          })
-                          ->latest()
-                          ->paginate(10);
+                            ->when(!auth()->user()->isAdmin(), function ($query) {
+                                $query->where('user_id', auth()->user()->id);
+                            })
+                            ->when($dateDebut, function ($query) use ($dateDebut) {
+                                $query->where('date_debut', '>=', $dateDebut);
+                            })
+                            ->when($dateFin, function ($query) use ($dateFin) {
+                                $query->where('date_fin', '<=', $dateFin);
+                            })
+                            ->when($status, function ($query) use ($status) {
+                                $query->whereIn('status', $status);
+                            })
+                            ->paginate(10);
       $contrats->appends($request->all());
       return response()->json(['contrats' => $contrats], 200);
     }

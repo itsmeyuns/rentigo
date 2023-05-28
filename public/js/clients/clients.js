@@ -1,7 +1,7 @@
-let addClientForm = document.getElementById('add-client-form');
-let addClientButton = document.getElementById('add-client-button');
-let editClientButton = document.getElementById('edit-client-button');
-let editClientForm = document.getElementById('edit-client-form');
+const addClientForm = document.getElementById('add-client-form');
+const addClientButton = document.getElementById('add-client-button');
+const editClientButton = document.getElementById('edit-client-button');
+const editClientForm = document.getElementById('edit-client-form');
 
 addClientButton.addEventListener('click', function (e) {
   if (!validateFields(addClientForm)) {

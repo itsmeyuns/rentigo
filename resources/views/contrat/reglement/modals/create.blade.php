@@ -26,7 +26,7 @@
         <option value="virement bancaire">Virement Bancaire</option>
         <option value="chèque">Chèque</option>
       </select>
-      <div class="error montant_error"></div>
+      <div class="error type_error"></div>
     </div>
     <div class="form-item">
       <button id="add-reglement-button" type="submit">Ajouter</button>

@@ -2,8 +2,6 @@ const addContratForm2 = document.getElementById('add-contrat-form');
 const editContratForm2 = document.getElementById('edit-contrat-form');
 const addContratButton = document.getElementById('add-contrat-button');
 const editContratButton = document.getElementById('edit-contrat-button');
-const filterForm = document.getElementById('filter-form');
-const filterButton = document.getElementById('filter-button');
 
 
 addContratButton.addEventListener('click', function (event) {
@@ -55,23 +53,23 @@ function validationOnBlur(form) {
   })
 }
 
-// Prevent Filter Form From Submitting If It's Empty
-filterButton.addEventListener('click', function (event) {
-  // Check If atleast one checkbox is checked
-  const checkboxes = filterForm.querySelectorAll('input[type="checkbox"]');
-  let isChecked = false;
-  const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-  isChecked = (checkedCount > 0) ?? true;
+// // Prevent Filter Form From Submitting If It's Empty
+// filterButton.addEventListener('click', function (event) {
+//   // Check If atleast one checkbox is checked
+//   const checkboxes = filterForm.querySelectorAll('input[type="checkbox"]');
+//   let isChecked = false;
+//   const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//   isChecked = (checkedCount > 0) ?? true;
 
-  // Check If Start Date and End Date are Empty
-  const startDate = document.getElementById('startDate')
-  const endDate = document.getElementById('endDate')
-  let validDate = false;
-  validDate = (!startDate.value.trim() && !endDate.value.trim()) ? false : true;
-  if (!isChecked && !validDate) {
-    event.preventDefault();
-  }
-})
+//   // Check If Start Date and End Date are Empty
+//   const startDate = document.getElementById('startDate')
+//   const endDate = document.getElementById('endDate')
+//   let validDate = false;
+//   validDate = (!startDate.value.trim() && !endDate.value.trim()) ? false : true;
+//   if (!isChecked && !validDate) {
+//     event.preventDefault();
+//   }
+// })
 
 
 const inputs = [

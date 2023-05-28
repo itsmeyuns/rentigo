@@ -11,7 +11,7 @@
 
   <ul class="side-menu">
     <li class="side-menu-item">
-      <a href="/dashboard">
+      <a href="{{route('dashboard.index')}}">
         <span class="material-icons-round icon">
           dashboard
         </span>Tableau de bord

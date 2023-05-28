@@ -42,6 +42,24 @@
           </div>
         </form>
         <form class="filter" id="filter-form">
+          <div class="select-box">
+            <div class="select-field">
+              <div class="select-text">Status</div>
+              <span class="material-icons-round arrow-down">
+                expand_more
+              </span>
+            </div>
+            <div class="select-options">
+              <div class="select-option">
+                <input type="checkbox" id="paye" name="status[]" value="payé">
+                <label for="paye">Payé</label>
+              </div>
+              <div class="select-option">
+                <input type="checkbox" id="impaye" name="status[]" value="impayé">
+                <label for="impaye">Impayé</label>
+              </div>
+            </div>          
+          </div>
           <div class="date-picker">
             <div class="start-date">
               <label for="startDate">De:</label>
@@ -65,7 +83,6 @@
         <table class="table">
           <thead>
             <tr>
-              <th>N° contrat</th>
               <th>date contrat</th>
               <th>Date départ</th>
               <th>date arrivée</th>
@@ -73,6 +90,7 @@
               <th>client</th>
               <th>véhicule</th>
               <th>réalisé par</th>
+              <th>status</th>
               <th>Action</th>
             </tr>
           </thead>

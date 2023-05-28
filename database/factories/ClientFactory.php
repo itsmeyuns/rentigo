@@ -19,7 +19,7 @@ class ClientFactory extends Factory
         return [
             'nom' => fake()->lastName(),
             'prenom' => fake()->firstName(),
-            'sexe' => fake()->randomElement(['M','F']),
+            'sexe' => fake()->randomElement(['H','F']),
             'date_naissance' => fake()->date(),
             'lieu_naissance' => fake()->address(),
             'adresse' => fake()->address(),

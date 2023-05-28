@@ -24,7 +24,7 @@ class ReglementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_reglement' => 'required | date | date_equals:today',
+            'date_reglement' => 'required | date | before_or_equal:today',
             'montant' => 'required | numeric',
             'type' => 'required | string',
             'contrat_id' => 'required | exists:contrats,id'
@@ -34,7 +34,7 @@ class ReglementRequest extends FormRequest
     public function messages()
     {
         return [
-            'date_reglement.date_equals' => "Le champ date réglement doit être une date égale à la date d'aujourd'hui.",
+            'date_reglement.before_or_equal' => "Le champ date reglement doit être une date antérieure ou égale à la date d'aujourd'hui.",
             'contrat_id.exists' => 'Numéro de contrat est invalide'
         ];
     }
