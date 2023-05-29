@@ -610,52 +610,6 @@ span.edit:hover {
             transform: rotate(360deg);
   }
 }
-/* Start Alerts */
-.alerts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.alert {
-  padding: 15px;
-  background-color: var(--hover-color);
-  border-radius: 8px;
-}
-.alert-title {
-  color: var(--main-color);
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 0 10px;
-  position: relative;
-}
-.alert-title::after {
-  font-family: "Material Icons Round";
-  content: "\e004";
-  position: absolute;
-  top: -11px;
-}
-.alert-body {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.alert-body p{
-  font-size: 18px;
-  padding: 0 10px 0;
-}
-.alert-body .alert-text {
-  border-right: 2px solid var(--text-color);
-}
-.italic-bold {
-  font-style: italic;
-  font-weight: 500;
-  text-decoration: underline;
-}
-.danger {
-  color: var(--danger-color);
-}
-/* End Alerts */
-
 
 /* Start Print */
 .print {

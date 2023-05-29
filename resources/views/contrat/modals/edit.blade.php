@@ -40,6 +40,14 @@
       <input type="text" name="montant" id="edit_montant" class="readonly-input" readonly value="">
       <div class="error montant_error"></div>
     </div>
+    <div class="form-item">
+      <label for="terminee">Terminée <span class="star">*</span> </label>
+      <select name="terminee" id="terminee">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+      </select>
+      <div class="error client_id_error"></div>
+    </div>
     <div class="form-item full-width">
       <button id="edit-contrat-button" type="submit">Modifier</button>
     </div>

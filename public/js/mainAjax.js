@@ -8,6 +8,12 @@ $(window).on('load', function () {
   $('#main-loader-container').fadeOut(1200);
 })
 
+// Hide Delete Modal
+$('.cancelButton').on('click', function () {
+  $.modal.close();
+})
+
+
 // Start Global Functions
 function createPaginationLinks(object, paginationId, paginationFetch) {
   const links = object.links;

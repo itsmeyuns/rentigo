@@ -13,11 +13,6 @@ $(document).ready(function () {
     });
   })
 
-  // Hide Delete Modal
-  $('#cancelCarteGriseButton').on('click', function () {
-    $('#DeleteCarteGModal').parent().fadeOut(500)
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationCarteGriseButton').on('click', function() {
     // Get the assurance ID from the hidden

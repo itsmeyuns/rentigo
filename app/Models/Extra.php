@@ -9,6 +9,7 @@ class Extra extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nom'];
 
     public function vehicules()
     {

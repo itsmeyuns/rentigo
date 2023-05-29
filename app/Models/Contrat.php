@@ -20,6 +20,7 @@ class Contrat extends Model
         'date_fin',
         'heure_fin',
         'status',
+        'terminee',
         'vehicule_id',
         'client_id',
         'user_id',

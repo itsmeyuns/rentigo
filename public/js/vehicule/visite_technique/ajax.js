@@ -13,11 +13,6 @@ $(document).ready(function () {
     });
   })
 
-  // Hide Delete Modal
-  $('#cancelVisiteTechButton').on('click', function () {
-    $('#DeleteVisiteTechModal').parent().fadeOut(500)
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationVisiteTechButton').on('click', function() {
     // Get the assurance ID from the hidden

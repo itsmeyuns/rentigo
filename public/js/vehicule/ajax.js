@@ -1,43 +1,8 @@
-let addForm = $('#add-vehicule-form');
-let editForm = $('#edit-vehicule-form');
-function addAction() { 
-  $(addForm).on('submit', function (e) {
-    e.preventDefault()
-    let formData = new FormData(this);
-    $.ajax({
-      type: "POST",
-      url: $(this).attr('action'),
-      data: formData,
-      processData:false,
-      contentType:false,
-      beforeSend:function(){
-        $(addForm).find('div.error').text('');
-      },
-      success: function (response) {
-        resetForm(addForm)
-        $.modal.close();
-        fetchVehicules()
-        notification.success(response.msg);
-      },
-      error: function (response) {
-        let errors = response.responseJSON.errors;
-        $.each(errors, function (field, messages) {
-          $('.error.' + field + '_error').html(messages[0]);
-          $('.error.' + field + '_error').prev().removeClass('success');
-          $('.error.' + field + '_error').prev().addClass('bounce');
-        });
-      }
-    });
-  })
-}
+const addForm = $('#add-vehicule-form');
+const editForm = $('#edit-vehicule-form');
 
 $(document).ready(function () {
   fetchVehicules();
-
-  // Hide Delete Modal
-  $('#cancelButton').on('click', function () {
-    $.modal.close();
-  })
 
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationButton').on('click', function() {
@@ -70,7 +35,7 @@ $(document).ready(function () {
   });
 
   $('#rechercher').on('input', function () { 
-    let value = $(this).val()
+    const value = $(this).val()
     $.ajax({
       type: "GET",
       url: "/vehicules/search",
@@ -86,10 +51,12 @@ $(document).ready(function () {
         if (value) {
           const vehicules = response.vehicules.data
           if (vehicules.length > 0) {
+            $('#no-result').hide()
             createBoxes(vehicules)
             createPaginationLinks(response.vehicules, 'vehicules-pagination', paginationFetch)
           } else {
             $('.box-container').html('')
+            $('#vehicules-pagination').hide()
             $('#no-result').show()
           }
           $('#loader-container').hide()
@@ -174,6 +141,36 @@ $(document).ready(function () {
   addAction()
 });
 
+function addAction() { 
+  $(addForm).on('submit', function (e) {
+    e.preventDefault()
+    let formData = new FormData(this);
+    $.ajax({
+      type: "POST",
+      url: $(this).attr('action'),
+      data: formData,
+      processData:false,
+      contentType:false,
+      beforeSend:function(){
+        $(addForm).find('div.error').text('');
+      },
+      success: function (response) {
+        resetForm(addForm)
+        $.modal.close();
+        fetchVehicules()
+        notification.success(response.msg);
+      },
+      error: function (response) {
+        let errors = response.responseJSON.errors;
+        $.each(errors, function (field, messages) {
+          $('.error.' + field + '_error').html(messages[0]);
+          $('.error.' + field + '_error').prev().removeClass('success');
+          $('.error.' + field + '_error').prev().addClass('bounce');
+        });
+      }
+    });
+  })
+}
 
 function resetForm(form) { 
   const formType = $(form).attr('id')
@@ -277,7 +274,7 @@ function passIdToModal() {
 function editAction() {
   $('.edit').on('click', function() {
     // Get the vehicule ID from the hidden input
-    let vehiculeId = $('#editVehiculeId').val();
+    const vehiculeId = $('#editVehiculeId').val();
     getExtras()
     // Send an Ajax request to edit the vehicule
     $.ajax({
@@ -285,8 +282,8 @@ function editAction() {
       type: 'GET',
       success: function(response) {
         $('#EditVehiculeModal').modal({
-      fadeDuration: 200
-    });
+          fadeDuration: 200
+        });
         // Reset Errors
         resetForm(editForm)
         // Update the form fields with the response data
@@ -361,8 +358,8 @@ function createExtras(extras) {
   $.each(extras, function (key, value) {
     $('.extras-container').append(`
       <div class="extra-box">
-        <input type="checkbox" name="extras[]" value="${value.id}">
-        <label>${value.nom}</label>
+        <input type="checkbox" name="extras[]" value="${value.id}" id='extra-${value.id}'>
+        <label for='extra-${value.id}'>${value.nom}</label>
       </div>
     `)
   })

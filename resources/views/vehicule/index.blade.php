@@ -39,6 +39,9 @@
             directions_car
           </span>
         </div>
+        @if (auth()->user()->role == 'admin')
+          <a href="{{route('extras.index')}}" class="btn" id="extras">Extras</a>
+        @endif
       </form>
       <form>
         <div class="filter">
@@ -66,12 +69,12 @@
     <div id="loader-container" class="loader-container">
       <div class="loader"></div>
     </div>
-    <div id="no-result">
+    <div id="no-result" class="no-result"> 
       <img src="{{asset('pics/no-data.svg')}}" alt="no data picture">
       <p class="text">Aucun résultat trouvé</p>
     </div>
 
-    <div id="empty-data">
+    <div id="empty-data" class="empty-data">
       il n'y a aucun véhicule à afficher pour le moment.
     </div>
 

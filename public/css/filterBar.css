@@ -1,6 +1,7 @@
 .bar {
   margin: 15px 0;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid;
@@ -37,7 +38,6 @@
   color: var(--main-color);
   font-size: 25px;
 }
-
 .bar form .ajouter {  
   background-color: var(--hover-color);
   color: var(--main-color);
@@ -65,7 +65,7 @@
 @media screen and (max-width: 576px) {
   .bar form {
     flex-direction: column;
-    gap: 0;
+    gap: 5px;
   }
   form .input-holder {
     margin-bottom: 10px;

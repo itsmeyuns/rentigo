@@ -6,11 +6,6 @@ $(document).ready(function () {
 
   fetchReservations()
 
-  // Hide Delete Modal
-  $('#cancelReservationButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationReservationButton').on('click', function() {
     // Get the vehicule ID from the hidden
@@ -99,12 +94,15 @@ $(document).ready(function () {
           if (value) {
             const reservations = response.reservations.data;
             if (reservations.length > 0) {
+              $('#reservations-no-result').hide()
               // Fill in the table
               fillReservationsTable(reservations)
               createPaginationLinks(response.reservations, 'reservations-pagination', paginationReservationFetch)
             } else {
               $(reservationsTable).html('')
-              $('#reservations-no-result').show()
+              $('#reservations-pagination').hide()
+              $
+              ('#reservations-no-result').show()
             }
             $('#reservations-loader-container').hide()
           } else {

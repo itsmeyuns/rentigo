@@ -35,20 +35,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>100</td>
-          <td>10/10/2023 </td>
-          <td>500</td>
-          <td>Espece</td>
-          <td>Action</td>
-        </tr>
       </tbody>
     </table>
   </div>
   <div>
     <h4 id="total"></h4>
     <h4 id="paye"></h4>
-    <h4 id="rest"></h4>
+    <h4 id="reste"></h4>
   </div>
   <div class="pagination" id="reglements-pagination">
     <div class="details"></div>

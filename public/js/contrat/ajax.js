@@ -7,11 +7,6 @@ $(document).ready(function () {
 
   fetchContrats()
 
-  // Hide Delete Modal
-  $('#cancelContratButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationContratButton').on('click', function() {
     // Get the vehicule ID from the hidden
@@ -116,11 +111,13 @@ $(document).ready(function () {
           if (value) {
             const contrats = response.contrats.data;
             if (contrats.length > 0) {
+              $('#contrats-no-result').hide()
               // Fill in the table
               fillContratsTable(contrats)
               createPaginationLinks(response.contrats, 'contrats-pagination', paginationContratsFetch)
             } else {
               $(contratsTable).html('')
+              $('#contrats-pagination').hide()
               $('#contrats-no-result').show()
             }
             $('#contrats-loader-container').hide()
@@ -277,12 +274,6 @@ function fillContratsTable(data) {
           <ul class="more-list">
             <li>
               <span class="material-icons-round">
-                autorenew
-              </span>
-              <a href="">Pronologation</a>
-            </li>
-            <li>
-              <span class="material-icons-round">
                 paid
               </span>
               <a href="contrats/${item.id}/reglements">Réglement</a>
@@ -353,13 +344,14 @@ function deleteContratAction() {
 function editContratAction() {
   $('.edit-contrat').on('click', function() {
     // Get the contrat ID from the hidden input
-    let contratId = $('#editContratId').val();
+    const contratId = $('#editContratId').val();
     // Send an Ajax request to edit the vehicule
     $.ajax({
       url: `/contrats/${contratId}/edit`,
       type: 'GET',
       success: function(response) {
         const contrat = response.contrat
+        console.log(contrat);
         // Reset Errors
         resetContratForm(editContratForm);
         getClients('edit_clients',contrat.client_id);
@@ -368,6 +360,7 @@ function editContratAction() {
         $('#edit_date_fin').val(`${contrat.date_fin}T${contrat.heure_fin}`);
         $('#edit_date_contrat').val(`${contrat.date_contrat}`);
         $('#edit_montant').val(`${contrat.montant}`);
+        $('#terminee').val(`${contrat.terminee}`);
         $('#EditContratModal').modal({
           fadeDuration: 200
         });
@@ -403,7 +396,7 @@ function resetContratForm(form) {
   $(form).find('div.error').text('');
   $('input, select').removeClass('success');
   $('input, select').removeClass('bounce');
-  $(form).find('select:not([name="status"])').html('')
+  $(form).find('select:not([name="terminee"])').html('')
   if (formType === 'add-contrat-form') {
     $(form)[0].reset();
   }

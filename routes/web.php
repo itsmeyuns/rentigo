@@ -293,7 +293,18 @@ Route::post('/agence/store', [AgenceController::class, 'storeOrUpdate'])->name('
 
 // End Agence
 
+// Start Extra
+Route::get('/vehicules/extras', [ExtraController::class, 'index'])->name('extras.index');
 Route::prefix('/extras')->group(function ()
 {
-  Route::get('/', [ExtraController::class, 'all'])->middleware('ajax_only');
+  Route::post('/store', [ExtraController::class, 'store'])->name('extras.store');
+  Route::put('/{id}', [ExtraController::class, 'update'])->name('extras.update');
+  Route::middleware('ajax_only')->group(function () {
+    Route::get('/', [ExtraController::class, 'all'])->name('extras.all');
+    Route::get('/{id}/delete', [ExtraController::class, 'delete'])->name('extras.delete');
+    Route::get('/{id}/edit', [ExtraController::class, 'edit'])->name('extras.edit');
+    Route::delete('/{id}', [ExtraController::class, 'destroy'])->name('extras.destroy');
+  });
+
 });
+// End Extra

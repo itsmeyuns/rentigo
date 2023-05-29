@@ -6,11 +6,6 @@ const contratId = $('#reglements-section').data('contrat-id');
 $(document).ready(function () {
   fetchReglements()
 
-  // Hide Delete Modal
-  $('#cancelReglementButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationReglementButton').on('click', function() {
     // Get the vehicule ID from the hidden
@@ -124,7 +119,7 @@ function fetchReglements() {
       fillReglementsTable(response.reglements.data)
       $('#total').text(`Total: ${response.total} DH`)
       $('#paye').text(`Payé: ${response.paye} DH`)
-      $('#rest').text(`Rest: ${response.rest} DH`)
+      $('#reste').text(`Rest: ${response.reste} DH`)
       createPaginationLinks(response.reglements,'reglements-pagination', paginationReglementsFetch)
       $('#reglements-loader-container').hide();
     },

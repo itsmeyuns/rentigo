@@ -6,15 +6,10 @@ $(document).ready(function () {
 
   fetchVidanges()
 
-  // Hide Delete Modal
-  $('#cancelButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationButton').on('click', function() {
     // Get the vehicule ID from the hidden
-    let vidangeId = $('#deleteVidangeId').val();
+    const vidangeId = $('#deleteVidangeId').val();
     // Send an Ajax request to delete vidange
     $.ajax({
       url: `/vidanges/${vidangeId}`,
@@ -43,9 +38,9 @@ $(document).ready(function () {
   $(editVidangeForm).on('submit',function (e) {
     e.preventDefault();
     // Get the vidange ID from the hidden input
-    let vidangeId = $('#editVidangeId').val()
+    const vidangeId = $('#editVidangeId').val()
     // Get data from the form
-    let formData = new FormData(editVidangeForm[0]);
+    const formData = new FormData(editVidangeForm[0]);
     formData.append('_method', 'put');
     $.ajax({
       type: 'POST',
@@ -83,7 +78,7 @@ $(document).ready(function () {
 function addAction() {
   $(addVidangeForm).on('submit', function (e) {
     e.preventDefault()
-    let formData = new FormData(this);
+    const formData = new FormData(this);
     $.ajax({
       type: "POST",
       url: $(this).attr('action'),

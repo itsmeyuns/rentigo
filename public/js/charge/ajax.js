@@ -6,10 +6,6 @@ $(document).ready(function () {
 
   fetchCharges()
 
-  // Hide Delete Modal
-  $('#cancelChargeButton').on('click', function () {
-    $.modal.close();
-  })
 
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationChargeButton').on('click', function() {

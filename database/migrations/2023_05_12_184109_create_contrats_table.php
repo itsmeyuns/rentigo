@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_fin');
             $table->time('heure_fin');
             $table->string('status')->default('impayé');
+            $table->boolean('terminee')->default(0);
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')
                 ->references('id')

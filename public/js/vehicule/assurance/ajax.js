@@ -5,10 +5,6 @@ const assuranceTable = $('#assurance-section tbody');
 $(document).ready(function () {
   fetchAssurances()
 
-  // Hide Delete Modal
-  $('#cancelAssuranceButton').on('click', function () {
-    $.modal.close();
-  })
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationAssuranceButton').on('click', function() {
     // Get the assurance ID from the hidden

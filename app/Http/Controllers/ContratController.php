@@ -78,13 +78,13 @@ class ContratController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(ContratRequest $request, $id)
     {
         $contrat = Contrat::find($id);
         if ($contrat) {
             if ($contrat->user_id === auth()->user()->id || auth()->user()->isAdmin()) {
                 // Validation
-                $formData = $request->validate();
+                $formData = $request->validated();
                 $dateDebut = [
                     'date_debut' => DateTimeHelper::separateDateTime($request->date_debut)['date'],
                     'heure_debut' => DateTimeHelper::separateDateTime($request->date_debut)['time'],
@@ -93,7 +93,7 @@ class ContratController extends Controller
                     'date_fin' => DateTimeHelper::separateDateTime($request->date_fin)['date'],
                     'heure_fin' => DateTimeHelper::separateDateTime($request->date_fin)['time'],
                 ];
-                $formData = array_merge($formData, $dateDebut, $dateFin);
+                $formData = array_merge($formData, $dateDebut, $dateFin, ['terminee' => $request->terminee ? 1 : 0]);
                 $contrat->update($formData);
                 // Return success response if data is updated successfully
                 return response()->json(['status' => 200, 'msg' => 'Opération effectuée avec succès.'], 200); 

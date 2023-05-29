@@ -13,10 +13,6 @@ $(document).ready(function () {
     });
   })
 
-  // Hide Delete Modal
-  $('#cancelEntretienButton').on('click', function () {
-    $.modal.close();
-  })
 
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationEntretienButton').on('click', function() {

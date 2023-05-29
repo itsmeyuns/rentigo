@@ -4,11 +4,6 @@ const usersTable = $('#users-section tbody');
 
 $(document).ready(function () {
 
-  // Hide Delete Modal
-  $('#cancelUserButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationUserButton').on('click', function() {
     // Get the user ID from the hidden
@@ -55,11 +50,13 @@ $(document).ready(function () {
         if (value) {
           const users = response.users.data;
           if (users.length > 0) {
+            $('#no-result').hide()
             // Fill in the table
             fillUsersTable(users)
             createPaginationLinks(response.users, 'users-pagination', paginationUsersFetch)
           } else {
             $(usersTable).html('')
+            $('#users-pagination').hide()
             $('#users-no-result').show()
           }
           $('#users-loader-container').hide()

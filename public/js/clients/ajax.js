@@ -1,18 +1,13 @@
-let addForm = $('#add-client-form');
-let editForm = $('#edit-client-form');
+const addForm = $('#add-client-form');
+const editForm = $('#edit-client-form');
 
 $(document).ready(function(){
   fetchClients()
 
-  // Hide Delete Modal
-  $('#cancelButton').on('click', function () {
-    $.modal.close();
-  })
-
   // Add an event listener to the confirm delete button in the modal
   $('#confirmationButton').on('click', function() {
     // Get the client ID from the hidden
-    let clientId = $('#deleteClientId').val();
+    const clientId = $('#deleteClientId').val();
     // Send an Ajax request to delete the client
     $.ajax({
       url: `/clients/${clientId}`,
@@ -38,7 +33,7 @@ $(document).ready(function(){
 
   // Search
   $('#rechercher').on('keyup', function () { 
-    let value = $(this).val()
+    const value = $(this).val()
     $.ajax({
       type: "GET",
       url: "/clients/search",
@@ -54,10 +49,12 @@ $(document).ready(function(){
           const clients = response.clients.data;
           if (clients.length > 0) {
             // Fill in the table
+            $('#no-result').hide()
             fillTable(clients)
             createPaginationLinks(response.clients, 'clients-pagination', paginationFetch)
           } else {
             $('tbody').html('')
+            $('#clients-pagination').hide()
             $('#no-result').show()
           }
           $('#loader-container').hide()
@@ -71,7 +68,7 @@ $(document).ready(function(){
   $(editForm).on('submit',function (e) { 
     e.preventDefault();
     // Get the client ID from the hidden input
-    let clientId = $('#editClientId').val()
+    const clientId = $('#editClientId').val()
     // Get data from the form
     let formData = {
       nom : $('#edit_nom').val(),
@@ -207,8 +204,8 @@ function editAction() {
       success: function(response) {
         if (response.status === 200) {
           $('#EditClientModal').modal({
-      fadeDuration: 200
-    });
+          fadeDuration: 200
+          });
           // Reset Errors
           editForm.find('div.error').text('');
           // Update the form fields with the response data

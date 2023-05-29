@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Assurance;
 use App\Models\CarteGrise;
 use App\Models\Contrat;
+use App\Models\Vehicule;
 use App\Models\Vidange;
 use App\Models\VisiteTechnique;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class AlerteController extends Controller
 
     private static function getVidanges()
     {
-        return Vidange::select('vidanges.vehicule_id', 'vidanges.id', 'vehicules.matricule', 'vehicules.marque', DB::raw('MAX(vidanges.km_prochain_vidange) - vehicules.kilometrage as rest'))
+        return Vidange::select('vidanges.vehicule_id', 'vidanges.id', 'vehicules.matricule', 'vehicules.marque', DB::raw('MAX(vidanges.km_prochain_vidange) - vehicules.kilometrage as reste'))
             ->join('vehicules', 'vidanges.vehicule_id', '=', 'vehicules.id')
             ->whereNull('vidanges.deleted_at')
             ->whereRaw('(vidanges.km_prochain_vidange - vehicules.kilometrage) <= 1000')
@@ -35,35 +36,24 @@ class AlerteController extends Controller
 
     private static function getAssurances()
     {
-        return Assurance::select('vehicules.id', 'vehicules.marque', 'vehicules.matricule', 'assurances.date_debut', 'assurances.date_fin', DB::raw('DATEDIFF(assurances.date_fin, CURRENT_DATE) AS rest'))
-            ->join('vehicules', 'vehicules.id', '=', 'assurances.vehicule_id')
-            ->whereRaw('DATEDIFF(assurances.date_fin, CURRENT_DATE) <= 15')
-            ->whereNull('assurances.deleted_at')
-            ->get();
+        return DB::select("CALL get_assurances()");
     }
 
     private static function getCarteGrises()
     {
-        return CarteGrise::select('vehicules.id', 'vehicules.marque', 'vehicules.matricule', 'carte_grises.date_debut', 'carte_grises.date_fin', DB::raw('DATEDIFF(carte_grises.date_fin, CURRENT_DATE) AS rest'))
-            ->join('vehicules', 'vehicules.id', '=', 'carte_grises.vehicule_id')
-            ->whereRaw('DATEDIFF(carte_grises.date_fin, CURRENT_DATE) <= 15')
-            ->whereNull('carte_grises.deleted_at')
-            ->get();
+        return DB::select("CALL get_carte_grises()");
     }
 
     private static function getVisiteTechniques()
     {
-        return VisiteTechnique::select('vehicules.id', 'vehicules.marque', 'vehicules.matricule', 'visite_techniques.date_debut', 'visite_techniques.date_fin', DB::raw('DATEDIFF(visite_techniques.date_fin, CURRENT_DATE) AS rest'))
-            ->join('vehicules', 'vehicules.id', '=', 'visite_techniques.vehicule_id')
-            ->whereRaw('DATEDIFF(visite_techniques.date_fin, CURRENT_DATE) <= 15')
-            ->whereNull('visite_techniques.deleted_at')
-            ->get();
+        return DB::select("CALL get_visite_techniques()");
     }
 
     private static function getContrats()
     {
-        return Contrat::select('id', 'date_contrat', 'date_debut', 'date_fin', DB::raw('DATEDIFF(date_fin, CURRENT_DATE) AS rest'))
+        return Contrat::select('id', 'date_contrat', 'date_debut', 'date_fin', DB::raw('DATEDIFF(date_fin, CURRENT_DATE) AS reste'))
             ->whereRaw('DATEDIFF(date_fin, CURRENT_DATE) <= 7')
+            ->where('terminee', '0')
             ->get();
     }
 
@@ -75,6 +65,6 @@ class AlerteController extends Controller
         $visiteTechniques = self::getVisiteTechniques();
         $contrats = self::getContrats();
 
-        return $vidanges->count() + $assurances->count() + $carteGrises->count() + $visiteTechniques->count() + $contrats->count();
+        return $vidanges->count() + count($assurances) + count($carteGrises) + count($visiteTechniques) + $contrats->count();
     }
 }

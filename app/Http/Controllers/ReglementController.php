@@ -36,8 +36,8 @@ class ReglementController extends Controller
         $result = DB::select("SELECT montant_contrat($contrat->id) AS result");
         $total = $result[0]->result;
         $paye = $contrat->reglements()->sum('montant');
-        $rest = $total - $paye;
-        return response()->json(['reglements' => $reglements, 'total' => $total, 'paye' => $paye, 'rest' => $rest], 200);
+        $reste = $total - $paye;
+        return response()->json(['reglements' => $reglements, 'total' => $total, 'paye' => $paye, 'reste' => $reste], 200);
     }
 
     /**

@@ -16,7 +16,7 @@ class VisiteTechniqueController extends Controller
     public function all($id)
     {
         $visiteTechniques = VisiteTechnique::where('vehicule_id', $id)->orderBy('id', 'desc')->paginate(5);
-        $prochaineVisiteTechnique = VisiteTechnique::where('vehicule_id', $id)->min('date_fin') ?? "-";
+        $prochaineVisiteTechnique = VisiteTechnique::where('vehicule_id', $id)->max('date_fin') ?? "-";
         return response()->json(['visite_techniques' => $visiteTechniques, 'prochaine_visite_technique' => $prochaineVisiteTechnique], 200);
     }
 
