@@ -1,0 +1,40 @@
+.form-container form {
+  margin-left: 15px;
+}
+.form-container .sub-form {
+  margin: 0 !important;
+}
+.form-container .form-item button {
+  margin: 0 !important;
+}
+
+.toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.toggle:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+} 
+
+.toggle:hover > .icon {
+  scale: 1.1;
+}
+
+.toggle:first-of-type {
+  margin-bottom: 10px;
+}
+
+.toggle .icon {
+  font-size: 30px;
+  transition: .3s;
+}
+.toggle .rotate-icon {
+  rotate: 180deg;
+}

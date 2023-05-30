@@ -13,14 +13,14 @@
         <span class="material-icons-round">
           account_circle
         </span>
-        <span class="user">{{auth()->user()->login}}</span>
+        <span class="user" id="user">{{auth()->user()->login}}</span>
         <span class="material-icons-round arrow-icon">
           expand_more
         </span>
       </div>
       <ul class="profile-links">
         <li>
-          <a href="#">
+          <a href="{{route('profile.index')}}">
             <span class="material-icons-round">
               account_circle
             </span>

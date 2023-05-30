@@ -2,18 +2,13 @@
 
 .table-container {
   overflow: auto;
-  min-height: 547px;
+  min-height: 400px;
   position: relative;
   margin-bottom: 10px;
 }
 
 #reglements-section .table-container {
   min-height: 200px;
-}
-
-#users-section .table-container,
-#charges-section .table-container {
-  min-height: 400px;
 }
 
 .table-container::-webkit-scrollbar:horizontal {
@@ -117,7 +112,6 @@
     display: table-cell;
     padding: .25em .5em;
     text-align: left;
-
   }
   .table th:first-child,
   .table td:first-child {

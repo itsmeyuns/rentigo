@@ -1,6 +1,6 @@
 <div class="form-container">
   <h3 class="form-title">Ajouter Charge</h3>
-  <form class="add-form" id="add-charge-form" action="{{ route('charges.store') }}" method="POST">
+  <form id="add-charge-form" action="{{ route('charges.store') }}" method="POST">
     @csrf
     <div class="form-item">
       <label for="date">Date<span class="star">*</span> </label>

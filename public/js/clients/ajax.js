@@ -129,7 +129,7 @@ function passIdToModal() {
 
 function fetchClients() { 
   $.ajax({
-    url: 'clients/fetch',
+    url: '/clients/fetch',
     type: 'GET',
     beforeSend: function() {
       $('tbody').html('')
@@ -137,7 +137,7 @@ function fetchClients() {
       $('#no-result').hide()
     },
     success: function(response) {
-      let clients = response.clients.data
+      const clients = response.clients.data
       fillTable(clients)
       createPaginationLinks(response.clients, 'clients-pagination', paginationFetch)
       

@@ -1,6 +1,6 @@
 <div class="form-container">
   <h3 class="form-title">Ajouter Utilisateur</h3>
-  <form class="add-form" id="add-user-form" action="{{ route('users.store') }}" method="POST">
+  <form id="add-user-form" action="{{ route('users.store') }}" method="POST">
     @csrf
     <div class="form-item">
       <label for="nom">Nom <span class="star">*</span> </label>
@@ -60,7 +60,7 @@
           <div class="error login_error"></div>
         </div>
         <div class="form-item">
-          <label for="password">Mot de Pass <span class="star">*</span> </label>
+          <label for="password">Mot de Passe <span class="star">*</span> </label>
           <input type="password" name="password" id="password">
           <div class="error password_error"></div>
           <div class="material-icons-round show-password" id="showPassword">visibility</div>

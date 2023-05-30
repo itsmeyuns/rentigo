@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/contrats.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/contrat.css') }}">
 @endsection
 @section('title', 'Réservations')
 @section('content')
@@ -127,7 +127,8 @@
 
 @stop
 @section('js')
-    <script src="{{ asset('js/reservation/reservation.js') }}"></script>
-    <script src="{{ asset('js/reservation/ajax.js') }}"></script>
+  <script src="{{asset('js/filterForm.js')}}"></script>
+  <script src="{{ asset('js/reservation/reservation.js') }}"></script>
+  <script src="{{ asset('js/reservation/ajax.js') }}"></script>
 @endsection
 

@@ -441,14 +441,19 @@ span.edit:hover {
 }
 
 .form-container form button {
-  max-width: 250px;
+  max-width: 200px;
   margin-top: 10px;
   padding: 10px 25px;
   cursor: pointer;
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
   border-radius: 10px;
   color: #fff;
   font-weight: 700;
+  transition: .3s;
+}
+
+.form-container form button:hover {
+  background-color: var(--main-color);
 }
 
 .form-container .error {
@@ -484,6 +489,10 @@ span.edit:hover {
   animation-delay: 0.25s;
 }
 
+.readonly-input {
+  background-color: var(--hover-color);
+}
+
 @keyframes bounce {
   0% {
     transform: translateX(0px);
@@ -517,10 +526,6 @@ span.edit:hover {
     transform: translateX(0px);
     timing-function: ease-in;
   }
-}
-
-.readonly-input {
-  background-color: var(--hover-color);
 }
 
 @media screen and (max-width: 600px) {

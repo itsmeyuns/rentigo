@@ -148,6 +148,10 @@ form.filter {
   top: 40px;
 }
 
+.contrats-section .select-options {
+  overflow: hidden;
+}
+
 .select-options::-webkit-scrollbar {
   width: 2px;
 }
@@ -174,7 +178,4 @@ form.filter {
   cursor: pointer;
 }
 
-.table-container {
-  min-height: 400px;
-}
 

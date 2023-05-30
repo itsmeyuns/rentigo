@@ -11,6 +11,7 @@ use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\ExtraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReglementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
@@ -29,12 +30,6 @@ use App\Models\Agence;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::view('/dashboard', 'dashboard')->middleware('auth');
-// Route::view('/alerts', 'dashboard');
-
-
-// Route::view('/vehicules/create', 'vehicules.create');
 
 Auth::routes(['login' => false]);
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
@@ -308,3 +303,14 @@ Route::prefix('/extras')->group(function ()
 
 });
 // End Extra
+
+
+// Start Profile
+
+Route::prefix('/profile')->group(function () {
+  Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+  Route::post('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+  Route::post('/update-infos', [ProfileController::class, 'updateInfos'])->name('profile.update.infos');
+});
+
+// End Profile

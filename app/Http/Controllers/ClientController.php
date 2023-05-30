@@ -17,7 +17,7 @@ class ClientController extends Controller
 
   public function index()
   {
-    return view('clients.index');
+    return view('client.index');
   }
 
   public function all()
@@ -127,7 +127,7 @@ class ClientController extends Controller
   public function pdf()
     {
         $clients = Client::all();
-        $pdf = PDF::loadView('clients.pdf', ['clients' => $clients])->setPaper('A2', 'portrait');
+        $pdf = PDF::loadView('client.pdf', ['clients' => $clients])->setPaper('A2', 'portrait');
         return $pdf->stream();
     }
 

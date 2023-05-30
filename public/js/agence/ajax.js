@@ -20,7 +20,6 @@ $(document).ready(function () {
       error: function (xhr) {
         let errors = xhr.responseJSON.errors;
         $.each(errors, function (field, messages) {
-          console.log(field, messages);
           $('.error.' + field + '_error').html(messages[0]);
           $('.error.' + field + '_error').prev().removeClass('success');
           $('.error.' + field + '_error').prev().addClass('bounce');

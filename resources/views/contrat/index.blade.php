@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/contrats.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/contrat.css') }}">
 @endsection
 @section('title', 'Contrats')
 
@@ -118,6 +118,7 @@
 
 @stop
 @section('js')
+  <script src="{{asset('js/filterForm.js')}}"></script>
   <script src="{{ asset('js/contrat/contrat.js') }}"></script>
   <script src="{{ asset('js/contrat/ajax.js') }}"></script>
 @endsection

@@ -61,7 +61,7 @@
           <div class="error login_error"></div>
         </div>
         <div class="form-item">
-          <label for="edit_password">Mot de Pass <span class="star">*</span> </label>
+          <label for="edit_password">Mot de Passe <span class="star">*</span> </label>
           <input type="password" name="password" id="edit_password">
           <div class="error password_error"></div>
           <div class="material-icons-round show-password" id="editShowPassword">visibility</div>

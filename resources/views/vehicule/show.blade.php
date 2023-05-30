@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/vehicules.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/vehicule.css') }}">
   <link rel="stylesheet" href="{{ asset('css/table.css') }}">
 @stop
 @section('title', 'Vehicule Informations')

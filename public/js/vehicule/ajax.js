@@ -190,7 +190,7 @@ function fetchVehicules() {
   $('.filter input[type="checkbox"]').prop('checked', true);
   $('.filter .option').addClass('checked');
   $.ajax({
-    url: 'vehicules/fetch',
+    url: '/vehicules/fetch',
     type: 'GET',
     beforeSend: function() {
       $('.box-container').html('')

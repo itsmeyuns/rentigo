@@ -1,21 +1,20 @@
 @extends('layouts.master')
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/clients.css') }}">
   <link rel="stylesheet" href="{{ asset('css/table.css') }}">
 @endsection
 @section('title', 'Clients')
 @section('content')
 <div id="AddClientModal" class="modal">
-  @include('clients.modals.create')
+  @include('client.modals.create')
 </div>
 <div id="DeleteClientModal" class="modal delete-modal">
-  @include('clients.modals.delete')
+  @include('client.modals.delete')
 </div>
 <div id="EditClientModal" class="modal">
-  @include('clients.modals.edit')
+  @include('client.modals.edit')
 </div>
 <div id="ShowClientModal" class="modal show-modal">
-  @include('clients.modals.show')
+  @include('client.modals.show')
 </div>
 <div class="bar">
   <form action="">

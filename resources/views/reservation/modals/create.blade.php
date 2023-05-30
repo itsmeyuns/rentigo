@@ -21,7 +21,7 @@
     </div>
     <div class="form-item">
       <label for="date_debut">Date début <span class="star">*</span> </label>
-      <input type="datetime-local" name="date_debut" id="date_debut">
+      <input type="datetime-local" name="date_debut" id="date_debut" value="{{ date('Y-m-d H:i') }}">
       <div class="error date_debut_error"></div>
     </div>
     <div class="form-item">
