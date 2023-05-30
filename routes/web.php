@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VidangeController;
 use App\Http\Controllers\VisiteTechniqueController;
-use App\Models\Agence;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ use App\Models\Agence;
 |
 */
 
-Auth::routes(['login' => false]);
+Auth::routes(['login' => false, 'register' => false]);
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 
