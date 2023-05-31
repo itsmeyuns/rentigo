@@ -31,7 +31,7 @@ class VehiculeRequest extends FormRequest
             'couleur' => 'required | string | max:40',
             'kilometrage' => 'required | integer | min:0',
             'carburant' => 'required | string | max:40',
-            'automatique' => 'required | string | max:3',
+            'automatique' => 'required',
             'prix_location' => 'required | numeric | min:0',
             'photo' => 'image | mimes:jpeg,png,jpg | max:2048',
             'nombre_portes' => 'required | integer | min:1',

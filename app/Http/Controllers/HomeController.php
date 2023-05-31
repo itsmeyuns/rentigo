@@ -106,10 +106,8 @@ class HomeController extends Controller
             $reservationCounts[$data->month] = $data->count;
         }
 
-        $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-
         return response()->json([
-            'labels' => $months,
+            'labels' => $this->passedMonths(),
             'contracts' => array_values($contratCounts),
             'reservations' => array_values($reservationCounts)
         ]);
@@ -164,10 +162,8 @@ class HomeController extends Controller
             $reservationCounts[$month] = $count;
         }
 
-        $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-
         return response()->json([
-            'labels' => $months,
+            'labels' => $this->passedMonths(),
             'contracts' => array_values($contratCounts),
             'reservations' => array_values($reservationCounts)
         ]);
@@ -205,13 +201,23 @@ class HomeController extends Controller
             $depenses[$data->month] = $data->montant;
         }
 
-        $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-
         return response()->json([
-            'labels' => $months,
+            'labels' => $this->passedMonths(),
             'gains' => array_values($gains),
             'depenses' => array_values($depenses)
         ]);
+    }
+
+    private function passedMonths()
+    {
+        $currentMonth = Carbon::now()->month;
+        $months = [];
+
+        for ($i = 1; $i <= $currentMonth; $i++) {
+            $monthName = Carbon::create()->month($i)->isoFormat('MMMM');
+            $months[] = ucfirst($monthName);
+        }
+        return $months;
     }
 
 

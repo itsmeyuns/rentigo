@@ -72,7 +72,7 @@
             <div class="row">
               <div class="column">
                 <p class="info-label">Automatique</p>
-                <span> {{$vehicule->automatique}}</span>
+                <span> {{$vehicule->automatique ? 'Oui' : 'Non'}}</span>
               </div>
             </div>
           </div>

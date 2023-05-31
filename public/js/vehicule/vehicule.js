@@ -28,7 +28,7 @@ options.forEach((option) => {
 });
 
 function validationOnBlur(form) {
-  let inputs = form.querySelectorAll('input:not(input[type=checkbox], input[type=file])');
+  let inputs = form.querySelectorAll('input:not(input[type=checkbox], input[type=file]), select');
   inputs.forEach((input)=>{
     input.addEventListener('blur', function () {
       let inputValue = input.value.trim();
@@ -68,7 +68,7 @@ imagePreview("photo", "uploadedImage", "imgPreview")
 
 function validateFields(form) {
   let valid = true;
-  let inputs = form.querySelectorAll('input:not(input[type=checkbox], input[type=file])');
+  let inputs = form.querySelectorAll('input:not(input[type=checkbox], input[type=file]), select');
   inputs.forEach(input => {
     const inputValue = input.value.trim();
     if (inputValue === '') {

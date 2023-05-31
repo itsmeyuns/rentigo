@@ -38,13 +38,15 @@
         <option value="Essence">Essence</option>
         <option value="Diesel">Diesel</option>Diesel
       </select>
+      <div class="error carburant_error"></div>
     </div>
     <div class="form-item">
       <label for="automatique">automatique <span class="star">*</span> </label>
       <select name="automatique" id="automatique">
-        <option value="Non">Non</option>
-        <option value="Oui">Oui</option>
+        <option value="1">Oui</option>
+        <option value="0">Non</option>
       </select>
+      <div class="error automatique_error"></div>
     </div>
     <div class="form-item">
       <label for="status">disponibilité <span class="star">*</span> </label>
@@ -53,6 +55,7 @@
         <option value="Loué">Loué</option>
         <option value="En panne">En panne</option>
       </select>
+      <div class="error status_error"></div>
     </div>
     <div class="form-item">
       <label for="nombre_portes">nombre portes <span class="star">*</span> </label>

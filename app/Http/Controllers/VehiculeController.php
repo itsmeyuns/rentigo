@@ -42,6 +42,7 @@ class VehiculeController extends Controller
     public function store(VehiculeRequest $request)
     {
         $formData =  $request->validated();
+        $formData['automatique'] = $formData['automatique'] ? 1 : 0;
         $this->uploadImage($request, $formData);
         // Insert a Vehicule to database
         $vehicule = Vehicule::create($formData);
@@ -76,6 +77,7 @@ class VehiculeController extends Controller
         $this->uploadImage($request, $validatedData);
         $extras = $request->extras;
         if ($vehicule) {
+            $validatedData['automatique'] = $validatedData['automatique'] ? 1 : 0;
             $vehicule->update($validatedData);
             $vehicule->extras()->sync($extras);
             // Return success response if data is updated successfully

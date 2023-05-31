@@ -6,27 +6,6 @@
     @csrf
     <input type="hidden" name="agence_id"  value="{{$agence->id ?? ''}}">
     <div class="sub-form-container full-width">
-      <h3 class="form-title">Représentant légal de l'agence</h3>
-      <div class="sub-form">
-        <div class="form-item">
-          <label for="nom">Nom <span class="star">*</span> </label>
-          <input type="text" name="nom" id="nom" value="{{$agence->representantLegal->nom ?? ''}}">
-          <div class="error nom_error"></div>
-        </div>
-        <div class="form-item">
-          <label for="prenom">Prénom <span class="star">*</span> </label>
-          <input type="text" name="prenom" id="prenom" value="{{$agence->representantLegal->prenom ?? ''}}">
-          <div class="error prenom_error"></div>
-        </div>
-        <div class="form-item">
-          <label for="cin">CIN <span class="star">*</span> </label>
-          <input type="text" name="cin" id="cin" value="{{$agence->representantLegal->cin ?? ''}}">
-          <div class="error cin_error"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-form-container full-width">
       <h3 class="form-title">Informations de l'agence</h3>
       <div class="sub-form">
         <div class="form-item">

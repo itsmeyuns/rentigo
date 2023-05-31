@@ -22,9 +22,6 @@ class AgenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
-            'prenom' => ['required'],
-            'cin' => ['required'],
             'raison_sociale' => ['required', 'max:255'],
             'adresse' => ['required'],
             'ville' => ['required', 'max:255'],

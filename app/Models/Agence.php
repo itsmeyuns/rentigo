@@ -23,9 +23,4 @@ class Agence extends Model
         'CNSS',
     ];
 
-    public function representantLegal()
-    {
-        return $this->hasOne(RepresentantLegal::class);
-    }
-
 }
