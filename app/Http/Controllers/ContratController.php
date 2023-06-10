@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DateTimeHelper;
 use App\Http\Requests\ContratRequest;
+use App\Models\Agence;
 use App\Models\Contrat;
 use Carbon\Carbon;
 use PDF;
@@ -29,11 +30,11 @@ class ContratController extends Controller
     {
         $user = auth()->user();
         if ($user->isAdmin()) {
-            $contrats = Contrat::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
+            $contrats = Contrat::with(['vehicule', 'client', 'user'])->orderBy('id','desc')->paginate(10);
         } else {
             $contrats = $user->contrats()
             ->with(['vehicule', 'client', 'user'])
-            ->latest()
+            ->orderBy('id','desc')()
             ->paginate(10);
         }
         return response()->json(['code' => 200, 'contrats' => $contrats], 200);
@@ -203,10 +204,9 @@ class ContratController extends Controller
 
     public function pdf($id)
     {
-        // $contrat = Contrat::with(['vehicule', 'client'])->find($id);
-        // // $pdf = PDF::loadView('contrat.pdf', ['contrat' => $contrat])->setPaper('legal', 'portrait');
-        $pdf = PDF::loadView('contrat.test');
-        // dd($pdf->setPaper('A5', 'portrait'));
-        return $pdf->stream();
+        $contrat = Contrat::with(['vehicule', 'client'])->findOrFail($id);
+        $agence = Agence::first();
+        $pdf = PDF::loadView('contrat.pdf', compact('contrat','agence'))->setPaper('A3', 'portrait');
+        return $pdf->download("contrat_n$contrat->id.pdf");
     }
 }

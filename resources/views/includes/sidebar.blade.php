@@ -58,15 +58,14 @@
           </span> Agence
         </a>
       </li>
-      
+      <li class="side-menu-item">
+        <a href="{{route('charges.index')}}">
+          <span class="material-icons-round icon">
+            paid
+          </span> Charges
+        </a>
+      </li>
     @endif
-    <li class="side-menu-item">
-      <a href="{{route('charges.index')}}">
-        <span class="material-icons-round icon">
-          paid
-        </span> Charges
-      </a>
-    </li>
     <li class="side-menu-item">
       <a href="{{route('alertes.index')}}">
         <span class="material-icons-round icon">

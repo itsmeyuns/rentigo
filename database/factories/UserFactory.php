@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'lieu_naissance' => fake()->address(),
             'adresse' => fake()->address(),
             'cin' => Str::random(20),
-            'telephone' => fake()->phoneNumber(),
+            'telephone' => fake()->regexify('/^(06|07)\d{8}$/'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('itsmeyuns'), // password

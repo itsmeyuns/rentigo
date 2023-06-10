@@ -217,12 +217,14 @@ Route::prefix('/contrats')->group(function ()
 // End Contrat
 
 // Start Reglement
+Route::get('/reglements/{contratID}/imprimer', [ReglementController::class, 'pdf'])->name('reglements.pdf');
 
 Route::prefix('/reglements')->group(function () {
   Route::post('/store', [ReglementController::class, 'store'])->name('reglements.store');
   Route::delete('/{id}', [ReglementController::class, 'destroy'])->name('reglements.destroy');
   Route::put('/{id}', [ReglementController::class, 'update'])->name('reglements.update');
-  
+  Route::get('/{id}', [ReglementController::class, 'update'])->name('reglements.update');
+
   Route::middleware('ajax_only')->group(function () {
     Route::get('/{contrat}/fetch', [ReglementController::class, 'fetch'])->name('reglements.fetch');
     Route::get('/{id}/delete', [ReglementController::class, 'delete'])->name('reglements.delete');

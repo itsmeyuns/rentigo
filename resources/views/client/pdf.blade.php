@@ -22,7 +22,7 @@
               <td>{{$client->nom}}</td>
               <td>{{$client->prenom}}</td>
               <td>{{$client->sexe}}</td>
-              <td>{{\Carbon\Carbon::parse($client->date_naissance)->format('d/m/y')}}</td>
+              <td>{{\Carbon\Carbon::parse($client->date_naissance)->format('d/m/Y')}}</td>
               <td>{{$client->cin}}</td>
               <td>{{$client->adresse}}</td>
               <td>{{$client->telephone}}</td>

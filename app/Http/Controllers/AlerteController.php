@@ -15,13 +15,13 @@ class AlerteController extends Controller
 {
     public function index()
     {
-      $vidanges = self::getVidanges();
-      $assurances = self::getAssurances();
-      $carteGrises = self::getCarteGrises();
-      $visiteTechniques = self::getVisiteTechniques();
-      $contrats = self::getContrats();
+        $vidanges = self::getVidanges();
+        $assurances = self::getAssurances();
+        $carteGrises = self::getCarteGrises();
+        $visiteTechniques = self::getVisiteTechniques();
+        $contrats = self::getContrats();
 
-      return view('alerte.index', compact('vidanges', 'assurances', 'visiteTechniques', 'carteGrises', 'contrats'));
+        return view('alerte.index', compact('vidanges', 'assurances', 'visiteTechniques', 'carteGrises', 'contrats'));
     }
 
     private static function getVidanges()

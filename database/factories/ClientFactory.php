@@ -24,7 +24,7 @@ class ClientFactory extends Factory
             'lieu_naissance' => fake()->address(),
             'adresse' => fake()->address(),
             'cin' => fake()->regexify('[A-Za-z0-9]{1,15}'),
-            'telephone' => fake()->phoneNumber(),
+            'telephone' => fake()->regexify('/^(06|07)\d{8}$/'),
             'email' => fake()->email(),
             'numero_permis' => fake()->regexify('[A-Za-z0-9]{1,20}'),
             'observation' => fake()->text(50)

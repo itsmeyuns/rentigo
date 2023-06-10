@@ -254,6 +254,7 @@ function fillContratsTable(data) {
   $.each(data, function (key, item) {
     $(contratsTable).append(`
     <tr>
+      <td data-th="Date contrat">${item.id}</td>
       <td data-th="Date contrat">${item.date_contrat}</td>
       <td data-th="Date départ">${item.date_debut}</td>
       <td data-th="Date arrivée">${item.date_fin}</td>
@@ -383,6 +384,7 @@ function defaultContratsTable() {
         <td data-th=""></td>
         <td data-th=" "></td>
         <td data-th=" "></td>
+        <td data-th=" "> </td>
         <td data-th=" "> </td>
         <td data-th=" "> </td>
         <td data-th=" "> </td>

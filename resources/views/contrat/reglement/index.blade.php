@@ -49,7 +49,11 @@
     </div>
   </div>
 </div>
-
+<a class="print" href="{{route('reglements.pdf', $contrat->id)}}">
+  <span class="material-icons-round">
+    print
+  </span>Imprimer
+</a>
 @endsection
 
 @section('js')

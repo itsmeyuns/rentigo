@@ -7,6 +7,7 @@ use App\Models\Contrat;
 use App\Models\Reglement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class ReglementController extends Controller
 {
@@ -16,6 +17,11 @@ class ReglementController extends Controller
     public function index($id)
     {
         $contrat = Contrat::findOrFail($id);
+        if (!auth()->user()->isAdmin()) {
+            if ($contrat->user_id !== auth()->user()->id) {
+                abort(401);
+            }
+        }
         return view('contrat.reglement.index', compact('contrat'));
     }
 
@@ -32,9 +38,8 @@ class ReglementController extends Controller
 
     public function fetch(Contrat $contrat)
     {
-        $reglements = $contrat->reglements()->latest()->paginate(5);
-        $result = DB::select("SELECT montant_contrat($contrat->id) AS result");
-        $total = $result[0]->result;
+        $reglements = $contrat->reglements()->orderBy('date_reglement', 'desc')->paginate(5);
+        $total = DB::select("SELECT montant_contrat($contrat->id) AS result")[0]->result;
         $paye = $contrat->reglements()->sum('montant');
         $reste = $total - $paye;
         return response()->json(['reglements' => $reglements, 'total' => $total, 'paye' => $paye, 'reste' => $reste], 200);
@@ -88,5 +93,15 @@ class ReglementController extends Controller
             return response()->json(['status' => 200, 'success' => 'Opération effectuée avec succès.'], 200);
         }
         return response()->json(['status' => 404,'msg' => "Cette information n'existe pas"], 404);
+    }
+
+    public function pdf($contratID)
+    {
+        $contrat = Contrat::findOrFail($contratID);
+        $total = DB::select("SELECT montant_contrat($contratID) AS result")[0]->result;
+        $paye = $contrat->reglements()->sum('montant');
+        $reste = $total - $paye;
+        $pdf = PDF::loadView('contrat.reglement.pdf', ['numero_contrat' => $contratID, 'reglements' => $contrat->reglements, 'total' => $total, 'paye' => $paye, 'reste' => $reste]);
+        return $pdf->stream();
     }
 }

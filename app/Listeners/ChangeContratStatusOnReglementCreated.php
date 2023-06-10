@@ -25,7 +25,6 @@ class ChangeContratStatusOnReglementCreated
     public function handle(ReglementCreated $event): void
     {
         $reglement = $event->reglement;
-        
         $sumReg = Reglement::amountPaidContrat($reglement->contrat_id);
         $montantContrat = DB::select("SELECT montant_contrat($reglement->contrat_id) AS result")[0]->result;
         if ($sumReg->total >= $montantContrat) {

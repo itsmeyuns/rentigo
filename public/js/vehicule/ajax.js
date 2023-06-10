@@ -175,8 +175,8 @@ function addAction() {
 function resetForm(form) { 
   const formType = $(form).attr('id')
   $(form).find('div.error').text('');
-  $('input').removeClass('success');
-  $('input').removeClass('bounce');
+  $('input, select').removeClass('success');
+  $('input, select').removeClass('bounce');
   if (formType === 'add-vehicule-form') {
     $(form)[0].reset();
     $('#imgPreview').hide();

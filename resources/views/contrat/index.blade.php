@@ -83,6 +83,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th>n° contrat</th>
               <th>date contrat</th>
               <th>Date départ</th>
               <th>date arrivée</th>

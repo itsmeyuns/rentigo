@@ -119,7 +119,7 @@ function fetchReglements() {
       fillReglementsTable(response.reglements.data)
       $('#total').text(`Total: ${response.total} DH`)
       $('#paye').text(`Payé: ${response.paye} DH`)
-      $('#reste').text(`Rest: ${response.reste} DH`)
+      $('#reste').text(`Reste: ${response.reste} DH`)
       createPaginationLinks(response.reglements,'reglements-pagination', paginationReglementsFetch)
       $('#reglements-loader-container').hide();
     },

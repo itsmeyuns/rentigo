@@ -14,7 +14,7 @@
       <tbody>
         @foreach ($charges as $charge)
             <tr>
-              <td>{{$charge->date}}</td>
+              <td>{{\Carbon\Carbon::parse($charge->date)->format('d/m/Y')}}</td>
               <td>{{$charge->type}}</td>
               <td>{{$charge->cout}}</td>
               <td>{{$charge->observation}}</td>

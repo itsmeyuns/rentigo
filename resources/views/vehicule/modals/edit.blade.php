@@ -44,8 +44,8 @@
     <div class="form-item">
       <label for="edit_automatique">automatique <span class="star">*</span> </label>
       <select name="automatique" id="edit_automatique">
-        <option value="Non">Non</option>
-        <option value="Oui">Oui</option>
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
       </select>
       <div class="error automatique_error"></div>
     </div>
