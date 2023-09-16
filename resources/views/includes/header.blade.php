@@ -5,9 +5,6 @@
     </span>
   </div>
   <div class="header-right">
-    <span class="material-icons-round">
-      notifications
-    </span>
     <div class="profile" onclick="openDropdown()">
       <div class="profile-icons">
         <span class="material-icons-round">

@@ -30,11 +30,11 @@ class ReservationController extends Controller
     {
         $user = auth()->user();
         if ($user->isAdmin()) {
-            $reservations = Reservation::with(['vehicule', 'client', 'user'])->latest()->paginate(10);
+            $reservations = Reservation::with(['vehicule', 'client', 'user'])->orderBy('id','desc')->paginate(10);
         }  else {
             $reservations = $user->reservations()
             ->with(['vehicule', 'client', 'user'])
-            ->latest()
+            ->orderBy('id','desc')
             ->paginate(10);
         }
         return response()->json(['code' => 200, 'reservations' => $reservations], 200);

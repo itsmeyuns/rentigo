@@ -190,7 +190,6 @@ span.edit:hover {
 
 /* End Delete Modal */
 
-
 /* Start Show Modal */
 
 .show-modal {
@@ -216,7 +215,6 @@ span.edit:hover {
   gap: 10px;
   margin: 12px 0;
   overflow-wrap: anywhere;
-
 }
 .show-modal .card .informations .icon {
   color: var(--main-color);
@@ -397,7 +395,9 @@ span.edit:hover {
   color: var(--danger-color);
 }
 
-.form-container .form-item input:not(input[type="checkbox"], input[type="file"]),
+.form-container
+  .form-item
+  input:not(input[type="checkbox"], input[type="file"]),
 .form-container .form-item select {
   font-size: 14px;
   font-weight: 400;
@@ -449,7 +449,7 @@ span.edit:hover {
   border-radius: 10px;
   color: #fff;
   font-weight: 700;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .form-container form button:hover {
@@ -549,7 +549,7 @@ span.edit:hover {
   padding: 8px;
   border-radius: 50%;
   color: var(--main-color);
-  transition: .3s;
+  transition: 0.3s;
   background-color: #f2f2f2;
 }
 
@@ -571,7 +571,7 @@ span.edit:hover {
 .no-result .text {
   font-size: 25px;
   font-weight: 500;
-} 
+}
 
 .loader-container {
   display: none;
@@ -591,28 +591,27 @@ span.edit:hover {
   animation: loader 1s linear infinite;
 }
 
-
 @-webkit-keyframes loader {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 @keyframes loader {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -633,7 +632,7 @@ span.edit:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .print:hover {
